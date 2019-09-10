@@ -13,6 +13,7 @@
 		0264470A232781A300822485 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02644709232781A300822485 /* Assets.xcassets */; };
 		0264470D232781A300822485 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0264470B232781A300822485 /* LaunchScreen.storyboard */; };
 		02644715232790F100822485 /* JeromeYoutubePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */; };
+		026447192327CA1000822485 /* Log in Resources */ = {isa = PBXBuildFile; fileRef = 026447182327CA1000822485 /* Log */; };
 		05ED524C4876035E6A711653 /* Pods_JeromeYoutube.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F0D977B2D76E8429AAE042 /* Pods_JeromeYoutube.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		0264470C232781A300822485 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0264470E232781A300822485 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeromeYoutubePlayerVC.swift; sourceTree = "<group>"; };
+		026447182327CA1000822485 /* Log */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Log; sourceTree = "<group>"; };
 		82F0D977B2D76E8429AAE042 /* Pods_JeromeYoutube.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JeromeYoutube.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9287628384312760E2696B78 /* Pods-JeromeYoutube.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutube.debug.xcconfig"; path = "Target Support Files/Pods-JeromeYoutube/Pods-JeromeYoutube.debug.xcconfig"; sourceTree = "<group>"; };
 		D77485149F153C0B206B8A2B /* Pods-JeromeYoutube.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutube.release.xcconfig"; path = "Target Support Files/Pods-JeromeYoutube/Pods-JeromeYoutube.release.xcconfig"; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 		02644701232781A100822485 /* JeromeYoutube */ = {
 			isa = PBXGroup;
 			children = (
+				026447182327CA1000822485 /* Log */,
 				02644702232781A100822485 /* AppDelegate.swift */,
 				02644704232781A100822485 /* ViewController.swift */,
 				02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */,
@@ -159,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0264470D232781A300822485 /* LaunchScreen.storyboard in Resources */,
+				026447192327CA1000822485 /* Log in Resources */,
 				0264470A232781A300822485 /* Assets.xcassets in Resources */,
 				02644708232781A100822485 /* Main.storyboard in Resources */,
 			);
