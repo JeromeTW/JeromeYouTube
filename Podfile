@@ -5,5 +5,6 @@ target 'JeromeYoutube' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   pod "XCDYouTubeKit", "~> 2.8"
-
+  pod 'R.swift'
+  pod 'SwiftLint'
 end
