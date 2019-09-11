@@ -13,7 +13,11 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
+  lazy var logTextView: LogTextView = {
+    let logTextView = LogTextView(frame: .zero)
+    logTextView.layer.zPosition = .greatestFiniteMagnitude
+    return logTextView
+  }()
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     do
@@ -35,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     // This will enable to show nowplaying controls on lock screen
     application.beginReceivingRemoteControlEvents()
+    UserDefaults.standard.setAPPVersionAndHistory()
+    setupLogConfigure()
+    setupLogTextView()
+    printLog("NSHomeDirectory:\(NSHomeDirectory())", level: .debug)
     return true
   }
 
@@ -60,6 +68,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
 
-
 }
 
+// MARK: - Log
+extension AppDelegate {
+  private func setupLogConfigure() {
+    LogLevelConfigurator.shared.configure([.error, .warning, .debug, .info], shouldShow: true, shouldCache: true)
+  }
+  
+  private func setupLogTextView() {
+    #if DEBUG
+    guard let window = window else { return }
+    
+    if #available(iOS 11.0, *) {
+      window.addSubview(logTextView, constraints: [
+        UIView.anchorConstraintEqual(from: \UIView.topAnchor, to: \UIView.safeAreaLayoutGuide.topAnchor, constant: .defaultMargin),
+        UIView.anchorConstraintEqual(from: \UIView.leadingAnchor, to: \UIView.safeAreaLayoutGuide.leadingAnchor, constant: .defaultMargin),
+        UIView.anchorConstraintEqual(from: \UIView.bottomAnchor, to: \UIView.safeAreaLayoutGuide.bottomAnchor, constant: CGFloat.defaultMargin.negativeValue),
+        UIView.anchorConstraintEqual(from: \UIView.trailingAnchor, to: \UIView.safeAreaLayoutGuide.trailingAnchor, constant: CGFloat.defaultMargin.negativeValue)
+        ])
+    } else {
+      window.addSubview(logTextView, constraints: [
+        UIView.anchorConstraintEqual(with: \UIView.topAnchor, constant: .defaultMargin),
+        UIView.anchorConstraintEqual(with: \UIView.leadingAnchor, constant: .defaultMargin),
+        UIView.anchorConstraintEqual(with: \UIView.bottomAnchor, constant: CGFloat.defaultMargin.negativeValue),
+        UIView.anchorConstraintEqual(with: \UIView.trailingAnchor, constant: CGFloat.defaultMargin.negativeValue)
+        ])
+    }
+    #endif
+  }
+}

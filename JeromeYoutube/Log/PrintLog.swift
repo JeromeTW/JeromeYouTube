@@ -15,7 +15,7 @@ func printLog(_ items: Any,
               line: Int = #line) {
   #if DEBUG
   if LogLevelConfigurator.shared.logLevels.contains(level) {
-    let currentDateString = Date.currentDateString()
+    let currentDateString = Date().toString()
     let fileName = file.components(separatedBy: "/").last?.components(separatedBy: ".").first ?? ""
     let logString = "⭐️ [\(currentDateString)][\(level.description)] \(fileName).\(function):\(line) ~ \(items)"
 
@@ -43,10 +43,19 @@ func printLog(_ items: Any,
   #endif
 }
 
+extension Date {
+  func toString(dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = dateFormat
+    return dateFormatter.string(from: self)
+  }
+}
+
 extension String {
   func saveLog() throws {
     guard let cachesDirectory = FileManager.cachesDirectory else { return }
-    let filePath = cachesDirectory.appendingPathComponent("\(Date.currentDateString(dateFormat: .yyyyMMdd)).log")
+    let currentDateString = Date().toString(dateFormat: "yyyyMMdd")
+    let filePath = cachesDirectory.appendingPathComponent("\(currentDateString).log")
     
     let fileManager = FileManager.default
     if fileManager.fileExists(atPath: filePath.path) { // adding content to file
