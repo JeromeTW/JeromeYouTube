@@ -34,6 +34,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupYoutubeClient()
   }
   
   private func setupYoutubeClient() {
@@ -45,53 +46,15 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
         print(error!)
         return
       }
-      if let streamURLs = video?.streamURLs, let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
+      guard let video = video else {
+        assertionFailure()
+        return
+      }
+      let streamURLs = video.streamURLs
+      if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
         self.streamURL = tempStreamURL
-        /*
-         @property (nonatomic, readonly) NSString *identifier;
-         /**
-         *  The title of the video.
-         */
-         @property (nonatomic, readonly) NSString *title;
-         /**
-         *  The duration of the video in seconds.
-         */
-         @property (nonatomic, readonly) NSTimeInterval duration;
-         /**
-         *  A thumbnail URL for an image of small size, i.e. 120×90. May be nil.
-         */
-         @property (nonatomic, readonly, nullable) NSURL *thumbnailURL;
-         /**
-         *  A thumbnail URL for an image of small size, i.e. 120×90. May be nil.
-         */
-         @property (nonatomic, readonly, nullable) NSURL *smallThumbnailURL DEPRECATED_MSG_ATTRIBUTE("Renamed. Use `thumbnailURL` instead.");
-         /**
-         *  A thumbnail URL for an image of medium size, i.e. 320×180, 480×360 or 640×480. May be nil.
-         */
-         @property (nonatomic, readonly, nullable) NSURL *mediumThumbnailURL DEPRECATED_MSG_ATTRIBUTE("No longer available. Use `thumbnailURL` instead.");
-         /**
-         *  A thumbnail URL for an image of large size, i.e. 1'280×720 or 1'980×1'080. May be nil.
-         */
-         @property (nonatomic, readonly, nullable) NSURL *largeThumbnailURL DEPRECATED_MSG_ATTRIBUTE("No longer available. Use `thumbnailURL` instead.");
-         
-         /**
-         *  A dictionary of video stream URLs.
-         *
-         *  The keys are the YouTube [itag](https://en.wikipedia.org/wiki/YouTube#Quality_and_formats) values as `NSNumber` objects. The values are the video URLs as `NSURL` objects. There is also the special `XCDYouTubeVideoQualityHTTPLiveStreaming` key for live videos.
-         *
-         *  You should not store the URLs for later use since they have a limited lifetime and are bound to an IP address.
-         *
-         *  @see XCDYouTubeVideoQuality
-         *  @see expirationDate
-         */
-         #if __has_feature(objc_generics)
-         @property (nonatomic, readonly) NSDictionary<id, NSURL *> *streamURLs;
-         #else
-         @property (nonatomic, readonly) NSDictionary *streamURLs;
-         */
-//        video.
-//        self.updateRemoteCommandCenterData(songItem: self.playingItem!)
         self.setupRemoteCommandCenter()
+        self.setupNowPlayingInfo(video: video)
       }
     }
   }
@@ -128,20 +91,32 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
   }
   
   func setupNowPlayingInfo(video: XCDYouTubeVideo) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {   // 要放在main thread才能更新remote center UI, 延後一秒，等songItem 準備好
-      //            DLog("CMTimeGetSeconds(songItem.currentTime()): \(CMTimeGetSeconds(songItem.currentTime()))")
-//      let image = UIImage(
-//      video.duration
-//      video.curren
+    DispatchQueue.main.asyncAfter(deadline: .now()) {   // 要放在main thread才能更新remote center UI, 延後一秒，等songItem 準備好
+      MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+        MPMediaItemPropertyTitle: video.title,
+        MPMediaItemPropertyPlaybackDuration: video.duration
+      ]
       
-//      let artwork = MPMediaItemArtwork(image: resultImage)
-//      MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-//        MPMediaItemPropertyTitle: video.title,
-//        MPMediaItemPropertyArtwork: artwork,
-//        MPMediaItemPropertyPlaybackDuration: NSNumber(value: CMTimeGetSeconds(songItem.asset.duration)), MPNowPlayingInfoPropertyElapsedPlaybackTime: NSNumber(value: CMTimeGetSeconds(songItem.currentTime())),
-//        MPNowPlayingInfoPropertyPlaybackRate: NSNumber(value: 1)
-//      ]
-      
+      func setMPMediaItemPropertyArtwork(image: UIImage) {
+        let artwork = MPMediaItemArtwork.init(boundsSize: image.size, requestHandler: { _ -> UIImage in
+          return image
+        })
+        MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = artwork
+      }
+      // TODO： MPNowPlayingInfoPropertyElapsedPlaybackTime: NSNumber(value: CMTimeGetSeconds(songItem.currentTime()))
+      if let thumbnailURL = video.thumbnailURL {
+        ImageLoader.shared.imageByURL(thumbnailURL, completionHandler: { image, _ in
+          guard let image = image else {
+            printLog("No Image", level: .debug)
+            return
+          }
+          setMPMediaItemPropertyArtwork(image: image)
+        })
+      } else {
+        // 無縮圖用 soso 美照
+        let image = UIImage(named: "Soso")!
+        setMPMediaItemPropertyArtwork(image: image)
+      }
     }
   }
 }
