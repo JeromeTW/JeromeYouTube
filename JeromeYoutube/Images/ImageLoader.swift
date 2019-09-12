@@ -10,7 +10,7 @@ import UIKit
 
 class ImageLoader {
   static let shared = ImageLoader()
-  private let imageCache = NSCache<AnyObject, AnyObject>()
+  private let imageCache = NSCache<NSString, UIImage>()
   lazy var requestOperationDictionary = [URL: AsynchronousOperation]()
 
   lazy var queue: OperationQueue = {
@@ -21,10 +21,9 @@ class ImageLoader {
     return queue
   }()
   
-  // TODO: Operation
   func imageByURL(_ url: URL, completionHandler: @escaping (_ image: UIImage?, _ url: URL) -> ()) {
     // get image from cache
-    if let imageFromCache = imageCache.object(forKey: url as AnyObject) as? UIImage {
+    if let imageFromCache = imageCache.object(forKey: url.absoluteString as NSString) as? UIImage {
       completionHandler(imageFromCache, url)
       return
     } else {
@@ -57,7 +56,7 @@ class ImageLoader {
         case .success(let response):
           if let data = response.body {
             if let image = UIImage(data: data) {
-              self.imageCache.setObject(image, forKey: url as AnyObject)
+              self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
               mainThreadCompletionHandler(image: image, url)
             } else {
               printLog("Data Format Wrong", level: .error)
@@ -78,36 +77,3 @@ class ImageLoader {
     }
   }
 }
-
-//extension UIImageView {
-//  func loadImage(from url: URL?) {
-//    image = nil
-//    
-//    // get image from cache
-//    if let imageFromCache = imageCache.object(forKey: url as AnyObject) as? UIImage {
-//      DispatchQueue.main.async {
-//        self.image = imageFromCache
-//        return
-//      }
-//      print("Here")
-//    }
-//    print("There")
-//    // if no image from cache, get image from url
-//    APIClient.shared.requestPlantImage(with: url) { [weak self] (result) in
-//      switch result {
-//      case .success(let response):
-//        if let imageData = response.body {
-//          DispatchQueue.main.async {
-//            // set image to cache
-//            guard let imageToCache = UIImage(data: imageData) else { return }
-//            imageCache.setObject(imageToCache, forKey: url as AnyObject)
-//            self?.image = imageToCache
-//          }
-//        }
-//      case .failure:
-//        printLog("Error perform network request")
-//      }
-//    }
-//  }
-//}
-
