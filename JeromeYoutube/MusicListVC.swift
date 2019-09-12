@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MusicListVC: UIViewController {
+class MusicListVC: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
