@@ -28,7 +28,12 @@
 		0264470A232781A300822485 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02644709232781A300822485 /* Assets.xcassets */; };
 		0264470D232781A300822485 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0264470B232781A300822485 /* LaunchScreen.storyboard */; };
 		02644715232790F100822485 /* JeromeYoutubePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */; };
+		02A0821D232B9CED00D68557 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */; };
 		02B816A82329E80F00C81F8D /* Video.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02B816A62329E80F00C81F8D /* Video.xcdatamodeld */; };
+		02E12994232B3D8600E04942 /* JeromeNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12993232B3D8600E04942 /* JeromeNavigationBar.swift */; };
+		02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */; };
+		02E1299A232B420500E04942 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12998232B420400E04942 /* Observable.swift */; };
+		02E1299B232B420500E04942 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12999232B420400E04942 /* BaseViewController.swift */; };
 		05ED524C4876035E6A711653 /* Pods_JeromeYoutube.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F0D977B2D76E8429AAE042 /* Pods_JeromeYoutube.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +61,12 @@
 		0264470C232781A300822485 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0264470E232781A300822485 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeromeYoutubePlayerVC.swift; sourceTree = "<group>"; };
+		02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		02B816A72329E80F00C81F8D /* Video.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Video.xcdatamodel; sourceTree = "<group>"; };
+		02E12993232B3D8600E04942 /* JeromeNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeromeNavigationBar.swift; sourceTree = "<group>"; };
+		02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JeromeNavigationBarStatusBarBaseVC.xib; sourceTree = "<group>"; };
+		02E12998232B420400E04942 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		02E12999232B420400E04942 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		82F0D977B2D76E8429AAE042 /* Pods_JeromeYoutube.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JeromeYoutube.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9287628384312760E2696B78 /* Pods-JeromeYoutube.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutube.debug.xcconfig"; path = "Target Support Files/Pods-JeromeYoutube/Pods-JeromeYoutube.debug.xcconfig"; sourceTree = "<group>"; };
 		D77485149F153C0B206B8A2B /* Pods-JeromeYoutube.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutube.release.xcconfig"; path = "Target Support Files/Pods-JeromeYoutube/Pods-JeromeYoutube.release.xcconfig"; sourceTree = "<group>"; };
@@ -87,10 +97,12 @@
 		021B5FD6232891F1000B192B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				02E12997232B41F800E04942 /* Base */,
 				021B5FD7232891F1000B192B /* NSObjectExtension.swift */,
 				021B5FD8232891F1000B192B /* CGFloatExtension.swift */,
 				0235E0F72329CDFF00A82B7F /* UITabBarControllerExtension.swift */,
 				0235E0FB2329D53C00A82B7F /* StoryboardExtension.swift */,
+				02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -176,6 +188,25 @@
 				021B5FE223289603000B192B /* Support */,
 			);
 			path = JeromeYoutube;
+			sourceTree = "<group>";
+		};
+		02E12992232B3D7600E04942 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */,
+				02E12993232B3D8600E04942 /* JeromeNavigationBar.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		02E12997232B41F800E04942 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				02E12992232B3D7600E04942 /* UI */,
+				02E12999232B420400E04942 /* BaseViewController.swift */,
+				02E12998232B420400E04942 /* Observable.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		8A516F3F32C270DDA8087D66 /* Pods */ = {
@@ -265,6 +296,7 @@
 				0264470D232781A300822485 /* LaunchScreen.storyboard in Resources */,
 				0264470A232781A300822485 /* Assets.xcassets in Resources */,
 				0235E0F02329C8E800A82B7F /* MusicListTab.storyboard in Resources */,
+				02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,12 +397,16 @@
 				02644703232781A100822485 /* AppDelegate.swift in Sources */,
 				021B5FD323289173000B192B /* PrintLog.swift in Sources */,
 				021B5FDF232895FB000B192B /* NetworkRequestOperation.swift in Sources */,
+				02E1299A232B420500E04942 /* Observable.swift in Sources */,
 				021B5FE52328965C000B192B /* ImageLoader.swift in Sources */,
+				02E12994232B3D8600E04942 /* JeromeNavigationBar.swift in Sources */,
+				02E1299B232B420500E04942 /* BaseViewController.swift in Sources */,
 				021B5FD5232891D7000B192B /* LogTextView.swift in Sources */,
 				0235E0FA2329CEC300A82B7F /* MusicListVC.swift in Sources */,
 				0235E0FC2329D53C00A82B7F /* StoryboardExtension.swift in Sources */,
 				0235E0F82329CDFF00A82B7F /* UITabBarControllerExtension.swift in Sources */,
 				021B5FE1232895FB000B192B /* APIRequest.swift in Sources */,
+				02A0821D232B9CED00D68557 /* UIViewController+Alerts.swift in Sources */,
 				021B5FE0232895FB000B192B /* AsynchronousOperation.swift in Sources */,
 				021B5FDA232891F1000B192B /* CGFloatExtension.swift in Sources */,
 				02644715232790F100822485 /* JeromeYoutubePlayerVC.swift in Sources */,
