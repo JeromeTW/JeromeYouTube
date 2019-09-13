@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     setupLogTextView()
     printLog("NSHomeDirectory:\(NSHomeDirectory())", level: .debug)
     setupWindow()
+    setupCoreDataDB()
     return true
   }
 
@@ -98,6 +99,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   lazy var viewContext: NSManagedObjectContext = {
     persistentContainer.viewContext
   }()
+  
+  func setupCoreDataDB() {
+    // 如果沒有未分類，則建立一個未分類。
+    CoreDataConnect(context: viewContext).insertFirstVideoCategoryIfNeeded()
+  }
 }
 
 // MARK: - Log

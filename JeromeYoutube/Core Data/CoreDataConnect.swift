@@ -183,3 +183,28 @@ extension CoreDataConnect {
     }
   }
 }
+
+// MARK: - HasOrder
+protocol HasOrder {
+  var order: Int64 { get set }
+}
+
+extension CoreDataConnect {
+  // This Entity must has order property
+  func generateNewOrder<T: HasOrder>(_ hasOderType: T.Type) -> Int64 {
+    var newOrder: Int64 = 1
+    let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
+    request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: false)]
+    request.fetchLimit = 1
+    
+    do {
+      let result = try myContext.fetch(request) as? [T]
+      if let first = result?.first {
+        newOrder = first.order + 1
+      }
+      return newOrder
+    } catch {
+      fatalError("\(error)")
+    }
+  }
+}
