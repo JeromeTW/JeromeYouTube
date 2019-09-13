@@ -26,7 +26,7 @@ extension CoreDataConnect {
 }
 
 extension VideoCategory: HasID { }
-extension VideoCategory: HasOrder { }
+extension VideoCategory: HasOrder { } // 數字越大在越前面，最小是 1 在最後面。
 extension VideoCategory {
   static let undeineCatogoryName = "未分類"
 }
