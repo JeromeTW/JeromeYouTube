@@ -21,6 +21,7 @@ extension UITabBarController {
       let viewController = $0.viewController
       if $0.hasNavigation {
         let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.navigationBar.isHidden = true
         navigationController.tabBarItem = $0.tabBarItem
         viewControllers.append(navigationController)
       } else {
