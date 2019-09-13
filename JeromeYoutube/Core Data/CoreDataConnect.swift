@@ -6,35 +6,37 @@
 //
 
 import CoreData
-import Foundation
+import UIKit
 
 class CoreDataConnect {
+  lazy var persistentContainer: NSPersistentContainer = {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    return appDelegate.persistentContainer
+  }()
+  
   var myContext: NSManagedObjectContext!
 
   init(context: NSManagedObjectContext) {
     myContext = context
   }
 
+  // MARK: - Functions
   // insert
-  func insert(_ myEntityName: String, attributeInfo: [String: Any]) -> Bool {
-    let insetData = NSEntityDescription.insertNewObject(forEntityName: myEntityName, into: myContext)
+  // NOTE: myEntityName(在Video.xcdatamodeld中設定) 必須跟 class name 一致才能用範型
+  func insert<T: NSManagedObject>(type: T.Type, attributeInfo: [String: Any]) -> Bool {
+    let insetData = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: myContext)
 
     for (key, value) in attributeInfo {
       insetData.setValue(value, forKey: key)
     }
-
-    do {
-      try myContext.save()
-
-      return true
-    } catch {
-      fatalError("\(error)")
-    }
+    
+    persistentContainer.saveContext(backgroundContext: myContext)
+    return true
   }
 
   // retrieve
-  func retrieve(_ myEntityName: String, predicate: NSPredicate?, sort: [[String: Bool]]?, limit: Int?) -> [NSManagedObject]? {
-    let request = NSFetchRequest<NSFetchRequestResult>(entityName: myEntityName)
+  func retrieve<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?, sort: [[String: Bool]]?, limit: Int?) -> [T]? {
+    let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
 
     // predicate
     request.predicate = predicate
@@ -43,8 +45,8 @@ class CoreDataConnect {
     if let mySort = sort {
       var sortArr: [NSSortDescriptor] = []
       for sortCond in mySort {
-        for (k, v) in sortCond {
-          sortArr.append(NSSortDescriptor(key: k, ascending: v))
+        for (key, value) in sortCond {
+          sortArr.append(NSSortDescriptor(key: key, ascending: value))
         }
       }
 
@@ -57,7 +59,7 @@ class CoreDataConnect {
     }
 
     do {
-      return try myContext.fetch(request) as? [NSManagedObject]
+      return try myContext.fetch(request) as? [T]
 
     } catch {
       fatalError("\(error)")
@@ -65,8 +67,8 @@ class CoreDataConnect {
   }
 
   // update
-  func update(_ myEntityName: String, predicate: NSPredicate?, attributeInfo: [String: String]) -> Bool {
-    if let results = self.retrieve(myEntityName, predicate: predicate, sort: nil, limit: nil) {
+  func update<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?, attributeInfo: [String: String]) -> Bool {
+    if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil) {
       for result in results {
         for (key, value) in attributeInfo {
           let t = result.entity.attributesByName[key]?.attributeType
@@ -82,41 +84,29 @@ class CoreDataConnect {
           }
         }
       }
-
-      do {
-        try myContext.save()
-
-        return true
-      } catch {
-        fatalError("\(error)")
-      }
+      persistentContainer.saveContext(backgroundContext: myContext)
+      return true
     }
-
     return false
   }
 
   // delete
-  func delete(_ myEntityName: String, predicate: NSPredicate?) -> Bool {
-    if let results = self.retrieve(myEntityName, predicate: predicate, sort: nil, limit: nil) {
+  func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?) -> Bool {
+    if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil) {
       for result in results {
         myContext.delete(result)
       }
 
-      do {
-        try myContext.save()
-
-        return true
-      } catch {
-        fatalError("\(error)")
-      }
+      persistentContainer.saveContext(backgroundContext: myContext)
+      return true
     }
 
     return false
   }
 
-  func getCount(_ myEntityName: String, predicate: NSPredicate?) -> Int {
+  func getCount<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?) -> Int {
     var count = 0
-    let request = NSFetchRequest<NSNumber>(entityName: myEntityName)
+    let request = NSFetchRequest<NSNumber>(entityName: String(describing: T.self))
 
     // predicate
     request.predicate = predicate
@@ -132,8 +122,8 @@ class CoreDataConnect {
     return count
   }
 
-  public func getFRC(_ myEntityName: String, predicate: NSPredicate?, sort: [[String: Bool]]?, limit: Int?) -> NSFetchedResultsController<NSFetchRequestResult> {
-    let request = NSFetchRequest<NSFetchRequestResult>(entityName: myEntityName)
+  public func getFRC<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?, sort: [[String: Bool]]?, limit: Int?) -> NSFetchedResultsController<NSFetchRequestResult> {
+    let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
 
     // predicate
     request.predicate = predicate
@@ -142,8 +132,8 @@ class CoreDataConnect {
     if let mySort = sort {
       var sortArr: [NSSortDescriptor] = []
       for sortCond in mySort {
-        for (k, v) in sortCond {
-          sortArr.append(NSSortDescriptor(key: k, ascending: v))
+        for (key, value) in sortCond {
+          sortArr.append(NSSortDescriptor(key: key, ascending: value))
         }
       }
 
@@ -166,5 +156,30 @@ class CoreDataConnect {
     }
 
     return fetchedResultsController
+  }
+}
+
+protocol HasID {
+  var id: Int64 { get set }
+}
+
+// MARK: - HasID
+extension CoreDataConnect {
+  // This Entity must has id property
+  func generateNewID<T: HasID>(_ hasIDType: T.Type) -> Int64 {
+    var newID: Int64 = 1
+    let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
+    request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
+    request.fetchLimit = 1
+    
+    do {
+      let result = try myContext.fetch(request) as? [T]
+      if let first = result?.first {
+        newID = first.id + 1
+      }
+      return newID
+    } catch {
+      fatalError("\(error)")
+    }
   }
 }
