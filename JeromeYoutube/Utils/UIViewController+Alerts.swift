@@ -89,9 +89,9 @@ extension UIViewController {
 	func showAlertController(withTitle title: String?,
                                  message: String?,
                                  textColor: UIColor? = nil,
-                                 textFieldsData: [TextFieldData],
-                                 okTitle: String, cancelTitle: String,
+                                 textFieldsData: [TextFieldData], cancelTitle: String,
                                  cancelHandler: VoidHandler?,
+                                 okTitle: String,
                                  okHandler: TextFieldHandler?) {
 		DispatchQueue.main.async {
 			let alert = UIAlertController(title: title,
