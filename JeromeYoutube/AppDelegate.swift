@@ -56,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let tabBarController = UITabBarController()
     let storyboard = UIStoryboard(name: "MusicListTab", bundle: Bundle.main)
     let musicListVC = MusicListVC.instantiate(storyboard: storyboard)
+    musicListVC.viewContext = viewContext
     let musicListViewControllerInfo = ViewControllerInfo(hasNavigation: true, viewController: musicListVC, tabBarItem: UITabBarItem(title: "List", image: nil, selectedImage: nil))
     tabBarController.setupViewControllers([musicListViewControllerInfo])
     window.rootViewController = tabBarController
