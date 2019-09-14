@@ -115,24 +115,14 @@ class CoreDataConnect {
     }
     return count
   }
-
-  public func getFRC<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?, sort: [[String: Bool]]?, limit: Int?) -> NSFetchedResultsController<NSFetchRequestResult> {
+  public func getFRC<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, sortDescriptors:
+    [NSSortDescriptor]? = nil, limit: Int? = nil, sectionNameKeyPath: String? = nil, cacheName: String? = nil) -> NSFetchedResultsController<T> {
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
 
     // predicate
     request.predicate = predicate
-
     // sort
-    if let mySort = sort {
-      var sortArr: [NSSortDescriptor] = []
-      for sortCond in mySort {
-        for (key, value) in sortCond {
-          sortArr.append(NSSortDescriptor(key: key, ascending: value))
-        }
-      }
-
-      request.sortDescriptors = sortArr
-    }
+    request.sortDescriptors = sortDescriptors
 
     // limit
     if let limitNumber = limit {
@@ -140,8 +130,8 @@ class CoreDataConnect {
     }
     let fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
                                                               managedObjectContext: myContext,
-                                                              sectionNameKeyPath: nil,
-                                                              cacheName: nil)
+                                                              sectionNameKeyPath: sectionNameKeyPath,
+                                                              cacheName: cacheName) as! NSFetchedResultsController<T>
     do {
       try fetchedResultsController.performFetch()
     } catch {
