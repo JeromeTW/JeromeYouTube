@@ -12,8 +12,18 @@ import SafariServices
 
 class MusicListVC: BaseViewController, Storyboarded {
   
-  @IBOutlet weak var titleLabel: UILabel!
-  @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var titleLabel: UILabel! {
+    didSet {
+      titleLabel.text = "類型清單"
+    }
+  }
+  
+  @IBOutlet weak var tableView: UITableView! {
+    didSet {
+//      tableView.dataSource = self
+//      tableView.delegate = self
+    }
+  }
   var viewContext: NSManagedObjectContext!
   
   private var coredataConnect: CoreDataConnect!
@@ -36,15 +46,28 @@ class MusicListVC: BaseViewController, Storyboarded {
       guard let textField = textFields.first, let text = textField.text else {
         fatalError()
       }
-      printLog("Text: \(text)")
       // Grab Text
-      
-      guard self.coredataConnect.insert(type: Video.self, attributeInfo: [
-        #keyPath(Video.id): self.coredataConnect.generateNewID(Video.self) as Any,
-        #keyPath(Video.order): self.coredataConnect.generateNewOrder(Video.self) as Any,
-        #keyPath(Video.youtubeID): text as Any
-        ]) else {
+      do {
+        let youtubeID = try  YoutubeHelper.grabYoutubeIDBy(text: text).get()
+        guard self.coredataConnect.isTheYoutubeIDExisted(youtubeID) == false else {
+          self.showOKAlert("已經新增過此影片", message: nil, okTitle: "OK")
+          return
+        }
+        
+        let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), VideoCategory.undeineCatogoryName)
+        guard let category = self.coredataConnect.retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1)?.first else {
           fatalError()
+        }
+        try self.coredataConnect.insert(type: Video.self, attributeInfo: [
+          #keyPath(Video.id): self.coredataConnect.generateNewID(Video.self) as Any,
+          #keyPath(Video.order): self.coredataConnect.generateNewOrder(Video.self) as Any,
+          #keyPath(Video.youtubeID): youtubeID as Any,
+          #keyPath(Video.category): category as Any
+          ])
+        self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
+      } catch {
+        // TODO: Error Handling
+        printLog(error.localizedDescription, level: .error)
       }
     }
   }
