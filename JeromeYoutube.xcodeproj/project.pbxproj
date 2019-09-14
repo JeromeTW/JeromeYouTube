@@ -29,6 +29,8 @@
 		0264470D232781A300822485 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0264470B232781A300822485 /* LaunchScreen.storyboard */; };
 		02644715232790F100822485 /* JeromeYoutubePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */; };
 		02A0821D232B9CED00D68557 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */; };
+		02A5BFAB232C7CB100E85495 /* Video+CoredData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BFAA232C7CB100E85495 /* Video+CoredData.swift */; };
+		02A5BFAE232C84EE00E85495 /* YoutubeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BFAD232C84EE00E85495 /* YoutubeHelper.swift */; };
 		02B816A82329E80F00C81F8D /* Video.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02B816A62329E80F00C81F8D /* Video.xcdatamodeld */; };
 		02E12994232B3D8600E04942 /* JeromeNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12993232B3D8600E04942 /* JeromeNavigationBar.swift */; };
 		02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */; };
@@ -62,6 +64,8 @@
 		0264470E232781A300822485 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeromeYoutubePlayerVC.swift; sourceTree = "<group>"; };
 		02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
+		02A5BFAA232C7CB100E85495 /* Video+CoredData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Video+CoredData.swift"; sourceTree = "<group>"; };
+		02A5BFAD232C84EE00E85495 /* YoutubeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeHelper.swift; sourceTree = "<group>"; };
 		02B816A72329E80F00C81F8D /* Video.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Video.xcdatamodel; sourceTree = "<group>"; };
 		02E12993232B3D8600E04942 /* JeromeNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeromeNavigationBar.swift; sourceTree = "<group>"; };
 		02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JeromeNavigationBarStatusBarBaseVC.xib; sourceTree = "<group>"; };
@@ -150,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				022A4DE6232A3871006EA137 /* VideoCategory+CoreData.swift */,
+				02A5BFAA232C7CB100E85495 /* Video+CoredData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 		02644701232781A100822485 /* JeromeYoutube */ = {
 			isa = PBXGroup;
 			children = (
+				02A5BFAC232C843F00E85495 /* Youtube Helper */,
 				022A4DDE232A33FC006EA137 /* Core Data */,
 				021B5FE323289637000B192B /* Images */,
 				021B5FDB232895FB000B192B /* Network */,
@@ -188,6 +194,14 @@
 				021B5FE223289603000B192B /* Support */,
 			);
 			path = JeromeYoutube;
+			sourceTree = "<group>";
+		};
+		02A5BFAC232C843F00E85495 /* Youtube Helper */ = {
+			isa = PBXGroup;
+			children = (
+				02A5BFAD232C84EE00E85495 /* YoutubeHelper.swift */,
+			);
+			path = "Youtube Helper";
 			sourceTree = "<group>";
 		};
 		02E12992232B3D7600E04942 /* UI */ = {
@@ -396,6 +410,7 @@
 				02644705232781A100822485 /* ViewController.swift in Sources */,
 				02644703232781A100822485 /* AppDelegate.swift in Sources */,
 				021B5FD323289173000B192B /* PrintLog.swift in Sources */,
+				02A5BFAB232C7CB100E85495 /* Video+CoredData.swift in Sources */,
 				021B5FDF232895FB000B192B /* NetworkRequestOperation.swift in Sources */,
 				02E1299A232B420500E04942 /* Observable.swift in Sources */,
 				021B5FE52328965C000B192B /* ImageLoader.swift in Sources */,
@@ -407,6 +422,7 @@
 				0235E0F82329CDFF00A82B7F /* UITabBarControllerExtension.swift in Sources */,
 				021B5FE1232895FB000B192B /* APIRequest.swift in Sources */,
 				02A0821D232B9CED00D68557 /* UIViewController+Alerts.swift in Sources */,
+				02A5BFAE232C84EE00E85495 /* YoutubeHelper.swift in Sources */,
 				021B5FE0232895FB000B192B /* AsynchronousOperation.swift in Sources */,
 				021B5FDA232891F1000B192B /* CGFloatExtension.swift in Sources */,
 				02644715232790F100822485 /* JeromeYoutubePlayerVC.swift in Sources */,
