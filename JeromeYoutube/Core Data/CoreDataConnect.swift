@@ -23,15 +23,14 @@ class CoreDataConnect {
   // MARK: - Functions
   // insert
   // NOTE: myEntityName(在Video.xcdatamodeld中設定) 必須跟 class name 一致才能用範型
-  func insert<T: NSManagedObject>(type: T.Type, attributeInfo: [String: Any]) -> Bool {
+  func insert<T: NSManagedObject>(type: T.Type, attributeInfo: [String: Any]) throws {
     let insetData = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: myContext)
 
     for (key, value) in attributeInfo {
       insetData.setValue(value, forKey: key)
     }
     
-    persistentContainer.saveContext(backgroundContext: myContext)
-    return true
+    try persistentContainer.saveContext(backgroundContext: myContext)
   }
 
   // retrieve
@@ -67,7 +66,7 @@ class CoreDataConnect {
   }
 
   // update
-  func update<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?, attributeInfo: [String: String]) -> Bool {
+  func update<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?, attributeInfo: [String: String]) throws {
     if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil) {
       for result in results {
         for (key, value) in attributeInfo {
@@ -84,24 +83,19 @@ class CoreDataConnect {
           }
         }
       }
-      persistentContainer.saveContext(backgroundContext: myContext)
-      return true
+      try persistentContainer.saveContext(backgroundContext: myContext)
     }
-    return false
   }
 
   // delete
-  func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?) -> Bool {
+  func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?) throws {
     if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil) {
       for result in results {
         myContext.delete(result)
       }
 
-      persistentContainer.saveContext(backgroundContext: myContext)
-      return true
+      try persistentContainer.saveContext(backgroundContext: myContext)
     }
-
-    return false
   }
 
   func getCount<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?) -> Int {

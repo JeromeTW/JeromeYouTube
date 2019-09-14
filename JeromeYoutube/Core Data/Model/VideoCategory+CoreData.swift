@@ -15,12 +15,14 @@ extension CoreDataConnect {
     if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1), categories.isEmpty == false {
       return
     }
-    guard insert(type: VideoCategory.self, attributeInfo: [
+    do {
+      try insert(type: VideoCategory.self, attributeInfo: [
         #keyPath(VideoCategory.name) : VideoCategory.undeineCatogoryName as Any,
         #keyPath(VideoCategory.id) : generateNewID(VideoCategory.self) as Any,
         #keyPath(VideoCategory.order) : generateNewOrder(VideoCategory.self) as Any
-      ]) else {
-        fatalError()
+        ])
+    } catch {
+      fatalError()
     }
   }
 }
