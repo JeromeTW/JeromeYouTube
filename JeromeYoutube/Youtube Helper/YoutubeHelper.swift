@@ -14,7 +14,7 @@ struct YoutubeHelper {
     if text.count == youtubeIDCount {
       return .success(text)
     }
-    let youtubeDomain = "www.youtube.com"
+    let youtubeDomain = "youtube.com"
     let parameterSeparator = "?v="
     guard text.contains(youtubeDomain), text.contains(parameterSeparator), text.components(separatedBy: parameterSeparator).count == 2 else {
       return .failure(GrabYoutubeIDError.invalied)
