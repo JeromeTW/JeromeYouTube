@@ -84,7 +84,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="Cgc-6N-kPf">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryListTableViewCell" rowHeight="100" id="Cgc-6N-kPf" customClass="CategoryListTableViewCell" customModule="JeromeYoutube" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="100"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cgc-6N-kPf" id="8x7-1C-4sV">
@@ -92,7 +92,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQV-Df-042">
-                                                            <rect key="frame" x="20" y="-12" width="540" height="123.5"/>
+                                                            <rect key="frame" x="20" y="-12" width="372.5" height="123.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vV1-87-bvE">
                                                                     <rect key="frame" x="19" y="33.5" width="52.5" height="26.5"/>
@@ -123,6 +123,10 @@
                                                         <constraint firstItem="yQV-Df-042" firstAttribute="leading" secondItem="8x7-1C-4sV" secondAttribute="leading" constant="20" symbolic="YES" id="cUC-JS-kcR"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="subTitleLabel" destination="oKA-N8-j7O" id="s4x-YZ-P4d"/>
+                                                    <outlet property="titleLabel" destination="vV1-87-bvE" id="xvW-kS-7YF"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>

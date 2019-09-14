@@ -18,11 +18,17 @@ class CategoryListVC: BaseViewController, Storyboarded {
     }
   }
   
-  private var categoryFRC: NSFetchedResultsController<VideoCategory>!
+  private lazy var categoryFRC: NSFetchedResultsController<VideoCategory>! = {
+    let frc = coredataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
+    frc.delegate = self
+    return frc
+  }()
+  
   @IBOutlet weak var tableView: UITableView!
   var viewContext: NSManagedObjectContext!
   private var coredataConnect: CoreDataConnect!
   private let reuseIdentifier = "Cell"
+  private var blockOperations = [BlockOperation]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,8 +39,8 @@ class CategoryListVC: BaseViewController, Storyboarded {
   override func setupData() {
     super.setupData()
     setUpCoreData()
-    categoryFRC = coredataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
-    categoryFRC.delegate = self
+//    categoryFRC = coredataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
+//    categoryFRC.delegate = self
     tableView.dataSource = self
     tableView.delegate = self
   }
@@ -91,15 +97,49 @@ extension CategoryListVC: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = (tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? ChooseCareteamTableViewCell)!
-    let channel = channelsFRC.object(at: indexPath)
-    cell.updateUIByChannel(channel)
-    
-    if selectedIndex == indexPath {
-      cell.updateCheckImageViewUI(isHidden: false)
-    } else {
-      cell.updateCheckImageViewUI(isHidden: true)
-    }
+    let cell = (tableView.dequeueReusableCell(withIdentifier: CategoryListTableViewCell.className, for: indexPath) as? CategoryListTableViewCell)!
     return cell
+  }
+}
+
+// MARK: - UITableViewDelegate
+extension CategoryListVC: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    let category = categoryFRC.object(at: indexPath)
+    guard let categoryListTableViewCell = cell as? CategoryListTableViewCell else {
+      return
+    }
+    categoryListTableViewCell.updateUI(by: category)
+  }
+}
+
+// MARK: - NSFetchedResultsControllerDelegate
+extension CategoryListVC: NSFetchedResultsControllerDelegate {
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    if type == .insert {
+      blockOperations.append(BlockOperation(block: {
+        [weak self] in
+        guard let self = self else {
+          return
+        }
+        self.tableView.insertRows(at: [newIndexPath!], with: .none)
+      }))
+    }
+  }
+  
+  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    tableView.performBatchUpdates({
+      [weak self] in
+      guard let self = self else {
+        return
+      }
+      for operation in self.blockOperations {
+        operation.start()
+      }
+    }) { (complete) in
+      let lastRow = self.categoryFRC.sections!.first!.numberOfObjects - 1
+      let indexPath = IndexPath(row: lastRow, section: 0)
+      self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
   }
 }
