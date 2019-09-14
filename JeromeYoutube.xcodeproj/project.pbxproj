@@ -31,6 +31,8 @@
 		02A0821D232B9CED00D68557 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */; };
 		02A5BFAB232C7CB100E85495 /* Video+CoredData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BFAA232C7CB100E85495 /* Video+CoredData.swift */; };
 		02A5BFAE232C84EE00E85495 /* YoutubeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BFAD232C84EE00E85495 /* YoutubeHelper.swift */; };
+		02A5BFB6232C932E00E85495 /* JeromeYoutubeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BFB5232C932E00E85495 /* JeromeYoutubeTests.swift */; };
+		02A5BFBD232C94CB00E85495 /* YoutubeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BFAD232C84EE00E85495 /* YoutubeHelper.swift */; };
 		02B816A82329E80F00C81F8D /* Video.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02B816A62329E80F00C81F8D /* Video.xcdatamodeld */; };
 		02E12994232B3D8600E04942 /* JeromeNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12993232B3D8600E04942 /* JeromeNavigationBar.swift */; };
 		02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */; };
@@ -38,6 +40,16 @@
 		02E1299B232B420500E04942 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12999232B420400E04942 /* BaseViewController.swift */; };
 		05ED524C4876035E6A711653 /* Pods_JeromeYoutube.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F0D977B2D76E8429AAE042 /* Pods_JeromeYoutube.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		02A5BFB8232C932E00E85495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 026446F7232781A100822485 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 026446FE232781A100822485;
+			remoteInfo = JeromeYoutube;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		021B5FCE23288FED000B192B /* LogLevelConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogLevelConfigurator.swift; sourceTree = "<group>"; };
@@ -66,6 +78,9 @@
 		02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		02A5BFAA232C7CB100E85495 /* Video+CoredData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Video+CoredData.swift"; sourceTree = "<group>"; };
 		02A5BFAD232C84EE00E85495 /* YoutubeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeHelper.swift; sourceTree = "<group>"; };
+		02A5BFB3232C932E00E85495 /* JeromeYoutubeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JeromeYoutubeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		02A5BFB5232C932E00E85495 /* JeromeYoutubeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeromeYoutubeTests.swift; sourceTree = "<group>"; };
+		02A5BFB7232C932E00E85495 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02B816A72329E80F00C81F8D /* Video.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Video.xcdatamodel; sourceTree = "<group>"; };
 		02E12993232B3D8600E04942 /* JeromeNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeromeNavigationBar.swift; sourceTree = "<group>"; };
 		02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JeromeNavigationBarStatusBarBaseVC.xib; sourceTree = "<group>"; };
@@ -82,6 +97,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				05ED524C4876035E6A711653 /* Pods_JeromeYoutube.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		02A5BFB0232C932E00E85495 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				02644701232781A100822485 /* JeromeYoutube */,
+				02A5BFB4232C932E00E85495 /* JeromeYoutubeTests */,
 				02644700232781A100822485 /* Products */,
 				8A516F3F32C270DDA8087D66 /* Pods */,
 				920476C2A34AA026F8672E6B /* Frameworks */,
@@ -173,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				026446FF232781A100822485 /* JeromeYoutube.app */,
+				02A5BFB3232C932E00E85495 /* JeromeYoutubeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,6 +226,15 @@
 				02A5BFAD232C84EE00E85495 /* YoutubeHelper.swift */,
 			);
 			path = "Youtube Helper";
+			sourceTree = "<group>";
+		};
+		02A5BFB4232C932E00E85495 /* JeromeYoutubeTests */ = {
+			isa = PBXGroup;
+			children = (
+				02A5BFB5232C932E00E85495 /* JeromeYoutubeTests.swift */,
+				02A5BFB7232C932E00E85495 /* Info.plist */,
+			);
+			path = JeromeYoutubeTests;
 			sourceTree = "<group>";
 		};
 		02E12992232B3D7600E04942 /* UI */ = {
@@ -264,6 +297,24 @@
 			productReference = 026446FF232781A100822485 /* JeromeYoutube.app */;
 			productType = "com.apple.product-type.application";
 		};
+		02A5BFB2232C932E00E85495 /* JeromeYoutubeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02A5BFBA232C932E00E85495 /* Build configuration list for PBXNativeTarget "JeromeYoutubeTests" */;
+			buildPhases = (
+				02A5BFAF232C932E00E85495 /* Sources */,
+				02A5BFB0232C932E00E85495 /* Frameworks */,
+				02A5BFB1232C932E00E85495 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				02A5BFB9232C932E00E85495 /* PBXTargetDependency */,
+			);
+			name = JeromeYoutubeTests;
+			productName = JeromeYoutubeTests;
+			productReference = 02A5BFB3232C932E00E85495 /* JeromeYoutubeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -282,6 +333,10 @@
 							};
 						};
 					};
+					02A5BFB2232C932E00E85495 = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = 026446FE232781A100822485;
+					};
 				};
 			};
 			buildConfigurationList = 026446FA232781A100822485 /* Build configuration list for PBXProject "JeromeYoutube" */;
@@ -298,6 +353,7 @@
 			projectRoot = "";
 			targets = (
 				026446FE232781A100822485 /* JeromeYoutube */,
+				02A5BFB2232C932E00E85495 /* JeromeYoutubeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -311,6 +367,13 @@
 				0264470A232781A300822485 /* Assets.xcassets in Resources */,
 				0235E0F02329C8E800A82B7F /* MusicListTab.storyboard in Resources */,
 				02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		02A5BFB1232C932E00E85495 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +492,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		02A5BFAF232C932E00E85495 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02A5BFB6232C932E00E85495 /* JeromeYoutubeTests.swift in Sources */,
+				02A5BFBD232C94CB00E85495 /* YoutubeHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		02A5BFB9232C932E00E85495 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 026446FE232781A100822485 /* JeromeYoutube */;
+			targetProxy = 02A5BFB8232C932E00E85495 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0264470B232781A300822485 /* LaunchScreen.storyboard */ = {
@@ -597,6 +677,46 @@
 			};
 			name = Release;
 		};
+		02A5BFBB232C932E00E85495 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 47FGBWZVJ9;
+				INFOPLIST_FILE = JeromeYoutubeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.jerome.JeromeYoutubeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JeromeYoutube.app/JeromeYoutube";
+			};
+			name = Debug;
+		};
+		02A5BFBC232C932E00E85495 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 47FGBWZVJ9;
+				INFOPLIST_FILE = JeromeYoutubeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.jerome.JeromeYoutubeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JeromeYoutube.app/JeromeYoutube";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -614,6 +734,15 @@
 			buildConfigurations = (
 				02644712232781A300822485 /* Debug */,
 				02644713232781A300822485 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		02A5BFBA232C932E00E85495 /* Build configuration list for PBXNativeTarget "JeromeYoutubeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02A5BFBB232C932E00E85495 /* Debug */,
+				02A5BFBC232C932E00E85495 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
