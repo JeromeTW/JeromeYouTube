@@ -54,11 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window = UIWindow(frame: UIScreen.main.bounds)
     guard let window = window else { fatalError() }
     let tabBarController = UITabBarController()
-    let storyboard = UIStoryboard(name: "MusicListTab", bundle: Bundle.main)
-    let musicListVC = MusicListVC.instantiate(storyboard: storyboard)
-    musicListVC.viewContext = viewContext
-    let musicListViewControllerInfo = ViewControllerInfo(hasNavigation: true, viewController: musicListVC, tabBarItem: UITabBarItem(title: "List", image: nil, selectedImage: nil))
-    tabBarController.setupViewControllers([musicListViewControllerInfo])
+    let storyboard = UIStoryboard(name: "CategoryListTab", bundle: Bundle.main)
+    let categoryListVC = CategoryListVC.instantiate(storyboard: storyboard)
+    categoryListVC.viewContext = viewContext
+    let categoryListViewControllerInfo = ViewControllerInfo(hasNavigation: true, viewController: categoryListVC, tabBarItem: UITabBarItem(title: "List", image: nil, selectedImage: nil))
+    tabBarController.setupViewControllers([categoryListViewControllerInfo])
     window.rootViewController = tabBarController
     window.makeKeyAndVisible()
   }

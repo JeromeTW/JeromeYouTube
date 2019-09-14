@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Music ListVC-->
+        <!--Category ListVC-->
         <scene sceneID="CAd-e6-VHB">
             <objects>
-                <viewController storyboardIdentifier="MusicListVC" id="wRE-KX-gBb" customClass="MusicListVC" customModule="JeromeYoutube" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CategoryListVC" id="wRE-KX-gBb" customClass="CategoryListVC" customModule="JeromeYoutube" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iGB-vf-eja">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -92,7 +92,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQV-Df-042">
-                                                            <rect key="frame" x="20" y="-12" width="372.5" height="123.5"/>
+                                                            <rect key="frame" x="20" y="-12" width="540" height="123.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vV1-87-bvE">
                                                                     <rect key="frame" x="19" y="33.5" width="52.5" height="26.5"/>

@@ -1,5 +1,5 @@
 //
-//  MusicListVC.swift
+//  CategoryListVC.swift
 //  JeromeYoutube
 //
 //  Created by JEROME on 2019/9/12.
@@ -10,7 +10,7 @@ import CoreData
 import UIKit
 import SafariServices
 
-class MusicListVC: BaseViewController, Storyboarded {
+class CategoryListVC: BaseViewController, Storyboarded {
   
   @IBOutlet weak var titleLabel: UILabel! {
     didSet {
@@ -18,20 +18,25 @@ class MusicListVC: BaseViewController, Storyboarded {
     }
   }
   
-  @IBOutlet weak var tableView: UITableView! {
-    didSet {
-//      tableView.dataSource = self
-//      tableView.delegate = self
-    }
-  }
+  private var categoryFRC: NSFetchedResultsController<VideoCategory>!
+  @IBOutlet weak var tableView: UITableView!
   var viewContext: NSManagedObjectContext!
-  
   private var coredataConnect: CoreDataConnect!
+  private let reuseIdentifier = "Cell"
   
   override func viewDidLoad() {
     super.viewDidLoad()
     assert(viewContext != nil)
+    setupData()
+  }
+  
+  override func setupData() {
+    super.setupData()
     setUpCoreData()
+    categoryFRC = coredataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
+    categoryFRC.delegate = self
+    tableView.dataSource = self
+    tableView.delegate = self
   }
   
   private func setUpCoreData() {
@@ -76,5 +81,25 @@ class MusicListVC: BaseViewController, Storyboarded {
     // TODO: Change to WKWebView, SFSafariViewController can not get its url.
     let safariVC = SFSafariViewController(url: URL(string: "https://www.youtube.com/results?search_query=music")!)
     present(safariVC, animated: true, completion: nil)
+  }
+}
+
+// MARK: - UITableViewDataSource
+extension CategoryListVC: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return categoryFRC.sections?[section].numberOfObjects ?? 0
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = (tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? ChooseCareteamTableViewCell)!
+    let channel = channelsFRC.object(at: indexPath)
+    cell.updateUIByChannel(channel)
+    
+    if selectedIndex == indexPath {
+      cell.updateCheckImageViewUI(isHidden: false)
+    } else {
+      cell.updateCheckImageViewUI(isHidden: true)
+    }
+    return cell
   }
 }
