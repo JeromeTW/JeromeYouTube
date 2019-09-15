@@ -16,6 +16,8 @@
 		021B5FE0232895FB000B192B /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FDD232895FB000B192B /* AsynchronousOperation.swift */; };
 		021B5FE1232895FB000B192B /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FDE232895FB000B192B /* APIRequest.swift */; };
 		021B5FE52328965C000B192B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FE42328965C000B192B /* ImageLoader.swift */; };
+		02206909232E6492007A4BEB /* CategoryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02206908232E6492007A4BEB /* CategoryDetailVC.swift */; };
+		0220690B232E6664007A4BEB /* CategoryDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220690A232E6664007A4BEB /* CategoryDetailTableViewCell.swift */; };
 		022A4DE2232A34C8006EA137 /* NSPersistentContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE1232A34C8006EA137 /* NSPersistentContainerExtension.swift */; };
 		022A4DE4232A34DD006EA137 /* CoreDataConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE3232A34DD006EA137 /* CoreDataConnect.swift */; };
 		022A4DE7232A3871006EA137 /* VideoCategory+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE6232A3871006EA137 /* VideoCategory+CoreData.swift */; };
@@ -62,6 +64,8 @@
 		021B5FDD232895FB000B192B /* AsynchronousOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		021B5FDE232895FB000B192B /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		021B5FE42328965C000B192B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		02206908232E6492007A4BEB /* CategoryDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailVC.swift; sourceTree = "<group>"; };
+		0220690A232E6664007A4BEB /* CategoryDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailTableViewCell.swift; sourceTree = "<group>"; };
 		022A4DE1232A34C8006EA137 /* NSPersistentContainerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentContainerExtension.swift; sourceTree = "<group>"; };
 		022A4DE3232A34DD006EA137 /* CoreDataConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataConnect.swift; sourceTree = "<group>"; };
 		022A4DE6232A3871006EA137 /* VideoCategory+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoCategory+CoreData.swift"; sourceTree = "<group>"; };
@@ -163,6 +167,18 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		02206905232E6420007A4BEB /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				0235E0EF2329C8E800A82B7F /* CategoryListTab.storyboard */,
+				027245B3232D00B300C86E72 /* CategoryListVC.swift */,
+				027245B1232D006D00C86E72 /* CategoryListTableViewCell.swift */,
+				02206908232E6492007A4BEB /* CategoryDetailVC.swift */,
+				0220690A232E6664007A4BEB /* CategoryDetailTableViewCell.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		022A4DDE232A33FC006EA137 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,9 +231,7 @@
 				02644702232781A100822485 /* AppDelegate.swift */,
 				02644704232781A100822485 /* ViewController.swift */,
 				02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */,
-				0235E0EF2329C8E800A82B7F /* CategoryListTab.storyboard */,
-				027245B3232D00B300C86E72 /* CategoryListVC.swift */,
-				027245B1232D006D00C86E72 /* CategoryListTableViewCell.swift */,
+				02206905232E6420007A4BEB /* Video */,
 				021B5FE223289603000B192B /* Support */,
 			);
 			path = JeromeYoutube;
@@ -483,6 +497,7 @@
 				02E12994232B3D8600E04942 /* JeromeNavigationBar.swift in Sources */,
 				02E1299B232B420500E04942 /* BaseViewController.swift in Sources */,
 				021B5FD5232891D7000B192B /* LogTextView.swift in Sources */,
+				0220690B232E6664007A4BEB /* CategoryDetailTableViewCell.swift in Sources */,
 				0235E0FC2329D53C00A82B7F /* StoryboardExtension.swift in Sources */,
 				0235E0F82329CDFF00A82B7F /* UITabBarControllerExtension.swift in Sources */,
 				021B5FE1232895FB000B192B /* APIRequest.swift in Sources */,
@@ -490,6 +505,7 @@
 				02A5BFAE232C84EE00E85495 /* YoutubeHelper.swift in Sources */,
 				021B5FE0232895FB000B192B /* AsynchronousOperation.swift in Sources */,
 				021B5FDA232891F1000B192B /* CGFloatExtension.swift in Sources */,
+				02206909232E6492007A4BEB /* CategoryDetailVC.swift in Sources */,
 				02644715232790F100822485 /* JeromeYoutubePlayerVC.swift in Sources */,
 				027245B4232D00B300C86E72 /* CategoryListVC.swift in Sources */,
 				027245B2232D006D00C86E72 /* CategoryListTableViewCell.swift in Sources */,

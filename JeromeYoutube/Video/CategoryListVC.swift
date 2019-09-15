@@ -27,7 +27,6 @@ class CategoryListVC: BaseViewController, Storyboarded {
   @IBOutlet weak var tableView: UITableView!
   var viewContext: NSManagedObjectContext!
   private var coredataConnect: CoreDataConnect!
-  private let reuseIdentifier = "Cell"
   private var blockOperations = [BlockOperation]()
   
   override func viewDidLoad() {
@@ -39,8 +38,7 @@ class CategoryListVC: BaseViewController, Storyboarded {
   override func setupData() {
     super.setupData()
     setUpCoreData()
-//    categoryFRC = coredataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
-//    categoryFRC.delegate = self
+    tableView.tableFooterView = UIView()
     tableView.dataSource = self
     tableView.delegate = self
   }
@@ -110,6 +108,15 @@ extension CategoryListVC: UITableViewDelegate {
       return
     }
     categoryListTableViewCell.updateUI(by: category)
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let category = categoryFRC.object(at: indexPath)
+    let storyboard = UIStoryboard(name: "CategoryListTab", bundle: Bundle.main)
+    let categoryDetailVC = CategoryDetailVC.instantiate(storyboard: storyboard)
+    categoryDetailVC.category = category
+    categoryDetailVC.coredataConnect = coredataConnect
+    navigationController?.pushViewController(categoryDetailVC, animated: true)
   }
 }
 
