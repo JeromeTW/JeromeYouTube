@@ -17,7 +17,7 @@ func printLog(_ items: Any,
   if LogLevelConfigurator.shared.logLevels.contains(level) {
     let currentDateString = Date().toString()
     let fileName = file.components(separatedBy: "/").last?.components(separatedBy: ".").first ?? ""
-    let logString = "⭐️ [\(currentDateString)][\(level.description)] \(fileName).\(function):\(line) ~ \(items)"
+    let logString = "⭐️ [\(currentDateString)][\(level.description)] [\(fileName).\(function):\(line)] > \(items)"
 
     print(logString)
 
@@ -44,7 +44,7 @@ func printLog(_ items: Any,
 }
 
 extension Date {
-  func toString(dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
+  func toString(dateFormat: String = "yyyy-MM-dd HH:mm:ss.SSS") -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = dateFormat
     return dateFormatter.string(from: self)
