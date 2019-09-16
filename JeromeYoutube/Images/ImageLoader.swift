@@ -80,4 +80,13 @@ class ImageLoader {
       queue.addOperation(operation)
     }
   }
+  
+  func cancelRequest(url: URL) {
+    // TODO: cell 不在畫面上時呼叫此函式。
+    if let operation = requestOperationDictionary[url] {
+      self.requestOperationDictionary.removeValue(forKey: url)
+      operation.cancel()
+      operation.completeOperation()
+    }
+  }
 }
