@@ -30,11 +30,11 @@ class ImageLoader {
       // if no image from cache, get image from url
       // 檢查是否有重複的下載圖片請求
       guard requestOperationDictionary[url] == nil else {
-        let prevoiusOperation = requestOperationDictionary[url]
-        prevoiusOperation?.completionBlock = {
-          let imageFromCache = self.imageCache.object(forKey: url.absoluteString as NSString)
-          completionHandler(imageFromCache, url)
-        }
+        let prevoiusOperation = requestOperationDictionary[url]!
+        let imageFromCache = self.imageCache.object(forKey: url.absoluteString as NSString)
+        let completionHandlerOperation = CompletionHandlerOperation(image: imageFromCache, url: url, completionHandler: completionHandler)
+        completionHandlerOperation.addDependency(prevoiusOperation)
+        queue.addOperation(completionHandlerOperation)
         return
       }
       let request = APIRequest(url: url)
@@ -92,6 +92,20 @@ class ImageLoader {
       self.requestOperationDictionary.removeValue(forKey: url)
       operation.cancel()
       operation.completeOperation()
+    }
+  }
+  
+  class CompletionHandlerOperation: Operation {
+    var image: UIImage?
+    var url: URL
+    var completionHandler: ((_ image: UIImage?, _ url: URL) -> Void)!
+    init(image: UIImage?, url: URL, completionHandler: @escaping (_ image: UIImage?, _ url: URL) -> Void) {
+      self.image = image
+      self.url = url
+      self.completionHandler = completionHandler
+    }
+    override func main() {
+      completionHandler(image, url)
     }
   }
 }
