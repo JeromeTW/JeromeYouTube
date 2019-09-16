@@ -50,31 +50,93 @@ class JeromeYoutubeTests: XCTestCase {
     }
   }
   
-  func testImageLoader() {
-    let imageLoader = ImageLoader.shared
-    
-    let successfulURL = URL(string: "https://i.ytimg.com/vi/z_xrgqTnM5E/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBTL27i7gGtKmOqugtYG1hhdl8k-Q")!
+  let imageLoader = ImageLoader.shared
+  
+  let successfulURL = URL(string: "https://i.ytimg.com/vi/z_xrgqTnM5E/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBTL27i7gGtKmOqugtYG1hhdl8k-Q")!
+  
+  func testImageLoadera1() {  // Counter
     let exp = expectation(description: "Download the same image twice, but request once")
     var counter = 0
+    imageLoader.queue.maxConcurrentOperationCount = 1
     imageLoader.imageByURL(successfulURL) { (image, url) in
       if image != nil {
-        exp.fulfill()
+//        exp.fulfill()
         counter += 1
         // NOTE: 因為有 XCTAssert，所以 exp.fulfill() 不會直接結束此測試，而是要等所有的 XCTAssert 都跑過。這是我的猜測
+        print("testImageLoadera1-1")
         XCTAssert(counter < 2)
       }
     }
     imageLoader.imageByURL(successfulURL) { (image, url) in
-      
       if image != nil {
         exp.fulfill()
         counter += 1
+        print("testImageLoadera1-2")
         XCTAssert(counter < 2)
       }
     }
-    waitForExpectations(timeout: 10) { (error) in
-      print("Timeout Error: \(error)")
+    wait(for: [exp], timeout: 2)
+//    waitForExpectations(timeout: 10) { (error) in
+//      print("Timeout Error: \(error)")
+//    }
+  }
+  
+  func testImageLoadera2() {  // imageLoader.queue.operationCount
+    let exp = expectation(description: "Download the same image twice, but request once")
+    imageLoader.queue.maxConcurrentOperationCount = 1
+    imageLoader.imageByURL(successfulURL) { (image, url) in
+      if image != nil {
+//        exp.fulfill()
+        // NOTE: 因為有 XCTAssert，所以 exp.fulfill() 不會直接結束此測試，而是要等所有的 XCTAssert 都跑過。這是我的猜測
+        print("testImageLoadera2-1")
+        XCTAssert(self.imageLoader.queue.operationCount < 2)
+      }
     }
+    imageLoader.imageByURL(successfulURL) { (image, url) in
+      if image != nil {
+        exp.fulfill()
+        print("testImageLoadera2-2")
+        XCTAssert(self.imageLoader.queue.operationCount < 2)
+      }
+    }
+    wait(for: [exp], timeout: 2)
+//    waitForExpectations(timeout: 10) { (error) in
+//      print("Timeout Error: \(error)")
+//    }
+  }
+  
+  class SypQueue: OperationQueue {
+    var operationFiredCounter = 0
+    override func addOperation(_ op: Operation) {
+      operationFiredCounter += 1
+      super.addOperation(op)
+    }
+  }
+  
+  func testImageLoadera3() {  // SypQueue
+    let exp = expectation(description: "Download the same image twice, but request once")
+    let spyQueue = SypQueue()
+    imageLoader.queue = spyQueue
+    imageLoader.queue.maxConcurrentOperationCount = 1
+    imageLoader.imageByURL(successfulURL) { (image, url) in
+      if image != nil {
+//        exp.fulfill()
+        // NOTE: 因為有 XCTAssert，所以 exp.fulfill() 不會直接結束此測試，而是要等所有的 XCTAssert 都跑過。這是我的猜測
+        print("testImageLoadera3-1")
+        XCTAssert(spyQueue.operationCount < 2)
+      }
+    }
+    imageLoader.imageByURL(successfulURL) { (image, url) in
+      if image != nil {
+        exp.fulfill()
+        print("testImageLoadera3-2")
+        XCTAssert(spyQueue.operationCount < 2)
+      }
+    }
+    wait(for: [exp], timeout: 2)
+//    waitForExpectations(timeout: 10) { (error) in
+//      print("Timeout Error: \(error)")
+//    }
   }
   
   func testPerformanceExample() {
