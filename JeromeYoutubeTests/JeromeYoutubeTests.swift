@@ -50,6 +50,33 @@ class JeromeYoutubeTests: XCTestCase {
     }
   }
   
+  func testImageLoader() {
+    let imageLoader = ImageLoader.shared
+    
+    let successfulURL = URL(string: "https://i.ytimg.com/vi/z_xrgqTnM5E/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBTL27i7gGtKmOqugtYG1hhdl8k-Q")!
+    let exp = expectation(description: "Download the same image twice, but request once")
+    var counter = 0
+    imageLoader.imageByURL(successfulURL) { (image, url) in
+      if image != nil {
+        exp.fulfill()
+        counter += 1
+        // NOTE: 因為有 XCTAssert，所以 exp.fulfill() 不會直接結束此測試，而是要等所有的 XCTAssert 都跑過。這是我的猜測
+        XCTAssert(counter < 2)
+      }
+    }
+    imageLoader.imageByURL(successfulURL) { (image, url) in
+      
+      if image != nil {
+        exp.fulfill()
+        counter += 1
+        XCTAssert(counter < 2)
+      }
+    }
+    waitForExpectations(timeout: 10) { (error) in
+      print("Timeout Error: \(error)")
+    }
+  }
+  
   func testPerformanceExample() {
     // This is an example of a performance test case.
     self.measure {

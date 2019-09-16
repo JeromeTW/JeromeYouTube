@@ -37,6 +37,10 @@
 		02A5BFB6232C932E00E85495 /* JeromeYoutubeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BFB5232C932E00E85495 /* JeromeYoutubeTests.swift */; };
 		02A5BFBD232C94CB00E85495 /* YoutubeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BFAD232C84EE00E85495 /* YoutubeHelper.swift */; };
 		02B48CCA232F30FB00F8AA85 /* YoutubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B48CC9232F30FB00F8AA85 /* YoutubePlayer.swift */; };
+		02B48CCB232F6E5D00F8AA85 /* NetworkRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FDC232895FB000B192B /* NetworkRequestOperation.swift */; };
+		02B48CCC232F6E5F00F8AA85 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FDD232895FB000B192B /* AsynchronousOperation.swift */; };
+		02B48CCD232F6E6100F8AA85 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FDE232895FB000B192B /* APIRequest.swift */; };
+		02B48CCE232F6E6F00F8AA85 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FE42328965C000B192B /* ImageLoader.swift */; };
 		02B816A82329E80F00C81F8D /* Video.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02B816A62329E80F00C81F8D /* Video.xcdatamodeld */; };
 		02E12994232B3D8600E04942 /* JeromeNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12993232B3D8600E04942 /* JeromeNavigationBar.swift */; };
 		02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */; };
@@ -522,6 +526,10 @@
 			files = (
 				02A5BFB6232C932E00E85495 /* JeromeYoutubeTests.swift in Sources */,
 				02A5BFBD232C94CB00E85495 /* YoutubeHelper.swift in Sources */,
+				02B48CCE232F6E6F00F8AA85 /* ImageLoader.swift in Sources */,
+				02B48CCB232F6E5D00F8AA85 /* NetworkRequestOperation.swift in Sources */,
+				02B48CCD232F6E6100F8AA85 /* APIRequest.swift in Sources */,
+				02B48CCC232F6E5F00F8AA85 /* AsynchronousOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -30,6 +30,11 @@ class ImageLoader {
       // if no image from cache, get image from url
       // 檢查是否有重複的下載圖片請求
       guard requestOperationDictionary[url] == nil else {
+        let prevoiusOperation = requestOperationDictionary[url]
+        prevoiusOperation?.completionBlock = {
+          let imageFromCache = self.imageCache.object(forKey: url.absoluteString as NSString)
+          completionHandler(imageFromCache, url)
+        }
         return
       }
       let request = APIRequest(url: url)
@@ -63,16 +68,16 @@ class ImageLoader {
               self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
               mainThreadCompletionHandler(image: image, url)
             } else {
-              printLog("Data Format Wrong", level: .error)
+              print("Data Format Wrong")
               mainThreadCompletionHandler(image: nil, url)
             }
           } else {
-            printLog("No Data", level: .error)
+            print("No Data")
             mainThreadCompletionHandler(image: nil, url)
           }
           
         case .failure:
-          printLog("failed", level: .debug)
+          print("failed")
           mainThreadCompletionHandler(image: nil, url)
         }
       }
