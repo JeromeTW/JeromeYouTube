@@ -12,6 +12,10 @@ import SafariServices
 
 class CategoryListVC: BaseViewController, Storyboarded {
   
+  private lazy var youtubePlayer: YoutubePlayer = {
+    return YoutubePlayer(context: viewContext)
+  }()
+  
   @IBOutlet weak var titleLabel: UILabel! {
     didSet {
       titleLabel.text = "類型清單"
@@ -73,6 +77,11 @@ class CategoryListVC: BaseViewController, Storyboarded {
           #keyPath(Video.youtubeID): youtubeID as Any,
           #keyPath(Video.category): category as Any
           ])
+        let videoPredicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), youtubeID)
+        guard let video = self.coredataConnect.retrieve(type: Video.self, predicate: videoPredicate, sort: nil, limit: 1)?.first else {
+          return
+        }
+        self.youtubePlayer.video = video
         self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
       } catch {
         // TODO: Error Handling

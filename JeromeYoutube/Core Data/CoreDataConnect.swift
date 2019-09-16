@@ -24,10 +24,10 @@ class CoreDataConnect {
   // insert
   // NOTE: myEntityName(在Video.xcdatamodeld中設定) 必須跟 class name 一致才能用範型
   func insert<T: NSManagedObject>(type: T.Type, attributeInfo: [String: Any]) throws {
-    let insetData = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: myContext)
+    let insetObject = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: myContext)
 
     for (key, value) in attributeInfo {
-      insetData.setValue(value, forKey: key)
+      insetObject.setValue(value, forKey: key)
     }
     
     try persistentContainer.saveContext(backgroundContext: myContext)
@@ -66,21 +66,11 @@ class CoreDataConnect {
   }
 
   // update
-  func update<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?, attributeInfo: [String: String]) throws {
-    if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil) {
+  func update<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?, limit: Int? = 1, attributeInfo: [String: Any]) throws {
+    if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: limit) {
       for result in results {
         for (key, value) in attributeInfo {
-          let t = result.entity.attributesByName[key]?.attributeType
-
-          if t == .integer16AttributeType || t == .integer32AttributeType || t == .integer64AttributeType {
-            result.setValue(Int(value), forKey: key)
-          } else if t == .doubleAttributeType || t == .floatAttributeType {
-            result.setValue(Double(value), forKey: key)
-          } else if t == .booleanAttributeType {
-            result.setValue(value == "true" ? true : false, forKey: key)
-          } else {
-            result.setValue(value, forKey: key)
-          }
+          result.setValue(value, forKey: key)
         }
       }
       try persistentContainer.saveContext(backgroundContext: myContext)

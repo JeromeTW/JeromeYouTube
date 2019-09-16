@@ -1,49 +1,41 @@
 //
-//  JeromeYoutubePlayerVC.swift
+//  YoutubePlayer.swift
 //  JeromeYoutube
 //
-//  Created by JEROME on 2019/9/10.
+//  Created by JEROME on 2019/9/16.
 //  Copyright © 2019 jerome. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import XCDYouTubeKit
+import AVKit
+import CoreData
 
-class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
-  
+class YoutubePlayer {
   private let commandCenter = MPRemoteCommandCenter.shared()
   private let youtubeClient = XCDYouTubeClient(languageIdentifier: "zh")
-  private var youtubeID: String
-  private var streamURL: URL?
-  private var playingItem: AVPlayerItem? {
-    guard let streamURL = streamURL else {
-      return nil
+  private var isPlaying = false
+  private var isExtendingBGJob = false
+  private var youtubePlayerVC: JeromeYoutubePlayerVC?
+  private var coredataConnect: CoreDataConnect!
+  var video: Video? {
+    didSet {
+      getAndSaveVideoInfomation()
     }
-    return AVPlayerItem(url: streamURL)
+  }
+  private var streamURL: URL?
+  
+  init(context: NSManagedObjectContext) {
+    coredataConnect = CoreDataConnect(context: context)
   }
   
-  
-  override init(videoIdentifier: String?) {
-    youtubeID = videoIdentifier!
-    super.init(videoIdentifier: videoIdentifier)
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    setupYoutubeClient()
-  }
-  
-  private func setupYoutubeClient() {
-    youtubeClient.getVideoWithIdentifier(youtubeID) { [weak self] video, error in
+  func getAndSaveVideoInfomation() {
+    youtubeClient.getVideoWithIdentifier(video!.youtubeID!) { [weak self] video, error in
       guard let self = self else {
         return
       }
       guard error == nil else {
-        print(error!)
+        printLog(error.debugDescription, level: .error)
         return
       }
       guard let video = video else {
@@ -53,10 +45,31 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
       let streamURLs = video.streamURLs
       if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
         self.streamURL = tempStreamURL
-        self.setupRemoteCommandCenter()
-        self.setupNowPlayingInfo(video: video)
+        self.saveVideoInforamation(youtubeVideo: video)
       }
     }
+  }
+  
+  private func saveVideoInforamation(youtubeVideo: XCDYouTubeVideo) {
+    let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), video!.youtubeID!)
+    do {
+      try coredataConnect.update(type: Video.self, predicate: predicate, limit: 1, attributeInfo: [
+        #keyPath(Video.name) : youtubeVideo.title as Any,
+        #keyPath(Video.thumbnailURL) : youtubeVideo.thumbnailURL!.absoluteString as Any,
+        #keyPath(Video.url) : self.streamURL!.absoluteString as Any,
+        #keyPath(Video.duration) : youtubeVideo.duration as Any,
+        ])
+    } catch {
+      printLog(error, level: .error)
+    }
+    setupRemoteCommandCenter()
+    setupNowPlayingInfo()
+  }
+  
+  func play(video: Video) {
+    self.video = video
+    setupRemoteCommandCenter()
+    
   }
   
   private func setupRemoteCommandCenter() {
@@ -65,7 +78,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
     
     commandCenter.playCommand.addTarget { [weak self] event in
       guard let self = self else { return .commandFailed }
-      guard let player = self.moviePlayer else { return .commandFailed }
+      guard let player = self.youtubePlayerVC?.moviePlayer else { return .commandFailed }
       guard player.playbackState != .playing else {
         return .success
       }
@@ -78,7 +91,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
     
     commandCenter.pauseCommand.addTarget { [weak self] event -> MPRemoteCommandHandlerStatus in
       guard let self = self else { return .commandFailed }
-      guard let player = self.moviePlayer else { return .commandFailed }
+      guard let player = self.youtubePlayerVC?.moviePlayer else { return .commandFailed }
       guard player.playbackState == .playing else {
         return .success
       }
@@ -90,10 +103,14 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
     }
   }
   
-  func setupNowPlayingInfo(video: XCDYouTubeVideo) {
+  func setupNowPlayingInfo() {
+    guard let video = video else {
+      fatalError()
+    }
+    
     DispatchQueue.main.asyncAfter(deadline: .now()) {   // 要放在main thread才能更新remote center UI, 延後一秒，等songItem 準備好
       MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-        MPMediaItemPropertyTitle: video.title,
+        MPMediaItemPropertyTitle: video.name!,
         MPMediaItemPropertyPlaybackDuration: video.duration
       ]
       
@@ -104,7 +121,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
         MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = artwork
       }
       // TODO： MPNowPlayingInfoPropertyElapsedPlaybackTime: NSNumber(value: CMTimeGetSeconds(songItem.currentTime()))
-      if let thumbnailURL = video.thumbnailURL {
+      if let thumbnailString = video.thumbnailURL, let thumbnailURL = URL(string: thumbnailString) {
         ImageLoader.shared.imageByURL(thumbnailURL, completionHandler: { image, _ in
           guard let image = image else {
             printLog("No Image", level: .debug)
@@ -119,4 +136,10 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
       }
     }
   }
+}
+
+struct YouTubeVideoQuality {
+  static let hd720 = NSNumber(value: XCDYouTubeVideoQuality.HD720.rawValue)
+  static let medium360 = NSNumber(value: XCDYouTubeVideoQuality.medium360.rawValue)
+  static let small240 = NSNumber(value: XCDYouTubeVideoQuality.small240.rawValue)
 }
