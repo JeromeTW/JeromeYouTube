@@ -60,6 +60,7 @@ extension CategoryDetailVC: UITableViewDelegate {
     guard let categoryDetailTableViewCell = cell as? CategoryDetailTableViewCell else {
       fatalError()
     }
+    categoryDetailTableViewCell.beforeReuse()
     categoryDetailTableViewCell.updateUI(by: video)
   }
 }

@@ -30,7 +30,7 @@ class YoutubePlayer {
   }
   
   func getAndSaveVideoInfomation() {
-    youtubeClient.getVideoWithIdentifier(video!.youtubeID!) { [weak self] video, error in
+    youtubeClient.getVideoWithIdentifier(video!.youtubeID!) { [weak self] youtubeVideo, error in
       guard let self = self else {
         return
       }
@@ -38,14 +38,19 @@ class YoutubePlayer {
         printLog(error.debugDescription, level: .error)
         return
       }
-      guard let video = video else {
+      guard let youtubeVideo = youtubeVideo else {
         assertionFailure()
         return
       }
-      let streamURLs = video.streamURLs
+      let streamURLs = youtubeVideo.streamURLs
       if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
         self.streamURL = tempStreamURL
-        self.saveVideoInforamation(youtubeVideo: video)
+        self.saveVideoInforamation(youtubeVideo: youtubeVideo)
+        if let url = youtubeVideo.thumbnailURL {
+          ImageLoader.shared.imageByURL(url) {
+            _, _ in
+          }
+        }
       }
     }
   }
@@ -62,14 +67,12 @@ class YoutubePlayer {
     } catch {
       printLog(error, level: .error)
     }
-    setupRemoteCommandCenter()
-    setupNowPlayingInfo()
   }
   
   func play(video: Video) {
     self.video = video
     setupRemoteCommandCenter()
-    
+    setupNowPlayingInfo()
   }
   
   private func setupRemoteCommandCenter() {

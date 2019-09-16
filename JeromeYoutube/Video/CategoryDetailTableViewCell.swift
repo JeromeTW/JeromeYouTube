@@ -24,9 +24,23 @@ class CategoryDetailTableViewCell: UITableViewCell {
     // Configure the view for the selected state
   }
   
-  func updateUI(by video: Video) {
-    titleLabel.text = video.name
-//    thumbnailImage.image = UIImage(
+  func beforeReuse() {
+    titleLabel.text = nil
+    thumbnailImage.image = nil
   }
   
+  func updateUI(by video: Video) {
+    titleLabel.text = video.name
+    if let urlString = video.thumbnailURL, let url = URL(string: urlString) {
+      ImageLoader.shared.imageByURL(url) {
+        [weak self] image, url in
+        guard let self = self else {
+          return
+        }
+        if let image = image {
+          self.thumbnailImage.image = image
+        }
+      }
+    }
+  }
 }

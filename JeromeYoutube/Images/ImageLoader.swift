@@ -21,13 +21,17 @@ class ImageLoader {
     return queue
   }()
   
-  func imageByURL(_ url: URL, completionHandler: @escaping (_ image: UIImage?, _ url: URL) -> ()) {
+  func imageByURL(_ url: URL, completionHandler: @escaping (_ image: UIImage?, _ url: URL) -> Void) {
     // get image from cache
-    if let imageFromCache = imageCache.object(forKey: url.absoluteString as NSString) as? UIImage {
+    if let imageFromCache = imageCache.object(forKey: url.absoluteString as NSString) {
       completionHandler(imageFromCache, url)
       return
     } else {
       // if no image from cache, get image from url
+      // 檢查是否有重複的下載圖片請求
+      guard requestOperationDictionary[url] == nil else {
+        return
+      }
       let request = APIRequest(url: url)
       func mainThreadCompletionHandler(image innerImage: UIImage?, _ url: URL) {
         DispatchQueue.main.async {
