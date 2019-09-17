@@ -19,7 +19,7 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
   
   var observer: NSObjectProtocol?
   
-  private lazy var youtubePlayer = YoutubePlayer()
+  let youtubePlayer = YoutubePlayer.shared
   
   @IBOutlet weak var titleLabel: UILabel! {
     didSet {

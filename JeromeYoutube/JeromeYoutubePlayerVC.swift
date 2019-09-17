@@ -22,7 +22,6 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
     return AVPlayerItem(url: streamURL)
   }
   
-  
   override init(videoIdentifier: String?) {
     youtubeID = videoIdentifier!
     super.init(videoIdentifier: videoIdentifier)
@@ -35,6 +34,10 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupYoutubeClient()
+  }
+  
+  deinit {
+    YoutubePlayer.shared.youtubePlayerVC = nil
   }
   
   private func setupYoutubeClient() {

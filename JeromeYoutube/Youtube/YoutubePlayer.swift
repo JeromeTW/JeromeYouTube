@@ -12,6 +12,9 @@ import AVKit
 import CoreData
 
 class YoutubePlayer {
+  
+  static var shared = YoutubePlayer()
+  
   private let commandCenter = MPRemoteCommandCenter.shared()
   private let youtubeClient = XCDYouTubeClient(languageIdentifier: "zh")
   private var isPlaying = false
@@ -24,7 +27,9 @@ class YoutubePlayer {
     }
   }
   private var streamURL: URL?
-    
+  
+  private init() { }
+  
   func getAndSaveVideoInfomation() {
     youtubeClient.getVideoWithIdentifier(video!.youtubeID) { [weak self] youtubeVideo, error in
       guard let self = self else {

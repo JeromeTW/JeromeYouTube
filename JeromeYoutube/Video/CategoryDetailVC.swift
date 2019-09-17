@@ -21,7 +21,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
   
   var category: VideoCategory!
   var coredataConnect = CoreDataConnect()
-  private lazy var youtubePlayer = YoutubePlayer()
+  let youtubePlayer = YoutubePlayer.shared
   
   @IBOutlet weak var titleLabel: UILabel! {
     didSet {
