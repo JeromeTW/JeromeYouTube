@@ -33,7 +33,14 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
     return frc
   }()
   
-  @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var tableView: UITableView! {
+    didSet {
+      tableView.tableFooterView = UIView()
+      tableView.contentInset = UIEdgeInsets(top: CGFloat.statusAndNavigationTotalHeight - 1, left: 0, bottom: 0, right: 0)
+      tableView.contentInsetAdjustmentBehavior = .never
+    }
+  }
+  
   var viewContext: NSManagedObjectContext!
   private var coredataConnect = CoreDataConnect()
   private var blockOperations = [BlockOperation]()
@@ -48,7 +55,6 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
   
   override func setupData() {
     super.setupData()
-    tableView.tableFooterView = UIView()
     tableView.dataSource = self
     tableView.delegate = self
   }

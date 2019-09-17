@@ -11,9 +11,21 @@ import  DeviceGuru
 
 extension DeviceGuru {
   var hasSensorHousing: Bool {
-    let deviceGuru = DeviceGuru()
-    let deviceName = deviceGuru.hardware()
+    let deviceName = hardware()
     let hasSensorHousingDevices: [Hardware] = [.iphoneX, .iphoneXS, .iphoneXSMax, .iphoneXSMaxChina, .iphoneXR]
     return hasSensorHousingDevices.contains(deviceName)
+  }
+}
+
+extension CGFloat {
+  static var statusAndNavigationTotalHeight: CGFloat {
+    let navaigationHeight = CGFloat.navagationViewHeight
+    var statusHeight: CGFloat = 0
+    if DeviceGuru().hasSensorHousing {
+      statusHeight = CGFloat.iPhoneXStatusBarHeight
+    } else {
+      statusHeight = CGFloat.defaultStatusBarHeight
+    }
+    return navaigationHeight + statusHeight
   }
 }

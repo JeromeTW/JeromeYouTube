@@ -18,6 +18,11 @@ extension UIViewController {
   }
 }
 
+/* NOTE: 如果 ContentView 是 ScrollView 並且想要有 JeromeNavigationBar 半透明的壓在 ScrollView 上。需要進行一下操作：
+    1. contentView 與 VC.view top 對齊。
+    2. scrollView.contentInset = UIEdgeInsets(top: CGFloat.statusAndNavigationTotalHeight - 1, left: 0, bottom: 0, right: 0)
+    3. scrollView.contentInsetAdjustmentBehavior = .never
+ */
 protocol HasJeromeNavigationBar: UIViewController {
   var topView: UIView! { get set }
   var statusView: UIView! { get set }
@@ -62,11 +67,7 @@ extension HasJeromeNavigationBar {
     
     let statusHeight = UIApplication.shared.statusBarFrame.size.height
     statusViewHeightConstraint.constant = statusHeight
-    if UIApplication.shared.statusBarOrientation.isPortrait {
-      navagationViewHeightConstraint.constant = 44
-    } else {
-      navagationViewHeightConstraint.constant = 32
-    }
+    navagationViewHeightConstraint.constant = CGFloat.navagationViewHeight
   }
   
   func removeSatusBarHeightChangedObserver() {

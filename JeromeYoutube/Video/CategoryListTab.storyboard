@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oiV-Gq-cqZ" userLabel="Content View">
-                                <rect key="frame" x="0.0" y="87" width="414" height="775"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yM5-em-EmW">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="775"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yM5-em-EmW">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryListTableViewCell" rowHeight="100" id="Cgc-6N-kPf" customClass="CategoryListTableViewCell" customModule="JeromeYoutube" customModuleProvider="target">
@@ -143,9 +143,9 @@
                         <color key="backgroundColor" red="0.32369780539999998" green="0.1063579395" blue="0.574860394" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="xnQ-wv-KPb" firstAttribute="bottom" secondItem="oiV-Gq-cqZ" secondAttribute="bottom" id="5j5-tQ-INe"/>
-                            <constraint firstItem="oiV-Gq-cqZ" firstAttribute="top" secondItem="P7B-xR-Cbu" secondAttribute="bottom" id="8wo-IK-kTJ"/>
                             <constraint firstItem="P7B-xR-Cbu" firstAttribute="top" secondItem="iGB-vf-eja" secondAttribute="top" id="H1p-ip-ruh"/>
                             <constraint firstItem="xnQ-wv-KPb" firstAttribute="trailing" secondItem="oiV-Gq-cqZ" secondAttribute="trailing" id="rOC-7p-kAR"/>
+                            <constraint firstItem="oiV-Gq-cqZ" firstAttribute="top" secondItem="iGB-vf-eja" secondAttribute="top" id="sga-mm-1Ae"/>
                             <constraint firstAttribute="trailing" secondItem="P7B-xR-Cbu" secondAttribute="trailing" id="sjR-3t-HKU"/>
                             <constraint firstItem="oiV-Gq-cqZ" firstAttribute="leading" secondItem="xnQ-wv-KPb" secondAttribute="leading" id="tRL-eX-VOD"/>
                             <constraint firstItem="P7B-xR-Cbu" firstAttribute="leading" secondItem="iGB-vf-eja" secondAttribute="leading" id="vcC-Tf-vKc"/>
@@ -176,10 +176,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k7r-j3-Crc" userLabel="Content View">
-                                <rect key="frame" x="0.0" y="87" width="414" height="775"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b2j-iK-iJF">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="775"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b2j-iK-iJF">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryDetailTableViewCell" rowHeight="100" id="fht-gQ-syr" customClass="CategoryDetailTableViewCell" customModule="JeromeYoutube" customModuleProvider="target">
@@ -286,7 +286,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.32369780539999998" green="0.1063579395" blue="0.574860394" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="k7r-j3-Crc" firstAttribute="top" secondItem="gMR-Pe-Lml" secondAttribute="bottom" id="DoZ-Ym-dQZ"/>
+                            <constraint firstItem="k7r-j3-Crc" firstAttribute="top" secondItem="w3C-49-oeK" secondAttribute="top" id="Dq0-1f-K5U"/>
                             <constraint firstItem="gMR-Pe-Lml" firstAttribute="top" secondItem="w3C-49-oeK" secondAttribute="top" id="GlC-5H-mjd"/>
                             <constraint firstItem="gMR-Pe-Lml" firstAttribute="leading" secondItem="w3C-49-oeK" secondAttribute="leading" id="XZj-mF-WU4"/>
                             <constraint firstItem="k7r-j3-Crc" firstAttribute="leading" secondItem="ZrY-SA-Yls" secondAttribute="leading" id="n9b-qd-aj9"/>

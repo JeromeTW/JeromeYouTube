@@ -29,11 +29,17 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
     }
   }
   
-  @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var tableView: UITableView! {
+    didSet {
+      tableView.tableFooterView = UIView()
+      tableView.contentInset = UIEdgeInsets(top: CGFloat.statusAndNavigationTotalHeight - 1, left: 0, bottom: 0, right: 0)
+      tableView.contentInsetAdjustmentBehavior = .never
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    assert(category != nil && coredataConnect != nil)
+    assert(category != nil)
     setupData()
     setupSatusBarFrameChangedObserver()
     updateTopView()
@@ -45,7 +51,6 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
   
   override func setupData() {
     super.setupData()
-    tableView.tableFooterView = UIView()
     tableView.dataSource = self
     tableView.delegate = self
   }
