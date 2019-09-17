@@ -10,8 +10,11 @@ import CoreData
 import UIKit
 
 class CategoryDetailVC: BaseViewController, Storyboarded {
+  
   var category: VideoCategory!
-  var coredataConnect: CoreDataConnect!
+  var coredataConnect = CoreDataConnect()
+  private lazy var youtubePlayer = YoutubePlayer()
+  
   @IBOutlet weak var titleLabel: UILabel! {
     didSet {
       titleLabel.text = category.name
@@ -62,5 +65,16 @@ extension CategoryDetailVC: UITableViewDelegate {
     }
     categoryDetailTableViewCell.beforeReuse()
     categoryDetailTableViewCell.updateUI(by: video)
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let video = category.videos?.object(at: indexPath.row) as? Video else {
+      fatalError()
+    }
+    youtubePlayer.play(video: video)
+    let videoPlayerViewController = JeromeYoutubePlayerVC(videoIdentifier: video.youtubeID)
+    present(videoPlayerViewController, animated: true) {
+      videoPlayerViewController.moviePlayer.play()
+    }
   }
 }
