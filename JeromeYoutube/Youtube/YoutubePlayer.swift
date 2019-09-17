@@ -30,7 +30,7 @@ class YoutubePlayer {
   }
   
   func getAndSaveVideoInfomation() {
-    youtubeClient.getVideoWithIdentifier(video!.youtubeID!) { [weak self] youtubeVideo, error in
+    youtubeClient.getVideoWithIdentifier(video!.youtubeID) { [weak self] youtubeVideo, error in
       guard let self = self else {
         return
       }
@@ -56,7 +56,7 @@ class YoutubePlayer {
   }
   
   private func saveVideoInforamation(youtubeVideo: XCDYouTubeVideo) {
-    let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), video!.youtubeID!)
+    let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), video!.youtubeID)
     do {
       try coredataConnect.update(type: Video.self, predicate: predicate, limit: 1, attributeInfo: [
         #keyPath(Video.name) : youtubeVideo.title as Any,

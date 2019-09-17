@@ -9,6 +9,59 @@
 import CoreData
 import Foundation
 
+@objc(VideoCategory)
+public class VideoCategory: NSManagedObject {
+  
+}
+
+extension VideoCategory {
+  
+  @nonobjc public class func fetchRequest() -> NSFetchRequest<VideoCategory> {
+    return NSFetchRequest<VideoCategory>(entityName: "VideoCategory")
+  }
+  
+  @NSManaged public var id: Int64
+  @NSManaged public var name: String?
+  @NSManaged public var order: Int64
+  @NSManaged public var videos: NSOrderedSet?
+  
+}
+
+// MARK: Generated accessors for videos
+extension VideoCategory {
+  
+  @objc(insertObject:inVideosAtIndex:)
+  @NSManaged public func insertIntoVideos(_ value: Video, at idx: Int)
+  
+  @objc(removeObjectFromVideosAtIndex:)
+  @NSManaged public func removeFromVideos(at idx: Int)
+  
+  @objc(insertVideos:atIndexes:)
+  @NSManaged public func insertIntoVideos(_ values: [Video], at indexes: NSIndexSet)
+  
+  @objc(removeVideosAtIndexes:)
+  @NSManaged public func removeFromVideos(at indexes: NSIndexSet)
+  
+  @objc(replaceObjectInVideosAtIndex:withObject:)
+  @NSManaged public func replaceVideos(at idx: Int, with value: Video)
+  
+  @objc(replaceVideosAtIndexes:withVideos:)
+  @NSManaged public func replaceVideos(at indexes: NSIndexSet, with values: [Video])
+  
+  @objc(addVideosObject:)
+  @NSManaged public func addToVideos(_ value: Video)
+  
+  @objc(removeVideosObject:)
+  @NSManaged public func removeFromVideos(_ value: Video)
+  
+  @objc(addVideos:)
+  @NSManaged public func addToVideos(_ values: NSOrderedSet)
+  
+  @objc(removeVideos:)
+  @NSManaged public func removeFromVideos(_ values: NSOrderedSet)
+  
+}
+
 extension CoreDataConnect {
   public func insertFirstVideoCategoryIfNeeded() {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), VideoCategory.undeineCatogoryName)
