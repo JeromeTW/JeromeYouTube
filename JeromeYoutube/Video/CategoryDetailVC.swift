@@ -9,7 +9,15 @@
 import CoreData
 import UIKit
 
-class CategoryDetailVC: BaseViewController, Storyboarded {
+class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
+  
+  @IBOutlet weak var topView: UIView!
+  @IBOutlet weak var statusView: UIView!
+  @IBOutlet weak var navagationView: UIView!
+  @IBOutlet weak var statusViewHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var navagationViewHeightConstraint: NSLayoutConstraint!
+  
+  var observer: NSObjectProtocol?
   
   var category: VideoCategory!
   var coredataConnect = CoreDataConnect()
@@ -27,6 +35,12 @@ class CategoryDetailVC: BaseViewController, Storyboarded {
     super.viewDidLoad()
     assert(category != nil && coredataConnect != nil)
     setupData()
+    setupSatusBarFrameChangedObserver()
+    updateTopView()
+  }
+  
+  deinit {
+    removeSatusBarHeightChangedObserver()
   }
   
   override func setupData() {

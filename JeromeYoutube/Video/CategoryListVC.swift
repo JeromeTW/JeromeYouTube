@@ -10,7 +10,14 @@ import CoreData
 import UIKit
 import SafariServices
 
-class CategoryListVC: BaseViewController, Storyboarded {
+class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
+  @IBOutlet weak var topView: UIView!
+  @IBOutlet weak var statusView: UIView!
+  @IBOutlet weak var navagationView: UIView!
+  @IBOutlet weak var statusViewHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var navagationViewHeightConstraint: NSLayoutConstraint!
+  
+  var observer: NSObjectProtocol?
   
   private lazy var youtubePlayer = YoutubePlayer()
   
@@ -35,6 +42,8 @@ class CategoryListVC: BaseViewController, Storyboarded {
     super.viewDidLoad()
     assert(viewContext != nil)
     setupData()
+    setupSatusBarFrameChangedObserver()
+    updateTopView()
   }
   
   override func setupData() {
@@ -42,6 +51,10 @@ class CategoryListVC: BaseViewController, Storyboarded {
     tableView.tableFooterView = UIView()
     tableView.dataSource = self
     tableView.delegate = self
+  }
+  
+  deinit {
+    removeSatusBarHeightChangedObserver()
   }
   
   @IBAction func addBtnPressed(_ sender: Any) {
