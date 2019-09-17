@@ -120,6 +120,7 @@ extension AppDelegate {
   private func setupLogTextView() {
     #if DEBUG
     guard let window = window else { return }
+    guard logger.shouldShow else { return }
     
     if #available(iOS 11.0, *) {
       window.addSubview(logTextView, constraints: [
