@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,18 +18,21 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cjh-2c-cQG" userLabel="Top View">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JLZ-IK-9IG" userLabel="Status View">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <color key="backgroundColor" red="0.45138680930000002" green="0.99309605359999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="ywc-N3-y87"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PuY-8f-eR7" userLabel="Navigation Bar View">
-                                <rect key="frame" x="0.0" y="43" width="600" height="85"/>
+                                <rect key="frame" x="0.0" y="43" width="414" height="85"/>
                                 <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="85" id="U0c-ip-bCy"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -37,11 +44,10 @@
                             <constraint firstAttribute="trailing" secondItem="JLZ-IK-9IG" secondAttribute="trailing" id="btq-6D-lZ9"/>
                             <constraint firstItem="JLZ-IK-9IG" firstAttribute="top" secondItem="cjh-2c-cQG" secondAttribute="top" id="gsN-ZY-Wgn"/>
                             <constraint firstAttribute="bottom" secondItem="PuY-8f-eR7" secondAttribute="bottom" id="hNM-EC-IC7"/>
-                            <constraint firstAttribute="height" constant="128" id="knv-hD-hIA"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dge-gD-5ww" userLabel="Content View">
-                        <rect key="frame" x="0.0" y="128" width="600" height="472"/>
+                        <rect key="frame" x="0.0" y="128" width="414" height="734"/>
                         <color key="backgroundColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </subviews>
