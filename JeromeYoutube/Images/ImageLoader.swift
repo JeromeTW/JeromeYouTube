@@ -31,8 +31,7 @@ class ImageLoader {
       // 檢查是否有重複的下載圖片請求
       guard requestOperationDictionary[url] == nil else {
         let prevoiusOperation = requestOperationDictionary[url]!
-        let emptyOperation = Operation()
-        emptyOperation.completionBlock = {
+        let blockOperation = BlockOperation {
           DispatchQueue.main.async {
             [weak self] in
             guard let self = self else {
@@ -44,8 +43,8 @@ class ImageLoader {
             completionHandler(image, url)
           }
         }
-        emptyOperation.addDependency(prevoiusOperation)
-        queue.addOperation(emptyOperation)
+        blockOperation.addDependency(prevoiusOperation)
+        queue.addOperation(blockOperation)
         return
       }
       let request = APIRequest(url: url)
