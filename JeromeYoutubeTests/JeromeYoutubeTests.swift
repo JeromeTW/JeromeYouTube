@@ -51,9 +51,11 @@ class JeromeYoutubeTests: XCTestCase {
   }
   
   class SypQueue: OperationQueue {
-    var operationFiredCounter = 0
+    var networkOperationFiredCounter = 0
     override func addOperation(_ op: Operation) {
-      operationFiredCounter += 1
+      if op is NetworkRequestOperation {
+        networkOperationFiredCounter += 1
+      }
       super.addOperation(op)
     }
   }
@@ -75,7 +77,7 @@ class JeromeYoutubeTests: XCTestCase {
     imageLoader.imageByURL(successfulURL) { (image, url) in
       if image != nil {
         print("testImageLoader-2")
-        XCTAssert(spyQueue.operationCount < 2)
+        XCTAssert(spyQueue.networkOperationFiredCounter < 2)
         exp.fulfill()
       }
     }
