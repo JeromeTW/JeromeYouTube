@@ -42,9 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     application.beginReceivingRemoteControlEvents()
     UserDefaults.standard.setAPPVersionAndHistory()
     setupLogConfigure()
-    setupLogTextView()
     logger.log("NSHomeDirectory:\(NSHomeDirectory())", level: .debug)
     setupWindow()
+    setupLogTextView()
     setupCoreDataDB()
     return true
   }
@@ -114,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: - Log
 extension AppDelegate {
   private func setupLogConfigure() {
-    logger.configure([.error, .warning, .debug, .info], shouldShow: false, shouldCache: false)
+    logger.configure([.error, .warning, .debug, .info], shouldShow: false, shouldCache: true)
   }
   
   private func setupLogTextView() {
