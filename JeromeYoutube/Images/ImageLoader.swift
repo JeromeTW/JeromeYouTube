@@ -68,7 +68,10 @@ class ImageLoader {
           operation.completeOperation()
         }
         guard operation.isCancelled == false else {
-          mainThreadCompletionHandler(image: nil, url)
+          // 取消的話就不執行 CompletionHandler
+          for dependenceOp in operation.dependencies {
+            operation.removeDependency(dependenceOp)
+          }
           return
         }
         
