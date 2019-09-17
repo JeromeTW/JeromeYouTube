@@ -44,6 +44,22 @@ extension HasJeromeNavigationBar {
   }
   
   func updateTopView() {
+    topView.backgroundColor = .clear
+    let defaultNavigationBarColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 0.5)
+    
+    navagationView.removeToolBar()
+    statusView.removeToolBar()
+    
+    let toolbar1 = UIToolbar(frame: navagationView.bounds)
+    toolbar1.setShadowImage(UIImage(), forToolbarPosition: .any)
+    navagationView.backgroundColor = defaultNavigationBarColor
+    navagationView.insertSubview(toolbar1, at: 0)
+    
+    let toolbar2 = UIToolbar(frame: statusView.bounds)
+    toolbar2.setShadowImage(UIImage(), forToolbarPosition: .any)
+    statusView.backgroundColor = defaultNavigationBarColor
+    statusView.insertSubview(toolbar2, at: 0)
+    
     let statusHeight = UIApplication.shared.statusBarFrame.size.height
     statusViewHeightConstraint.constant = statusHeight
     if UIApplication.shared.statusBarOrientation.isPortrait {
@@ -56,6 +72,19 @@ extension HasJeromeNavigationBar {
   func removeSatusBarHeightChangedObserver() {
     if let observer = observer {
       NotificationCenter.default.removeObserver(observer)
+    }
+  }
+}
+
+extension UIView {
+  func removeToolBar() {
+    for subview in subviews where subview is UIToolbar {
+      subview.removeFromSuperview()
+    }
+  }
+  func removeSubviews() {
+    for subview in subviews {
+      subview.removeFromSuperview()
     }
   }
 }
