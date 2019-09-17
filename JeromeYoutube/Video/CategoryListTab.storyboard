@@ -239,13 +239,13 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VrI-OC-PNN">
-                                                            <rect key="frame" x="20" y="-12" width="372.5" height="123.5"/>
+                                                            <rect key="frame" x="20" y="34" width="372.5" height="32"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Soso" translatesAutoresizingMaskIntoConstraints="NO" id="jx3-Ch-kWB">
-                                                                    <rect key="frame" x="16" y="8" width="130.5" height="107.50000000000003"/>
+                                                                    <rect key="frame" x="16" y="8" width="16" height="16"/>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lve-wb-c4i">
-                                                                    <rect key="frame" x="162.5" y="48.5" width="52.5" height="26.5"/>
+                                                                    <rect key="frame" x="48" y="2.5" width="52.5" height="26.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>

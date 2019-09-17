@@ -7,4 +7,5 @@ target 'JeromeYoutube' do
   pod "XCDYouTubeKit", "~> 2.8"
   pod 'R.swift'
   pod 'SwiftLint'
+  pod 'DeviceGuru'
 end

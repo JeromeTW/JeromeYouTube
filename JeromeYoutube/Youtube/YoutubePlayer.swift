@@ -31,7 +31,7 @@ class YoutubePlayer {
         return
       }
       guard error == nil else {
-        printLog(error.debugDescription, level: .error)
+        logger.log(error.debugDescription, level: .error)
         return
       }
       guard let youtubeVideo = youtubeVideo else {
@@ -61,7 +61,7 @@ class YoutubePlayer {
         #keyPath(Video.duration) : youtubeVideo.duration as Any,
         ])
     } catch {
-      printLog(error, level: .error)
+      logger.log(error, level: .error)
     }
   }
   
@@ -123,7 +123,7 @@ class YoutubePlayer {
       if let thumbnailString = video.thumbnailURL, let thumbnailURL = URL(string: thumbnailString) {
         ImageLoader.shared.imageByURL(thumbnailURL, completionHandler: { image, _ in
           guard let image = image else {
-            printLog("No Image", level: .debug)
+            logger.log("No Image", level: .debug)
             return
           }
           setMPMediaItemPropertyArtwork(image: image)

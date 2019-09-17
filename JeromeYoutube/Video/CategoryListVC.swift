@@ -91,7 +91,7 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
         self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
       } catch {
         // TODO: Error Handling
-        printLog(error.localizedDescription, level: .error)
+        logger.log(error.localizedDescription, level: .error)
       }
     }
   }

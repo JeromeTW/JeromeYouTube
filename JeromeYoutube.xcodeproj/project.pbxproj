@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		021B5FD123288FED000B192B /* LogLevelConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FCE23288FED000B192B /* LogLevelConfigurator.swift */; };
-		021B5FD323289173000B192B /* PrintLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FD223289173000B192B /* PrintLog.swift */; };
+		02187FC723308BA40040C5AC /* DeviceGuruExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02187FC623308BA40040C5AC /* DeviceGuruExtension.swift */; };
+		02187FC92330C4350040C5AC /* AdvancedLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02187FC82330C4350040C5AC /* AdvancedLogger.swift */; };
+		02187FCA2330C9100040C5AC /* BaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FCE23288FED000B192B /* BaseLogger.swift */; };
+		021B5FD123288FED000B192B /* BaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FCE23288FED000B192B /* BaseLogger.swift */; };
 		021B5FD5232891D7000B192B /* LogTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FD4232891D7000B192B /* LogTextView.swift */; };
 		021B5FD9232891F1000B192B /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FD7232891F1000B192B /* NSObjectExtension.swift */; };
 		021B5FDA232891F1000B192B /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FD8232891F1000B192B /* CGFloatExtension.swift */; };
@@ -59,8 +61,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		021B5FCE23288FED000B192B /* LogLevelConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogLevelConfigurator.swift; sourceTree = "<group>"; };
-		021B5FD223289173000B192B /* PrintLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintLog.swift; sourceTree = "<group>"; };
+		02187FC623308BA40040C5AC /* DeviceGuruExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceGuruExtension.swift; sourceTree = "<group>"; };
+		02187FC82330C4350040C5AC /* AdvancedLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedLogger.swift; sourceTree = "<group>"; };
+		021B5FCE23288FED000B192B /* BaseLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseLogger.swift; sourceTree = "<group>"; };
 		021B5FD4232891D7000B192B /* LogTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogTextView.swift; sourceTree = "<group>"; };
 		021B5FD7232891F1000B192B /* NSObjectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		021B5FD8232891F1000B192B /* CGFloatExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatExtension.swift; sourceTree = "<group>"; };
@@ -123,9 +126,9 @@
 		021B5FCB23288FED000B192B /* Log */ = {
 			isa = PBXGroup;
 			children = (
-				021B5FD223289173000B192B /* PrintLog.swift */,
 				021B5FD4232891D7000B192B /* LogTextView.swift */,
-				021B5FCE23288FED000B192B /* LogLevelConfigurator.swift */,
+				021B5FCE23288FED000B192B /* BaseLogger.swift */,
+				02187FC82330C4350040C5AC /* AdvancedLogger.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 				0235E0F72329CDFF00A82B7F /* UITabBarControllerExtension.swift */,
 				0235E0FB2329D53C00A82B7F /* StoryboardExtension.swift */,
 				02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */,
+				02187FC623308BA40040C5AC /* DeviceGuruExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -488,11 +492,12 @@
 				021B5FD9232891F1000B192B /* NSObjectExtension.swift in Sources */,
 				022A4DE4232A34DD006EA137 /* CoreDataConnect.swift in Sources */,
 				02B816A82329E80F00C81F8D /* Video.xcdatamodeld in Sources */,
-				021B5FD123288FED000B192B /* LogLevelConfigurator.swift in Sources */,
+				021B5FD123288FED000B192B /* BaseLogger.swift in Sources */,
 				022A4DE7232A3871006EA137 /* VideoCategory+CoreData.swift in Sources */,
 				022A4DE2232A34C8006EA137 /* NSPersistentContainerExtension.swift in Sources */,
 				02644703232781A100822485 /* AppDelegate.swift in Sources */,
-				021B5FD323289173000B192B /* PrintLog.swift in Sources */,
+				02187FC723308BA40040C5AC /* DeviceGuruExtension.swift in Sources */,
+				02187FC92330C4350040C5AC /* AdvancedLogger.swift in Sources */,
 				02A5BFAB232C7CB100E85495 /* Video+CoredData.swift in Sources */,
 				021B5FDF232895FB000B192B /* NetworkRequestOperation.swift in Sources */,
 				02E1299A232B420500E04942 /* Observable.swift in Sources */,
@@ -521,6 +526,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02A5BFB6232C932E00E85495 /* JeromeYoutubeTests.swift in Sources */,
+				02187FCA2330C9100040C5AC /* BaseLogger.swift in Sources */,
 				02A5BFBD232C94CB00E85495 /* YoutubeHelper.swift in Sources */,
 				02B48CCE232F6E6F00F8AA85 /* ImageLoader.swift in Sources */,
 				02B48CCB232F6E5D00F8AA85 /* NetworkRequestOperation.swift in Sources */,
@@ -711,12 +717,17 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 47FGBWZVJ9;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = JeromeYoutubeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "-DTEST";
 				PRODUCT_BUNDLE_IDENTIFIER = me.jerome.JeromeYoutubeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -737,6 +748,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "-DTEST";
 				PRODUCT_BUNDLE_IDENTIFIER = me.jerome.JeromeYoutubeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

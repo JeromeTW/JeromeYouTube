@@ -13,6 +13,7 @@ class JeromeYoutubeTests: XCTestCase {
   
   override func setUp() {
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    logger.configure([.error, .warning, .debug, .info], shouldShow: false, shouldCache: false)
   }
   
   override func tearDown() {
@@ -71,12 +72,12 @@ class JeromeYoutubeTests: XCTestCase {
     imageLoader.queue.maxConcurrentOperationCount = 1
     imageLoader.imageByURL(successfulURL) { (image, url) in
       if image != nil {
-        print("testImageLoader-1")
+        logger.log("testImageLoader-1")
       }
     }
     imageLoader.imageByURL(successfulURL) { (image, url) in
       if image != nil {
-        print("testImageLoader-2")
+        logger.log("testImageLoader-2")
         XCTAssert(spyQueue.networkOperationFiredCounter < 2)
         exp.fulfill()
       }

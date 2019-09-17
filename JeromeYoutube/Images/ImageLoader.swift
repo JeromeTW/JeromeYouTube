@@ -82,16 +82,16 @@ class ImageLoader {
               self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
               mainThreadCompletionHandler(image: image, url)
             } else {
-              print("Data Format Wrong")
+              logger.log("Data Format Wrong")
               mainThreadCompletionHandler(image: nil, url)
             }
           } else {
-            print("No Data")
+            logger.log("No Data")
             mainThreadCompletionHandler(image: nil, url)
           }
           
         case .failure:
-          print("failed")
+          logger.log("failed")
           mainThreadCompletionHandler(image: nil, url)
         }
       }

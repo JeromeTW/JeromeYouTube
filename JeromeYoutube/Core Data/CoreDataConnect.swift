@@ -131,7 +131,7 @@ class CoreDataConnect {
       try fetchedResultsController.performFetch()
     } catch {
       let fetchError = error as NSError
-      printLog("\(fetchError), \(fetchError.userInfo)", level: .error)
+      logger.log("\(fetchError), \(fetchError.userInfo)", level: .error)
     }
 
     return fetchedResultsController

@@ -36,14 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     catch
     {
-      print(error)
+      logger.log(error)
     }
     // This will enable to show nowplaying controls on lock screen
     application.beginReceivingRemoteControlEvents()
     UserDefaults.standard.setAPPVersionAndHistory()
     setupLogConfigure()
     setupLogTextView()
-    printLog("NSHomeDirectory:\(NSHomeDirectory())", level: .debug)
+    logger.log("NSHomeDirectory:\(NSHomeDirectory())", level: .debug)
     setupWindow()
     setupCoreDataDB()
     return true
@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     do {
       try persistentContainer.saveContext()
     } catch {
-      printLog("Error:\(error.localizedDescription)", level: .error)
+      logger.log("Error:\(error.localizedDescription)", level: .error)
     }
   }
   
@@ -114,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: - Log
 extension AppDelegate {
   private func setupLogConfigure() {
-    LogLevelConfigurator.shared.configure([.error, .warning, .debug, .info], shouldShow: false, shouldCache: false)
+    logger.configure([.error, .warning, .debug, .info], shouldShow: false, shouldCache: false)
   }
   
   private func setupLogTextView() {

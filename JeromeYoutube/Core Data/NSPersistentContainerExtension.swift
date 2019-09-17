@@ -15,7 +15,7 @@ extension NSPersistentContainer {
     do {
       try context.save()
     } catch {
-      printLog("Error: \(error.localizedDescription)", level: .error)
+      logger.log("Error: \(error.localizedDescription)", level: .error)
       throw error
     }
   }

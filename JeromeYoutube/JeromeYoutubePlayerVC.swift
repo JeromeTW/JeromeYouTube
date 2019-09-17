@@ -43,7 +43,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
         return
       }
       guard error == nil else {
-        print(error!)
+        logger.log(error!)
         return
       }
       guard let video = video else {
@@ -107,7 +107,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
       if let thumbnailURL = video.thumbnailURL {
         ImageLoader.shared.imageByURL(thumbnailURL, completionHandler: { image, _ in
           guard let image = image else {
-            printLog("No Image", level: .debug)
+            logger.log("No Image", level: .debug)
             return
           }
           setMPMediaItemPropertyArtwork(image: image)
