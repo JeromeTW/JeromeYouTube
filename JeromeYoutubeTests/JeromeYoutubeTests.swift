@@ -84,6 +84,19 @@ class JeromeYoutubeTests: XCTestCase {
     wait(for: [exp], timeout: 5)
   }
   
+  func test_ImageLoader_imageByURL_with_wrongURL() {
+    let exp = expectation(description: "Wrong URL")
+    let imageLoader = ImageLoader.shared
+    
+    let wrongURL = URL(string: "https://asdasdasdada")!
+
+    imageLoader.imageByURL(wrongURL) { (image, url) in
+      XCTAssert(image == nil)
+      exp.fulfill()
+    }
+    wait(for: [exp], timeout: 5)
+  }
+  
   func testPerformanceExample() {
     // This is an example of a performance test case.
     self.measure {
