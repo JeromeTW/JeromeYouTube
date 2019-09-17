@@ -36,6 +36,7 @@ class NetworkRequestOperation: AsynchronousOperation {
     task = session.dataTask(with: urlRequest) { (data, response, error) in
     if let error = error {
       completionHandler(.failure(.unknown(error: error)))
+      return
     }
   
     guard let httpResponse = response as? HTTPURLResponse else {
