@@ -15,6 +15,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
   private let youtubeClient = XCDYouTubeClient(languageIdentifier: "zh")
   private var youtubeID: String
   private var streamURL: URL?
+  private var observer: NSObjectProtocol?
   private var playingItem: AVPlayerItem? {
     guard let streamURL = streamURL else {
       return nil
@@ -34,10 +35,15 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupYoutubeClient()
+    observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.MPMoviePlayerPlaybackDidFinish, object: nil, queue: nil) { _ in
+      YoutubePlayer.shared.youtubePlayerVC = nil
+    }
   }
   
   deinit {
-    YoutubePlayer.shared.youtubePlayerVC = nil
+    if let observer = observer {
+      NotificationCenter.default.removeObserver(observer)
+    }
   }
   
   private func setupYoutubeClient() {
@@ -66,7 +72,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
     commandCenter.pauseCommand.isEnabled = true
     commandCenter.playCommand.isEnabled = true
     
-    commandCenter.playCommand.addTarget { [weak self] event in
+    commandCenter.playCommand.addTarget { [weak self] _ in
       guard let self = self else { return .commandFailed }
       guard let player = self.moviePlayer else { return .commandFailed }
       guard player.playbackState != .playing else {
@@ -79,7 +85,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
       return .success
     }
     
-    commandCenter.pauseCommand.addTarget { [weak self] event -> MPRemoteCommandHandlerStatus in
+    commandCenter.pauseCommand.addTarget { [weak self] _ -> MPRemoteCommandHandlerStatus in
       guard let self = self else { return .commandFailed }
       guard let player = self.moviePlayer else { return .commandFailed }
       guard player.playbackState == .playing else {

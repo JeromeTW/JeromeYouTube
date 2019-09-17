@@ -19,7 +19,7 @@ class YoutubePlayer {
   private let youtubeClient = XCDYouTubeClient(languageIdentifier: "zh")
   private var isPlaying = false
   private var isExtendingBGJob = false
-  private var youtubePlayerVC: JeromeYoutubePlayerVC?
+  var youtubePlayerVC: JeromeYoutubePlayerVC?
   private var coredataConnect = CoreDataConnect()
   var video: Video? {
     didSet {

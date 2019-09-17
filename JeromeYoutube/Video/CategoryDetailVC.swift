@@ -87,6 +87,7 @@ extension CategoryDetailVC: UITableViewDelegate {
     }
     youtubePlayer.play(video: video)
     let videoPlayerViewController = JeromeYoutubePlayerVC(videoIdentifier: video.youtubeID)
+    youtubePlayer.youtubePlayerVC = videoPlayerViewController
     present(videoPlayerViewController, animated: true) {
       videoPlayerViewController.moviePlayer.play()
     }

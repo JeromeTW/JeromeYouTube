@@ -63,6 +63,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window.makeKeyAndVisible()
   }
   
+  func applicationDidEnterBackground(_ application: UIApplication) {
+    let player = YoutubePlayer.shared
+    if let vc = player.youtubePlayerVC {
+      vc.moviePlayer.play()
+    }
+  }
+  
   func applicationWillTerminate(_: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
