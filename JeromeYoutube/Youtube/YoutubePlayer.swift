@@ -17,18 +17,14 @@ class YoutubePlayer {
   private var isPlaying = false
   private var isExtendingBGJob = false
   private var youtubePlayerVC: JeromeYoutubePlayerVC?
-  private var coredataConnect: CoreDataConnect!
+  private var coredataConnect = CoreDataConnect()
   var video: Video? {
     didSet {
       getAndSaveVideoInfomation()
     }
   }
   private var streamURL: URL?
-  
-  init(context: NSManagedObjectContext) {
-    coredataConnect = CoreDataConnect(context: context)
-  }
-  
+    
   func getAndSaveVideoInfomation() {
     youtubeClient.getVideoWithIdentifier(video!.youtubeID) { [weak self] youtubeVideo, error in
       guard let self = self else {

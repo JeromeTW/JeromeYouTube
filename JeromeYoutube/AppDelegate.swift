@@ -107,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func setupCoreDataDB() {
     // 如果沒有未分類，則建立一個未分類。
-    CoreDataConnect(context: viewContext).insertFirstVideoCategoryIfNeeded()
+    CoreDataConnect().insertFirstVideoCategoryIfNeeded()
   }
 }
 

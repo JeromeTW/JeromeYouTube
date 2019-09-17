@@ -12,9 +12,7 @@ import SafariServices
 
 class CategoryListVC: BaseViewController, Storyboarded {
   
-  private lazy var youtubePlayer: YoutubePlayer = {
-    return YoutubePlayer(context: viewContext)
-  }()
+  private lazy var youtubePlayer = YoutubePlayer()
   
   @IBOutlet weak var titleLabel: UILabel! {
     didSet {
@@ -30,7 +28,7 @@ class CategoryListVC: BaseViewController, Storyboarded {
   
   @IBOutlet weak var tableView: UITableView!
   var viewContext: NSManagedObjectContext!
-  private var coredataConnect: CoreDataConnect!
+  private var coredataConnect = CoreDataConnect()
   private var blockOperations = [BlockOperation]()
   
   override func viewDidLoad() {
@@ -41,14 +39,9 @@ class CategoryListVC: BaseViewController, Storyboarded {
   
   override func setupData() {
     super.setupData()
-    setUpCoreData()
     tableView.tableFooterView = UIView()
     tableView.dataSource = self
     tableView.delegate = self
-  }
-  
-  private func setUpCoreData() {
-    coredataConnect = CoreDataConnect(context: viewContext)
   }
   
   @IBAction func addBtnPressed(_ sender: Any) {

@@ -19,6 +19,11 @@ class CoreDataConnect {
   init(context: NSManagedObjectContext) {
     myContext = context
   }
+  
+  init() {  // Use viewContext
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    myContext = appDelegate.viewContext
+  }
 
   // MARK: - Functions
   // insert
