@@ -147,3 +147,10 @@ extension AppDelegate {
     #endif
   }
 }
+
+extension UIApplication {
+  static var viewContext: NSManagedObjectContext {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    return appDelegate.viewContext
+  }
+}

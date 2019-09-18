@@ -41,13 +41,12 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
     }
   }
   
-  var viewContext: NSManagedObjectContext!
+  let viewContext = UIApplication.viewContext
   private var coredataConnect = CoreDataConnect()
   private var blockOperations = [BlockOperation]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    assert(viewContext != nil)
     setupData()
     setupSatusBarFrameChangedObserver()
     updateTopView()
