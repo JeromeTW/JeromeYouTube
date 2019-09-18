@@ -8,6 +8,7 @@
 
 import CoreData
 import UIKit
+import Reachability
 
 class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
   
@@ -87,6 +88,10 @@ extension CategoryDetailVC: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard Reachability()!.connection != .none else {
+      showOKAlert("無法連上網路", message: "請先檢查您的網路狀態", okTitle: "OK")
+      return
+    }
     guard let video = category.videos?.object(at: indexPath.row) as? Video else {
       fatalError()
     }

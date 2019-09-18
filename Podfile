@@ -8,4 +8,5 @@ target 'JeromeYoutube' do
   pod 'R.swift'
   pod 'SwiftLint'
   pod 'DeviceGuru'
+  pod 'ReachabilitySwift'
 end
