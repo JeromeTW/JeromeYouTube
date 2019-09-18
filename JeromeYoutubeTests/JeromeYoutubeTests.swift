@@ -11,9 +11,15 @@ import JeromeYoutube
 
 class JeromeYoutubeTests: XCTestCase {
   
+  override class func setUp() {
+    // This is the setUp() class method.
+    // It is called before the first test method begins.
+    // Set up any overall initial state here.
+    logger.configure([.error, .warning, .debug, .info], shouldShow: false, shouldCache: false)
+  }
+  
   override func setUp() {
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    logger.configure([.error, .warning, .debug, .info], shouldShow: false, shouldCache: false)
   }
   
   override func tearDown() {
