@@ -43,6 +43,7 @@
 		02B48CCD232F6E6100F8AA85 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FDE232895FB000B192B /* APIRequest.swift */; };
 		02B48CCE232F6E6F00F8AA85 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FE42328965C000B192B /* ImageLoader.swift */; };
 		02B816A82329E80F00C81F8D /* Video.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02B816A62329E80F00C81F8D /* Video.xcdatamodeld */; };
+		02BEA20D23321B9400C3E317 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BEA20C23321B9400C3E317 /* MainTabBarController.swift */; };
 		02E12994232B3D8600E04942 /* JeromeNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12993232B3D8600E04942 /* JeromeNavigationBar.swift */; };
 		02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */; };
 		02E1299A232B420500E04942 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12998232B420400E04942 /* Observable.swift */; };
@@ -95,6 +96,7 @@
 		02A5BFB7232C932E00E85495 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02B48CC9232F30FB00F8AA85 /* YoutubePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubePlayer.swift; sourceTree = "<group>"; };
 		02B816A72329E80F00C81F8D /* Video.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Video.xcdatamodel; sourceTree = "<group>"; };
+		02BEA20C23321B9400C3E317 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		02E12993232B3D8600E04942 /* JeromeNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeromeNavigationBar.swift; sourceTree = "<group>"; };
 		02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JeromeNavigationBarStatusBarBaseVC.xib; sourceTree = "<group>"; };
 		02E12998232B420400E04942 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 		02206905232E6420007A4BEB /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */,
 				0235E0EF2329C8E800A82B7F /* CategoryListTab.storyboard */,
 				027245B3232D00B300C86E72 /* CategoryListVC.swift */,
 				027245B1232D006D00C86E72 /* CategoryListTableViewCell.swift */,
@@ -237,7 +240,7 @@
 				021B5FD6232891F1000B192B /* Utils */,
 				021B5FCB23288FED000B192B /* Log */,
 				02644702232781A100822485 /* AppDelegate.swift */,
-				02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */,
+				02BEA20C23321B9400C3E317 /* MainTabBarController.swift */,
 				02206905232E6420007A4BEB /* Video */,
 				021B5FE223289603000B192B /* Support */,
 			);
@@ -516,6 +519,7 @@
 				021B5FDA232891F1000B192B /* CGFloatExtension.swift in Sources */,
 				02206909232E6492007A4BEB /* CategoryDetailVC.swift in Sources */,
 				02644715232790F100822485 /* JeromeYoutubePlayerVC.swift in Sources */,
+				02BEA20D23321B9400C3E317 /* MainTabBarController.swift in Sources */,
 				027245B4232D00B300C86E72 /* CategoryListVC.swift in Sources */,
 				027245B2232D006D00C86E72 /* CategoryListTableViewCell.swift in Sources */,
 			);

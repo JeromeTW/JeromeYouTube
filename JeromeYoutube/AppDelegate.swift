@@ -53,13 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   private func setupWindow() {
     window = UIWindow(frame: UIScreen.main.bounds)
     guard let window = window else { fatalError() }
-    let tabBarController = UITabBarController()
-    let storyboard = UIStoryboard(name: "CategoryListTab", bundle: Bundle.main)
-    let categoryListVC = CategoryListVC.instantiate(storyboard: storyboard)
-    categoryListVC.viewContext = viewContext
-    let categoryListViewControllerInfo = ViewControllerInfo(hasNavigation: true, viewController: categoryListVC, tabBarItem: UITabBarItem(title: "List", image: nil, selectedImage: nil))
-    tabBarController.setupViewControllers([categoryListViewControllerInfo])
-    window.rootViewController = tabBarController
+    window.rootViewController = MainTabBarController()
     window.makeKeyAndVisible()
   }
   
