@@ -9,83 +9,54 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-    // MARK: - ViewController lifecycle
-    deinit {
-        logger.log("\(self.className) deinit")
-    }
+  // MARK: - ViewController lifecycle
+  deinit {
+    logger.log("\(self.className) deinit")
+  }
+  
+  override func loadView() {
+    logger.log("\(self.className) loadView")
+    super.loadView()
     
-    override func loadView() {
-        super.loadView()
-        logger.log("\(self.className) loadView")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        logger.log("\(self.className) viewDidLoad")
-        
-        setupAuth()
-        setupBaseUI()
-        setupBinding()
-        setupData()
-        updateUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        logger.log("\(self.className) viewWillAppear:")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        logger.log("\(self.className) viewDidAppear:")
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        logger.log("\(self.className) viewWillLayoutSubviews")
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        logger.log("\(self.className) viewDidLayoutSubviews")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        logger.log("\(self.className) viewWillDisappear:")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        logger.log("\(self.className) viewDidDisappear:")
-    }
-    
-    // MARK: - Inherit method
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-    
-    // MARK: - Public method
-    func setupAuth() {
-        logger.log("\(self.className) setupAuth")
-    }
-    
-    func setupBaseUI() {
-        logger.log("\(self.className) setupUI")
-        
-        view.backgroundColor = .white
-        title = self.className
-    }
-    
-    func setupBinding() {
-        logger.log("\(self.className) setupBinding")
-    }
-    
-    func setupData() {
-        logger.log("\(self.className) setupData")
-    }
-    
-    func updateUI() {
-        logger.log("\(self.className) updateUI")
-    }
+  }
+  
+  override func viewDidLoad() {
+    logger.log("\(self.className) viewDidLoad")
+    super.viewDidLoad()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    logger.log("\(self.className) viewWillAppear:")
+    super.viewWillAppear(animated)
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    logger.log("\(self.className) viewDidAppear:")
+    super.viewDidAppear(animated)
+  }
+  
+  override func viewWillLayoutSubviews() {
+    logger.log("\(self.className) viewWillLayoutSubviews")
+    super.viewWillLayoutSubviews()
+  }
+  
+  override func viewDidLayoutSubviews() {
+    logger.log("\(self.className) viewDidLayoutSubviews")
+    super.viewDidLayoutSubviews()
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    logger.log("\(self.className) viewWillDisappear:")
+    super.viewWillDisappear(animated)
+  }
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    logger.log("\(self.className) viewDidDisappear:")
+    super.viewDidDisappear(animated)
+  }
+  
+  // MARK: - Inherit method
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    view.endEditing(true)
+  }
 }

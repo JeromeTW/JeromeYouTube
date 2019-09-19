@@ -18,6 +18,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
   @IBOutlet weak var statusViewHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var navagationViewHeightConstraint: NSLayoutConstraint!
   
+  weak var videoCoordinator: VideoCoordinator?
   var observer: NSObjectProtocol?
   
   var category: VideoCategory!
@@ -50,8 +51,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
     removeSatusBarHeightChangedObserver()
   }
   
-  override func setupData() {
-    super.setupData()
+  func setupData() {
     tableView.dataSource = self
     tableView.delegate = self
   }

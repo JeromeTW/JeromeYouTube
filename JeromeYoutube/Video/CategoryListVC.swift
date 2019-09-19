@@ -17,6 +17,7 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
   @IBOutlet weak var statusViewHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var navagationViewHeightConstraint: NSLayoutConstraint!
   
+  weak var videoCoordinator: VideoCoordinator?
   var observer: NSObjectProtocol?
   
   let youtubePlayer = YoutubePlayer.shared
@@ -52,8 +53,7 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
     updateTopView()
   }
   
-  override func setupData() {
-    super.setupData()
+  func setupData() {
     tableView.dataSource = self
     tableView.delegate = self
   }
@@ -132,11 +132,7 @@ extension CategoryListVC: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let category = categoryFRC.object(at: indexPath)
-    let storyboard = UIStoryboard(name: "CategoryListTab", bundle: Bundle.main)
-    let categoryDetailVC = CategoryDetailVC.instantiate(storyboard: storyboard)
-    categoryDetailVC.category = category
-    categoryDetailVC.coredataConnect = coredataConnect
-    navigationController?.pushViewController(categoryDetailVC, animated: true)
+    videoCoordinator?.videoCategoryDetail(category: category)
   }
 }
 
