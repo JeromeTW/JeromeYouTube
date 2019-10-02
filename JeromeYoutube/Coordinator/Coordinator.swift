@@ -16,16 +16,6 @@ protocol Coordinator: AnyObject {
 class CoordinatedNavigationController: UINavigationController {
   weak var coordinator: Coordinator?
   
-  override func viewDidLoad() {
-    logger.log("happy", level: .error)
-    super.viewDidLoad()
-  }
-  
-  override func viewDidAppear(_ animated: Bool) {
-    logger.log("happy", level: .error)
-    super.viewDidAppear(animated)
-  }
-  
   // 1: N T V -> V N T
   // ViewDidLoad -> ViewDidAppeard
   // 2: T N V    -> T N V
