@@ -19,7 +19,9 @@ class YoutubePlayer {
   private let youtubeClient = XCDYouTubeClient(languageIdentifier: "zh")
   private var isPlaying = false
   private var isExtendingBGJob = false
-  var youtubePlayerVC: JeromeYoutubePlayerVC?
+  var youtubePlayerVC: AVPlayerViewController?
+  var youtubeAVPlayer: AVPlayer?
+  var setUpYoutubePlayerVCCompletionHandler: ((AVPlayerViewController) -> Void)?
   private var coredataConnect = CoreDataConnect()
   var video: Video? {
     didSet {
@@ -31,6 +33,7 @@ class YoutubePlayer {
   private init() { }
   
   func getAndSaveVideoInfomation() {
+    youtubePlayerVC = AVPlayerViewController()
     youtubeClient.getVideoWithIdentifier(video!.youtubeID) { [weak self] youtubeVideo, error in
       guard let self = self else {
         return
@@ -46,7 +49,10 @@ class YoutubePlayer {
       let streamURLs = youtubeVideo.streamURLs
       if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
         self.streamURL = tempStreamURL
-        self.saveVideoInforamation(youtubeVideo: youtubeVideo)
+//        self.saveVideoInforamation(youtubeVideo: youtubeVideo)
+        self.youtubeAVPlayer = AVPlayer(url: tempStreamURL)
+        self.youtubePlayerVC?.player = self.youtubeAVPlayer
+        self.setUpYoutubePlayerVCCompletionHandler?(self.youtubePlayerVC!)
         if let url = youtubeVideo.thumbnailURL {
           ImageLoader.shared.imageByURL(url) {
             _, _ in
@@ -70,7 +76,8 @@ class YoutubePlayer {
     }
   }
   
-  func play(video: Video) {
+  func play(video: Video, setUpYoutubePlayerVCCompletionHandler: ((AVPlayerViewController) -> Void)?) {
+    self.setUpYoutubePlayerVCCompletionHandler = setUpYoutubePlayerVCCompletionHandler
     self.video = video
     setupRemoteCommandCenter()
     setupNowPlayingInfo()
@@ -82,12 +89,13 @@ class YoutubePlayer {
     
     commandCenter.playCommand.addTarget { [weak self] event in
       guard let self = self else { return .commandFailed }
-      guard let player = self.youtubePlayerVC?.moviePlayer else { return .commandFailed }
-      guard player.playbackState != .playing else {
+      
+      guard let player = self.youtubePlayerVC?.player else { return .commandFailed }
+      guard player.rate == 0 else {
         return .success
       }
       player.play()
-      guard player.playbackState == .playing else {
+      guard player.rate == 1 else {
         return .commandFailed
       }
       return .success
@@ -95,12 +103,12 @@ class YoutubePlayer {
     
     commandCenter.pauseCommand.addTarget { [weak self] event -> MPRemoteCommandHandlerStatus in
       guard let self = self else { return .commandFailed }
-      guard let player = self.youtubePlayerVC?.moviePlayer else { return .commandFailed }
-      guard player.playbackState == .playing else {
+      guard let player = self.youtubePlayerVC?.player else { return .commandFailed }
+      guard player.rate == 1 else {
         return .success
       }
       player.pause()
-      guard player.playbackState == .paused else {
+      guard player.rate == 0 else {
         return .commandFailed
       }
       return .success

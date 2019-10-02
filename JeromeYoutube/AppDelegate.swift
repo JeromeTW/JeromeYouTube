@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationDidEnterBackground(_ application: UIApplication) {
     let player = YoutubePlayer.shared
     if let vc = player.youtubePlayerVC {
-      vc.moviePlayer.play()
+      vc.player?.play()
     }
   }
   

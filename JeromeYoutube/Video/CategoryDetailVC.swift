@@ -95,11 +95,11 @@ extension CategoryDetailVC: UITableViewDelegate {
     guard let video = category.videos?.object(at: indexPath.row) as? Video else {
       fatalError()
     }
-    youtubePlayer.play(video: video)
-    let videoPlayerViewController = JeromeYoutubePlayerVC(videoIdentifier: video.youtubeID)
-    youtubePlayer.youtubePlayerVC = videoPlayerViewController
-    present(videoPlayerViewController, animated: true) {
-      videoPlayerViewController.moviePlayer.play()
+    youtubePlayer.play(video: video) { [weak self] playerVC in
+      guard let self = self else { return }
+      self.present(playerVC, animated: true) {
+        playerVC.player?.play()
+      }
     }
   }
 }

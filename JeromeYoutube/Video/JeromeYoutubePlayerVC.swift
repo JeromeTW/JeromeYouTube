@@ -23,6 +23,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
     if let observer = observer {
       NotificationCenter.default.removeObserver(observer)
     }
+    YoutubePlayer.shared.youtubePlayerVC = nil
     logger.log("\(self.className) deinit")
   }
 }
