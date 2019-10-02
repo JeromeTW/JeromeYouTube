@@ -14,6 +14,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
+  lazy var youtubePlayer = YoutubePlayer.shared
   lazy var logTextView: LogTextView = {
     let logTextView = LogTextView(frame: .zero)
     logTextView.layer.zPosition = .greatestFiniteMagnitude
@@ -57,11 +58,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window.makeKeyAndVisible()
   }
   
+  func applicationWillEnterForeground(_ application: UIApplication) {
+    youtubePlayer.setVideoTrack(true)
+  }
+  
   func applicationDidEnterBackground(_ application: UIApplication) {
-    let player = YoutubePlayer.shared
-    if let vc = player.youtubePlayerVC {
-      vc.player?.play()
-    }
+    youtubePlayer.setVideoTrack(false)
   }
   
   func applicationWillTerminate(_: UIApplication) {

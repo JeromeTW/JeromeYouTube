@@ -150,6 +150,25 @@ class YoutubePlayer {
   }
 }
 
+// MARK: - App in Background Mode
+// https://developer.apple.com/library/archive/qa/qa1668/_index.html#//apple_ref/doc/uid/DTS40010209-CH1-VIDEO
+extension YoutubePlayer {
+  func setVideoTrack(_ isEnable: Bool) {
+    if let player = youtubeAVPlayer {
+      if let playerItem = player.currentItem {
+        let tracks = playerItem.tracks
+        for playerItemTrack in tracks {
+            // Find the video tracks.
+          if playerItemTrack.assetTrack?.hasMediaCharacteristic(AVMediaCharacteristic.visual) == true {
+                // Disable the track.
+                playerItemTrack.isEnabled = isEnable
+            }
+        }
+      }
+    }
+  }
+}
+
 struct YouTubeVideoQuality {
   static let hd720 = NSNumber(value: XCDYouTubeVideoQuality.HD720.rawValue)
   static let medium360 = NSNumber(value: XCDYouTubeVideoQuality.medium360.rawValue)
