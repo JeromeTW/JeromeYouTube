@@ -1,9 +1,6 @@
-//
-//  CoreDataConnect.swift
-//
-//  Created by JEROME on 2016/10/18.
-//  Copyright © 2016年 JEROME. All rights reserved.
-//
+// CoreDataConnect.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/3.
 
 import CoreData
 import UIKit
@@ -13,32 +10,33 @@ class CoreDataConnect {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     return appDelegate.persistentContainer
   }()
-  
+
   var myContext: NSManagedObjectContext!
 
   init(context: NSManagedObjectContext) {
     myContext = context
   }
-  
-  init() {  // Use viewContext
+
+  init() { // Use viewContext
     myContext = UIApplication.viewContext
   }
 
   // MARK: - Functions
+
   // insert
   // NOTE: myEntityName(在Video.xcdatamodeld中設定) 必須跟 class name 一致才能用範型
-  func insert<T: NSManagedObject>(type: T.Type, attributeInfo: [String: Any]) throws {
+  func insert<T: NSManagedObject>(type _: T.Type, attributeInfo: [String: Any]) throws {
     let insetObject = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: myContext)
 
     for (key, value) in attributeInfo {
       insetObject.setValue(value, forKey: key)
     }
-    
+
     try persistentContainer.saveContext(backgroundContext: myContext)
   }
 
   // retrieve
-  func retrieve<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?, sort: [[String: Bool]]?, limit: Int?) -> [T]? {
+  func retrieve<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate?, sort: [[String: Bool]]?, limit: Int?) -> [T]? {
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
 
     // predicate
@@ -92,7 +90,7 @@ class CoreDataConnect {
     }
   }
 
-  func getCount<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?) -> Int {
+  func getCount<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate?) -> Int {
     var count = 0
     let request = NSFetchRequest<NSNumber>(entityName: String(describing: T.self))
 
@@ -109,7 +107,8 @@ class CoreDataConnect {
     }
     return count
   }
-  public func getFRC<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, sortDescriptors:
+
+  public func getFRC<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate? = nil, sortDescriptors:
     [NSSortDescriptor]? = nil, limit: Int? = nil, sectionNameKeyPath: String? = nil, cacheName: String? = nil) -> NSFetchedResultsController<T> {
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
 
@@ -142,14 +141,15 @@ protocol HasID {
 }
 
 // MARK: - HasID
+
 extension CoreDataConnect {
   // This Entity must has id property
-  func generateNewID<T: HasID>(_ hasIDType: T.Type) -> Int64 {
+  func generateNewID<T: HasID>(_: T.Type) -> Int64 {
     var newID: Int64 = 1
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
     request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
     request.fetchLimit = 1
-    
+
     do {
       let result = try myContext.fetch(request) as? [T]
       if let first = result?.first {
@@ -163,18 +163,19 @@ extension CoreDataConnect {
 }
 
 // MARK: - HasOrder
+
 protocol HasOrder {
   var order: Int64 { get set }
 }
 
 extension CoreDataConnect {
   // This Entity must has order property
-  func generateNewOrder<T: HasOrder>(_ hasOderType: T.Type) -> Int64 {
+  func generateNewOrder<T: HasOrder>(_: T.Type) -> Int64 {
     var newOrder: Int64 = 1
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
     request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: false)]
     request.fetchLimit = 1
-    
+
     do {
       let result = try myContext.fetch(request) as? [T]
       if let first = result?.first {

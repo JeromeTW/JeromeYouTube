@@ -1,25 +1,21 @@
-//
-//  CustomWebViewController.swift
-//  GP920_iOS
-//
-//  Created by Jam.Chen on 2017/6/19.
-//  Copyright © 2017年 Daniel. All rights reserved.
-//
+// CustomWebViewController.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/3.
 
-//import SVProgressHUD
+import Reachability
+// import SVProgressHUD
 import UIKit
 import WebKit
-import Reachability
 
 class CustomWebViewController: UIViewController, HasWebView {
-  @IBOutlet weak var mainView: UIView!
-  @IBOutlet weak var titleView: UIView!
-  @IBOutlet weak var titleLabel: UILabel!
-  @IBOutlet weak var controlBarView: UIView!
-  @IBOutlet weak var maskView: UIView!
-  @IBOutlet weak var refreshButton: UIButton!
-  @IBOutlet weak var nextPageButton: UIButton!
-  @IBOutlet weak var backPageButton: UIButton!
+  @IBOutlet var mainView: UIView!
+  @IBOutlet var titleView: UIView!
+  @IBOutlet var titleLabel: UILabel!
+  @IBOutlet var controlBarView: UIView!
+  @IBOutlet var maskView: UIView!
+  @IBOutlet var refreshButton: UIButton!
+  @IBOutlet var nextPageButton: UIButton!
+  @IBOutlet var backPageButton: UIButton!
   var webView: WKWebView!
   var webErrorViewContainer: UIView!
   var request: URLRequest!
@@ -136,6 +132,7 @@ class CustomWebViewController: UIViewController, HasWebView {
 }
 
 // MARK: - WKNavigationDelegate
+
 extension CustomWebViewController: WKNavigationDelegate {
   func webView(_ webView: WKWebView, didStartProvisionalNavigation _: WKNavigation!) {
     let urlString = webView.url?.absoluteString
@@ -152,17 +149,17 @@ extension CustomWebViewController: WKNavigationDelegate {
     nextPageButton.imageView?.image = UIImage(named: webView.canGoForward ? "NextPageButton_On" : "NextPageButton_Off")
   }
 
-  func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+  func webView(_: WKWebView, didFail _: WKNavigation!, withError _: Error) {
 //    SVProgressHUD.dismiss()
     setWebErrorViewContainer(shouldHidden: false)
   }
 
-  func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+  func webView(_: WKWebView, didFailProvisionalNavigation _: WKNavigation!, withError _: Error) {
 //    SVProgressHUD.dismiss()
     setWebErrorViewContainer(shouldHidden: false)
   }
 
-  func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+  func webView(_: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
     guard let httpResponse = navigationResponse.response as? HTTPURLResponse else {
       decisionHandler(.cancel)
       return
@@ -176,6 +173,7 @@ extension CustomWebViewController: WKNavigationDelegate {
 }
 
 // MARK: - UIScrollViewDelegate
+
 extension CustomWebViewController: UIScrollViewDelegate {
   func scrollViewWillBeginDragging(_: UIScrollView) {
     controlBarView.isHidden = true

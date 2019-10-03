@@ -1,14 +1,10 @@
-//
-//  HasWebView.swift
-//  GP920_iOS
-//
-//  Created by Jerome.Hsieh2 on 2019/1/29.
-//  Copyright © 2019 Daniel. All rights reserved.
-//
+// HasWebView.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/3.
 
+import Reachability
 import UIKit
 import WebKit
-import Reachability
 
 protocol HasWebView: class {
   var webView: WKWebView! { get set }
@@ -46,7 +42,7 @@ extension HasWebView {
   func setWebErrorViewContainer(shouldHidden: Bool, shouldChangeTitle: Bool = false) {
     guard webErrorViewContainer != nil else { return }
     webErrorViewContainer.isHidden = shouldHidden
-    if shouldHidden == false && shouldChangeTitle {
+    if shouldHidden == false, shouldChangeTitle {
       titleLabel.text = "webViewError"
     }
   }

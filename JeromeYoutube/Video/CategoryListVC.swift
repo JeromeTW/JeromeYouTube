@@ -1,68 +1,64 @@
-//
-//  CategoryListVC.swift
-//  JeromeYoutube
-//
-//  Created by JEROME on 2019/9/12.
-//  Copyright © 2019 jerome. All rights reserved.
-//
+// CategoryListVC.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/3.
 
 import CoreData
-import UIKit
 import SafariServices
+import UIKit
 
 class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
-  @IBOutlet weak var topView: UIView!
-  @IBOutlet weak var statusView: UIView!
-  @IBOutlet weak var navagationView: UIView!
-  @IBOutlet weak var statusViewHeightConstraint: NSLayoutConstraint!
-  @IBOutlet weak var navagationViewHeightConstraint: NSLayoutConstraint!
-  
+  @IBOutlet var topView: UIView!
+  @IBOutlet var statusView: UIView!
+  @IBOutlet var navagationView: UIView!
+  @IBOutlet var statusViewHeightConstraint: NSLayoutConstraint!
+  @IBOutlet var navagationViewHeightConstraint: NSLayoutConstraint!
+
   weak var videoCoordinator: VideoCoordinator?
   var observer: NSObjectProtocol?
-  
+
   let youtubePlayer = YoutubePlayer.shared
-  
-  @IBOutlet weak var titleLabel: UILabel! {
+
+  @IBOutlet var titleLabel: UILabel! {
     didSet {
       titleLabel.text = "類型清單"
     }
   }
-  
+
   private lazy var categoryFRC: NSFetchedResultsController<VideoCategory>! = {
     let frc = coredataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
     frc.delegate = self
     return frc
   }()
-  
-  @IBOutlet weak var tableView: UITableView! {
+
+  @IBOutlet var tableView: UITableView! {
     didSet {
       tableView.tableFooterView = UIView()
       tableView.contentInset = UIEdgeInsets(top: CGFloat.statusAndNavigationTotalHeight - 1, left: 0, bottom: 0, right: 0)
       tableView.contentInsetAdjustmentBehavior = .never
     }
   }
-  
+
   let viewContext = UIApplication.viewContext
   private var coredataConnect = CoreDataConnect()
   private var blockOperations = [BlockOperation]()
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupData()
     setupSatusBarFrameChangedObserver()
     updateTopView()
   }
-  
+
   func setupData() {
     tableView.dataSource = self
     tableView.delegate = self
   }
-  
+
   deinit {
     removeSatusBarHeightChangedObserver()
   }
-  
-  @IBAction func addBtnPressed(_ sender: Any) {
+
+  @IBAction func addBtnPressed(_: Any) {
     showAlertController(withTitle: "添加影片", message: "請輸入 ID 或是網址:", textFieldsData: [TextFieldData(text: nil, placeholder: "e.g: 6v2L2UGZJAM or https://www.youtube.com/watch?v=XULUBg_ZcAU")], cancelTitle: "取消", cancelHandler: nil, okTitle: "新增") { [weak self] textFields in
       guard let self = self else {
         return
@@ -72,12 +68,12 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
       }
       // Grab Text
       do {
-        let youtubeID = try  YoutubeHelper.grabYoutubeIDBy(text: text).get()
+        let youtubeID = try YoutubeHelper.grabYoutubeIDBy(text: text).get()
         guard self.coredataConnect.isTheYoutubeIDExisted(youtubeID) == false else {
           self.showOKAlert("已經新增過此影片", message: nil, okTitle: "OK")
           return
         }
-        
+
         let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), VideoCategory.undeineCatogoryName)
         guard let category = self.coredataConnect.retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1)?.first else {
           fatalError()
@@ -86,8 +82,8 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
           #keyPath(Video.id): self.coredataConnect.generateNewID(Video.self) as Any,
           #keyPath(Video.order): self.coredataConnect.generateNewOrder(Video.self) as Any,
           #keyPath(Video.youtubeID): youtubeID as Any,
-          #keyPath(Video.category): category as Any
-          ])
+          #keyPath(Video.category): category as Any,
+        ])
         let videoPredicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), youtubeID)
         guard let video = self.coredataConnect.retrieve(type: Video.self, predicate: videoPredicate, sort: nil, limit: 1)?.first else {
           return
@@ -100,8 +96,8 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
       }
     }
   }
-  
-  @IBAction func webBtnPressed(_ sender: Any) {
+
+  @IBAction func webBtnPressed(_: Any) {
     // TODO: Change to WKWebView, SFSafariViewController can not get its url.
     let safariVC = SFSafariViewController(url: URL(string: "https://www.youtube.com/results?search_query=music")!)
     present(safariVC, animated: true, completion: nil)
@@ -109,11 +105,12 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
 }
 
 // MARK: - UITableViewDataSource
+
 extension CategoryListVC: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     return categoryFRC.sections?[section].numberOfObjects ?? 0
   }
-  
+
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = (tableView.dequeueReusableCell(withIdentifier: CategoryListTableViewCell.className, for: indexPath) as? CategoryListTableViewCell)!
     return cell
@@ -121,24 +118,26 @@ extension CategoryListVC: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
+
 extension CategoryListVC: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+  func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     let category = categoryFRC.object(at: indexPath)
     guard let categoryListTableViewCell = cell as? CategoryListTableViewCell else {
       return
     }
     categoryListTableViewCell.updateUI(by: category)
   }
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+  func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
     let category = categoryFRC.object(at: indexPath)
     videoCoordinator?.videoCategoryDetail(category: category)
   }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
+
 extension CategoryListVC: NSFetchedResultsControllerDelegate {
-  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+  func controller(_: NSFetchedResultsController<NSFetchRequestResult>, didChange _: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
     switch type {
     case .insert:
       blockOperations.append(BlockOperation(block: {
@@ -158,17 +157,17 @@ extension CategoryListVC: NSFetchedResultsControllerDelegate {
       }))
     case .update:
       let category = categoryFRC.object(at: indexPath!)
-      let categoryListTableViewCell = self.tableView.cellForRow(at: indexPath!) as! CategoryListTableViewCell
+      let categoryListTableViewCell = tableView.cellForRow(at: indexPath!) as! CategoryListTableViewCell
       categoryListTableViewCell.updateUI(by: category)
     case .move:
-      self.tableView.deleteRows(at: [indexPath!], with: .none)
-      self.tableView.insertRows(at: [newIndexPath!], with: .none)
+      tableView.deleteRows(at: [indexPath!], with: .none)
+      tableView.insertRows(at: [newIndexPath!], with: .none)
     @unknown default:
       fatalError()
     }
   }
-  
-  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+
+  func controllerDidChangeContent(_: NSFetchedResultsController<NSFetchRequestResult>) {
     tableView.performBatchUpdates({
       [weak self] in
       guard let self = self else {
@@ -177,7 +176,7 @@ extension CategoryListVC: NSFetchedResultsControllerDelegate {
       for operation in self.blockOperations {
         operation.start()
       }
-    }) { (complete) in
+    }) { _ in
       let lastRow = self.categoryFRC.sections!.first!.numberOfObjects - 1
       let indexPath = IndexPath(row: lastRow, section: 0)
       self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)

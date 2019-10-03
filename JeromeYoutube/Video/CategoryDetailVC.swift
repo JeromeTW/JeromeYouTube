@@ -1,44 +1,39 @@
-//
-//  CategoryDetailVC.swift
-//  JeromeYoutube
-//
-//  Created by JEROME on 2019/9/15.
-//  Copyright © 2019 jerome. All rights reserved.
-//
+// CategoryDetailVC.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/3.
 
 import CoreData
-import UIKit
 import Reachability
+import UIKit
 
 class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
-  
-  @IBOutlet weak var topView: UIView!
-  @IBOutlet weak var statusView: UIView!
-  @IBOutlet weak var navagationView: UIView!
-  @IBOutlet weak var statusViewHeightConstraint: NSLayoutConstraint!
-  @IBOutlet weak var navagationViewHeightConstraint: NSLayoutConstraint!
-  
+  @IBOutlet var topView: UIView!
+  @IBOutlet var statusView: UIView!
+  @IBOutlet var navagationView: UIView!
+  @IBOutlet var statusViewHeightConstraint: NSLayoutConstraint!
+  @IBOutlet var navagationViewHeightConstraint: NSLayoutConstraint!
+
   weak var videoCoordinator: VideoCoordinator?
   var observer: NSObjectProtocol?
-  
+
   var category: VideoCategory!
   var coredataConnect = CoreDataConnect()
   let youtubePlayer = YoutubePlayer.shared
-  
-  @IBOutlet weak var titleLabel: UILabel! {
+
+  @IBOutlet var titleLabel: UILabel! {
     didSet {
       titleLabel.text = category.name
     }
   }
-  
-  @IBOutlet weak var tableView: UITableView! {
+
+  @IBOutlet var tableView: UITableView! {
     didSet {
       tableView.tableFooterView = UIView()
       tableView.contentInset = UIEdgeInsets(top: CGFloat.statusAndNavigationTotalHeight - 1, left: 0, bottom: 0, right: 0)
       tableView.contentInsetAdjustmentBehavior = .never
     }
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     assert(category != nil)
@@ -46,28 +41,28 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
     setupSatusBarFrameChangedObserver()
     updateTopView()
   }
-  
+
   deinit {
     removeSatusBarHeightChangedObserver()
   }
-  
+
   func setupData() {
     tableView.dataSource = self
     tableView.delegate = self
   }
-  
-  
-  @IBAction func backBtnPressed(_ sender: Any) {
+
+  @IBAction func backBtnPressed(_: Any) {
     navigationController?.popViewController(animated: true)
   }
 }
 
 // MARK: - UITableViewDataSource
+
 extension CategoryDetailVC: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
     return category.videos?.count ?? 0
   }
-  
+
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = (tableView.dequeueReusableCell(withIdentifier: CategoryDetailTableViewCell.className, for: indexPath) as? CategoryDetailTableViewCell)!
     return cell
@@ -75,8 +70,9 @@ extension CategoryDetailVC: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
+
 extension CategoryDetailVC: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+  func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     guard let video = category.videos?.object(at: indexPath.row) as? Video else {
       fatalError()
     }
@@ -86,8 +82,8 @@ extension CategoryDetailVC: UITableViewDelegate {
     categoryDetailTableViewCell.beforeReuse()
     categoryDetailTableViewCell.updateUI(by: video)
   }
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+  func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard Reachability()!.connection != .none else {
       showOKAlert("無法連上網路", message: "請先檢查您的網路狀態", okTitle: "OK")
       return

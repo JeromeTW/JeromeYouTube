@@ -1,13 +1,9 @@
-//
-//  DeviceGuruExtension.swift
-//  JeromeYoutube
-//
-//  Created by JEROME on 2019/9/17.
-//  Copyright © 2019 jerome. All rights reserved.
-//
+// DeviceGuruExtension.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/3.
 
+import DeviceGuru
 import Foundation
-import  DeviceGuru
 
 extension DeviceGuru {
   var hasSensorHousing: Bool {

@@ -1,18 +1,13 @@
-//
-//  WebErrorVC.swift
-//  GP920_iOS
-//
-//  Created by Jerome.Hsieh2 on 2019/1/29.
-//  Copyright © 2019 Daniel. All rights reserved.
-//
+// WebErrorVC.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/3.
 
 import UIKit
 
 class WebErrorVC: UIViewController {
-
-  @IBOutlet weak var someErrorLabel: UILabel!
-  @IBOutlet weak var errorDetailLabel: UILabel!
-  @IBOutlet weak var tryAgainButton: UIButton!
+  @IBOutlet var someErrorLabel: UILabel!
+  @IBOutlet var errorDetailLabel: UILabel!
+  @IBOutlet var tryAgainButton: UIButton!
 
   var tryAgainHandler: (() -> Void)!
 

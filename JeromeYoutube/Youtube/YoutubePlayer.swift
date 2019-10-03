@@ -1,20 +1,15 @@
-//
-//  YoutubePlayer.swift
-//  JeromeYoutube
-//
-//  Created by JEROME on 2019/9/16.
-//  Copyright © 2019 jerome. All rights reserved.
-//
+// YoutubePlayer.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/3.
 
-import Foundation
-import XCDYouTubeKit
 import AVKit
 import CoreData
+import Foundation
+import XCDYouTubeKit
 
 class YoutubePlayer {
-  
   static var shared = YoutubePlayer()
-  
+
   private let commandCenter = MPRemoteCommandCenter.shared()
   private let youtubeClient = XCDYouTubeClient(languageIdentifier: "zh")
   private var isPlaying = false
@@ -28,10 +23,11 @@ class YoutubePlayer {
       getAndSaveVideoInfomation()
     }
   }
+
   private var streamURL: URL?
-  
-  private init() { }
-  
+
+  private init() {}
+
   func getAndSaveVideoInfomation() {
     youtubePlayerVC = AVPlayerViewController()
     youtubeClient.getVideoWithIdentifier(video!.youtubeID) { [weak self] youtubeVideo, error in
@@ -61,35 +57,35 @@ class YoutubePlayer {
       }
     }
   }
-  
+
   private func saveVideoInforamation(youtubeVideo: XCDYouTubeVideo) {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), video!.youtubeID)
     do {
       try coredataConnect.update(type: Video.self, predicate: predicate, limit: 1, attributeInfo: [
-        #keyPath(Video.name) : youtubeVideo.title as Any,
-        #keyPath(Video.thumbnailURL) : youtubeVideo.thumbnailURL!.absoluteString as Any,
-        #keyPath(Video.url) : self.streamURL!.absoluteString as Any,
-        #keyPath(Video.duration) : youtubeVideo.duration as Any,
-        ])
+        #keyPath(Video.name): youtubeVideo.title as Any,
+        #keyPath(Video.thumbnailURL): youtubeVideo.thumbnailURL!.absoluteString as Any,
+        #keyPath(Video.url): self.streamURL!.absoluteString as Any,
+        #keyPath(Video.duration): youtubeVideo.duration as Any,
+      ])
     } catch {
       logger.log(error, level: .error)
     }
   }
-  
+
   func play(video: Video, setUpYoutubePlayerVCCompletionHandler: ((AVPlayerViewController) -> Void)?) {
     self.setUpYoutubePlayerVCCompletionHandler = setUpYoutubePlayerVCCompletionHandler
     self.video = video
     setupRemoteCommandCenter()
     setupNowPlayingInfo()
   }
-  
+
   private func setupRemoteCommandCenter() {
     commandCenter.pauseCommand.isEnabled = true
     commandCenter.playCommand.isEnabled = true
-    
-    commandCenter.playCommand.addTarget { [weak self] event in
+
+    commandCenter.playCommand.addTarget { [weak self] _ in
       guard let self = self else { return .commandFailed }
-      
+
       guard let player = self.youtubePlayerVC?.player else { return .commandFailed }
       guard player.rate == 0 else {
         return .success
@@ -100,8 +96,8 @@ class YoutubePlayer {
       }
       return .success
     }
-    
-    commandCenter.pauseCommand.addTarget { [weak self] event -> MPRemoteCommandHandlerStatus in
+
+    commandCenter.pauseCommand.addTarget { [weak self] _ -> MPRemoteCommandHandlerStatus in
       guard let self = self else { return .commandFailed }
       guard let player = self.youtubePlayerVC?.player else { return .commandFailed }
       guard player.rate == 1 else {
@@ -114,21 +110,21 @@ class YoutubePlayer {
       return .success
     }
   }
-  
+
   func setupNowPlayingInfo() {
     guard let video = video else {
       fatalError()
     }
-    
-    DispatchQueue.main.asyncAfter(deadline: .now()) {   // 要放在main thread才能更新remote center UI, 延後一秒，等songItem 準備好
+
+    DispatchQueue.main.asyncAfter(deadline: .now()) { // 要放在main thread才能更新remote center UI, 延後一秒，等songItem 準備好
       MPNowPlayingInfoCenter.default().nowPlayingInfo = [
         MPMediaItemPropertyTitle: video.name!,
-        MPMediaItemPropertyPlaybackDuration: video.duration
+        MPMediaItemPropertyPlaybackDuration: video.duration,
       ]
-      
+
       func setMPMediaItemPropertyArtwork(image: UIImage) {
-        let artwork = MPMediaItemArtwork.init(boundsSize: image.size, requestHandler: { _ -> UIImage in
-          return image
+        let artwork = MPMediaItemArtwork(boundsSize: image.size, requestHandler: { _ -> UIImage in
+          image
         })
         MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = artwork
       }
@@ -151,6 +147,7 @@ class YoutubePlayer {
 }
 
 // MARK: - App in Background Mode
+
 // https://developer.apple.com/library/archive/qa/qa1668/_index.html#//apple_ref/doc/uid/DTS40010209-CH1-VIDEO
 extension YoutubePlayer {
   func setVideoTrack(_ isEnable: Bool) {
@@ -158,11 +155,11 @@ extension YoutubePlayer {
       if let playerItem = player.currentItem {
         let tracks = playerItem.tracks
         for playerItemTrack in tracks {
-            // Find the video tracks.
+          // Find the video tracks.
           if playerItemTrack.assetTrack?.hasMediaCharacteristic(AVMediaCharacteristic.visual) == true {
-                // Disable the track.
-                playerItemTrack.isEnabled = isEnable
-            }
+            // Disable the track.
+            playerItemTrack.isEnabled = isEnable
+          }
         }
       }
     }

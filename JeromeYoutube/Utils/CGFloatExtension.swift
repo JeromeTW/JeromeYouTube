@@ -1,10 +1,6 @@
-//
-//  CGFloatExtension.swift
-//  TaiChungWeather
-//
-//  Created by JEROME on 2019/7/29.
-//  Copyright © 2019 JEROME. All rights reserved.
-//
+// CGFloatExtension.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/3.
 
 import UIKit
 
@@ -31,7 +27,7 @@ extension CGFloat {
   var negativeValue: CGFloat {
     return (-1.0 * self)
   }
-  
+
   static var navagationViewHeight: CGFloat {
     if UIApplication.shared.statusBarOrientation.isPortrait {
       return 44
