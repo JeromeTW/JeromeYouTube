@@ -97,7 +97,7 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
   }
 
   @IBAction func webBtnPressed(_: Any) {
-    let customWebViewController = CustomWebViewController(nibName: "CustomWebViewController", bundle: nil)
+    let customWebViewController = CustomWebVC(nibName: "CustomWebVC", bundle: nil)
     guard let tempURL = URL(string: "https://www.youtube.com/results?search_query=music") else {
       assertionFailure()
       return

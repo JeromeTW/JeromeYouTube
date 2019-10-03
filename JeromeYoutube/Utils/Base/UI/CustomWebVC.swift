@@ -1,4 +1,4 @@
-// CustomWebViewController.swift
+// CustomWebVC.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
 // Created by Jerome Hsieh on 2019/10/3.
 
@@ -6,7 +6,7 @@ import Reachability
 import UIKit
 import WebKit
 
-class CustomWebViewController: UIViewController, HasWebView, HasJeromeNavigationBar {
+class CustomWebVC: UIViewController, HasWebView, HasJeromeNavigationBar {
   @IBOutlet var mainView: UIView!
   @IBOutlet var titleLabel: UILabel!
   @IBOutlet var closeButton: UIButton!
@@ -121,7 +121,7 @@ class CustomWebViewController: UIViewController, HasWebView, HasJeromeNavigation
 
 // MARK: - WKNavigationDelegate
 
-extension CustomWebViewController: WKNavigationDelegate {
+extension CustomWebVC: WKNavigationDelegate {
   func webView(_ webView: WKWebView, didStartProvisionalNavigation _: WKNavigation!) {
     let urlString = webView.url?.absoluteString
     logger.log("webView.url?.absoluteString: \(urlString)")
@@ -158,7 +158,7 @@ extension CustomWebViewController: WKNavigationDelegate {
 
 // MARK: - UIScrollViewDelegate
 
-extension CustomWebViewController: UIScrollViewDelegate {
+extension CustomWebVC: UIScrollViewDelegate {
   func scrollViewWillBeginDragging(_: UIScrollView) {
     controlBarView.isHidden = true
   }

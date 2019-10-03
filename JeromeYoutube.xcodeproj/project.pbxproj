@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		020529AA23448FA5006DD503 /* CustomWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 020529A823448FA5006DD503 /* CustomWebViewController.xib */; };
-		020529AB23448FA5006DD503 /* CustomWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020529A923448FA5006DD503 /* CustomWebViewController.swift */; };
 		020529AD2344C5C9006DD503 /* HasWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020529AC2344C5C9006DD503 /* HasWebView.swift */; };
 		02187FC723308BA40040C5AC /* DeviceGuruExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02187FC623308BA40040C5AC /* DeviceGuruExtension.swift */; };
 		02187FC92330C4350040C5AC /* AdvancedLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02187FC82330C4350040C5AC /* AdvancedLogger.swift */; };
@@ -39,6 +37,8 @@
 		02A5BFAE232C84EE00E85495 /* YoutubeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BFAD232C84EE00E85495 /* YoutubeHelper.swift */; };
 		02A5BFB6232C932E00E85495 /* JeromeYoutubeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BFB5232C932E00E85495 /* JeromeYoutubeTests.swift */; };
 		02A5BFBD232C94CB00E85495 /* YoutubeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BFAD232C84EE00E85495 /* YoutubeHelper.swift */; };
+		02A88DF623459537007C5C65 /* CustomWebVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A88DF423459537007C5C65 /* CustomWebVC.swift */; };
+		02A88DF723459537007C5C65 /* CustomWebVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A88DF523459537007C5C65 /* CustomWebVC.xib */; };
 		02B48CCA232F30FB00F8AA85 /* YoutubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B48CC9232F30FB00F8AA85 /* YoutubePlayer.swift */; };
 		02B48CCB232F6E5D00F8AA85 /* NetworkRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FDC232895FB000B192B /* NetworkRequestOperation.swift */; };
 		02B48CCC232F6E5F00F8AA85 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FDD232895FB000B192B /* AsynchronousOperation.swift */; };
@@ -66,8 +66,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		020529A823448FA5006DD503 /* CustomWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomWebViewController.xib; sourceTree = "<group>"; };
-		020529A923448FA5006DD503 /* CustomWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomWebViewController.swift; sourceTree = "<group>"; };
 		020529AC2344C5C9006DD503 /* HasWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HasWebView.swift; sourceTree = "<group>"; };
 		02187FC623308BA40040C5AC /* DeviceGuruExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceGuruExtension.swift; sourceTree = "<group>"; };
 		02187FC82330C4350040C5AC /* AdvancedLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedLogger.swift; sourceTree = "<group>"; };
@@ -100,6 +98,8 @@
 		02A5BFB3232C932E00E85495 /* JeromeYoutubeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JeromeYoutubeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A5BFB5232C932E00E85495 /* JeromeYoutubeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeromeYoutubeTests.swift; sourceTree = "<group>"; };
 		02A5BFB7232C932E00E85495 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02A88DF423459537007C5C65 /* CustomWebVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomWebVC.swift; sourceTree = "<group>"; };
+		02A88DF523459537007C5C65 /* CustomWebVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomWebVC.xib; sourceTree = "<group>"; };
 		02B48CC9232F30FB00F8AA85 /* YoutubePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubePlayer.swift; sourceTree = "<group>"; };
 		02B816A72329E80F00C81F8D /* Video.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Video.xcdatamodel; sourceTree = "<group>"; };
 		02BEA20A23321AF300C3E317 /* VideoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCoordinator.swift; sourceTree = "<group>"; };
@@ -287,8 +287,8 @@
 			children = (
 				02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */,
 				02E12993232B3D8600E04942 /* JeromeNavigationBar.swift */,
-				020529A923448FA5006DD503 /* CustomWebViewController.swift */,
-				020529A823448FA5006DD503 /* CustomWebViewController.xib */,
+				02A88DF423459537007C5C65 /* CustomWebVC.swift */,
+				02A88DF523459537007C5C65 /* CustomWebVC.xib */,
 				020529AC2344C5C9006DD503 /* HasWebView.swift */,
 			);
 			path = UI;
@@ -414,8 +414,8 @@
 				0264470D232781A300822485 /* LaunchScreen.storyboard in Resources */,
 				0264470A232781A300822485 /* Assets.xcassets in Resources */,
 				0235E0F02329C8E800A82B7F /* CategoryListTab.storyboard in Resources */,
+				02A88DF723459537007C5C65 /* CustomWebVC.xib in Resources */,
 				02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */,
-				020529AA23448FA5006DD503 /* CustomWebViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,6 +513,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02A88DF623459537007C5C65 /* CustomWebVC.swift in Sources */,
 				021B5FD9232891F1000B192B /* NSObjectExtension.swift in Sources */,
 				022A4DE4232A34DD006EA137 /* CoreDataConnect.swift in Sources */,
 				02B816A82329E80F00C81F8D /* Video.xcdatamodeld in Sources */,
@@ -529,7 +530,6 @@
 				02BEA20B23321AF300C3E317 /* VideoCoordinator.swift in Sources */,
 				02E12994232B3D8600E04942 /* JeromeNavigationBar.swift in Sources */,
 				02E1299B232B420500E04942 /* BaseViewController.swift in Sources */,
-				020529AB23448FA5006DD503 /* CustomWebViewController.swift in Sources */,
 				02BEA20F23321BDA00C3E317 /* Coordinator.swift in Sources */,
 				021B5FD5232891D7000B192B /* LogTextView.swift in Sources */,
 				0220690B232E6664007A4BEB /* CategoryDetailTableViewCell.swift in Sources */,
