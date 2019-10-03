@@ -100,24 +100,26 @@ class CustomWebVC: UIViewController {
 extension CustomWebVC: WKNavigationDelegate {
   func webView(_ webView: WKWebView, didStartProvisionalNavigation _: WKNavigation!) {
     let urlString = webView.url?.absoluteString
-    logger.log("webView.url?.absoluteString: \(String(describing: urlString))", theOSLog: .customWebView)
+    logger.log("webView didStartProvisionalNavigation url: \(String(describing: urlString))", theOSLog: .customWebView)
+    titleLabel.text = urlString
   }
 
   func webView(_ webView: WKWebView, didFinish _: WKNavigation!) {
-
-    webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';", completionHandler: nil)
-
-    backPageButton.imageView?.image = UIImage(named: webView.canGoBack ? "BackPageButton_On" : "BackPageButton_Off")
-    nextPageButton.imageView?.image = UIImage(named: webView.canGoForward ? "NextPageButton_On" : "NextPageButton_Off")
+    logger.log("webView didFinish", theOSLog: .customWebView)
+    backPageButton.isHidden = !webView.canGoBack
+    nextPageButton.isHidden = !webView.canGoForward
   }
 
-  func webView(_: WKWebView, didFail _: WKNavigation!, withError _: Error) {
+  func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    logger.log("webView didFail. Error: \(error.localizedDescription)", theOSLog: .customWebView)
   }
 
-  func webView(_: WKWebView, didFailProvisionalNavigation _: WKNavigation!, withError _: Error) {
+  func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+    logger.log("webView didFailProvisionalNavigation. Error: \(error.localizedDescription)", theOSLog: .customWebView)
   }
 
   func webView(_: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+    logger.log("webView decidePolicyFor", theOSLog: .customWebView)
     guard let httpResponse = navigationResponse.response as? HTTPURLResponse else {
       decisionHandler(.cancel)
       return
