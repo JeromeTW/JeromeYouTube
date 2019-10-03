@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebErrorVC"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController storyboardIdentifier="WebErrorViewController" id="80K-TK-KMy" customClass="WebErrorVC" customModule="GP920_iOS" customModuleProvider="target">
+            <view key="view" contentMode="scaleToFill" id="1mK-av-dQF">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ML1-gW-NJM">
+                        <rect key="frame" x="57" y="413" width="300" height="80"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="哎呀！有點小問題" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qb-q9-Pt7">
+                                <rect key="frame" x="53" y="0.0" width="194.5" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b3K-9A-FTD">
+                                <rect key="frame" x="43" y="44" width="214.5" height="36"/>
+                                <string key="text">請確認網路狀態正常或此頁面的
+服務依然可用</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.56999999999999995" green="0.56999999999999995" blue="0.56999999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="b3K-9A-FTD" secondAttribute="bottom" id="dIy-6f-jea"/>
+                            <constraint firstItem="b3K-9A-FTD" firstAttribute="centerX" secondItem="ML1-gW-NJM" secondAttribute="centerX" id="mzc-yE-CeQ"/>
+                            <constraint firstItem="4Qb-q9-Pt7" firstAttribute="top" secondItem="ML1-gW-NJM" secondAttribute="top" id="qsL-JZ-Ugh"/>
+                            <constraint firstItem="4Qb-q9-Pt7" firstAttribute="centerX" secondItem="ML1-gW-NJM" secondAttribute="centerX" id="sUw-kq-haJ"/>
+                            <constraint firstItem="b3K-9A-FTD" firstAttribute="top" secondItem="4Qb-q9-Pt7" secondAttribute="bottom" constant="15" id="z8h-6G-QRk"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SomeProblemHappened" translatesAutoresizingMaskIntoConstraints="NO" id="lxu-R6-2KE">
+                        <rect key="frame" x="128.5" y="166" width="157" height="206"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOT-Vd-IvY">
+                        <rect key="frame" x="57" y="529" width="300" height="77.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <state key="normal" title="再試一次">
+                            <color key="titleColor" red="0.0" green="0.43921568630000002" blue="0.75294117650000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="ML1-gW-NJM" firstAttribute="centerY" secondItem="IuL-Hk-Ebs" secondAttribute="centerY" id="3x5-Sb-Nqe"/>
+                    <constraint firstItem="ML1-gW-NJM" firstAttribute="width" secondItem="yOT-Vd-IvY" secondAttribute="width" id="7LI-II-ggT"/>
+                    <constraint firstItem="yOT-Vd-IvY" firstAttribute="top" secondItem="ML1-gW-NJM" secondAttribute="bottom" constant="36" id="BNf-cV-S61"/>
+                    <constraint firstItem="ML1-gW-NJM" firstAttribute="top" secondItem="lxu-R6-2KE" secondAttribute="bottom" constant="41" id="E3s-XI-FiD"/>
+                    <constraint firstItem="yOT-Vd-IvY" firstAttribute="height" secondItem="1mK-av-dQF" secondAttribute="height" multiplier="52/603" id="Jea-by-k8B"/>
+                    <constraint firstItem="yOT-Vd-IvY" firstAttribute="centerX" secondItem="IuL-Hk-Ebs" secondAttribute="centerX" id="Ypr-Kr-ccR"/>
+                    <constraint firstItem="ML1-gW-NJM" firstAttribute="centerX" secondItem="IuL-Hk-Ebs" secondAttribute="centerX" id="b8G-iM-Pmr"/>
+                    <constraint firstItem="yOT-Vd-IvY" firstAttribute="width" secondItem="1mK-av-dQF" secondAttribute="width" multiplier="272/375" id="i6Z-sm-ClL"/>
+                    <constraint firstItem="lxu-R6-2KE" firstAttribute="centerX" secondItem="IuL-Hk-Ebs" secondAttribute="centerX" id="pIo-9H-gqh"/>
+                </constraints>
+                <viewLayoutGuide key="safeArea" id="IuL-Hk-Ebs"/>
+            </view>
+            <connections>
+                <outlet property="errorDetailLabel" destination="b3K-9A-FTD" id="JgP-4l-y4w"/>
+                <outlet property="someErrorLabel" destination="4Qb-q9-Pt7" id="0Ll-z3-ty1"/>
+                <outlet property="tryAgainButton" destination="yOT-Vd-IvY" id="1N5-Ee-f9F"/>
+            </connections>
+            <point key="canvasLocation" x="1791.2" y="-382.75862068965517"/>
+        </viewController>
+    </objects>
+    <resources>
+        <image name="SomeProblemHappened" width="78.5" height="103"/>
+    </resources>
+</document>
