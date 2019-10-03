@@ -3,7 +3,6 @@
 // Created by Jerome Hsieh on 2019/10/3.
 
 import CoreData
-import SafariServices
 import UIKit
 
 class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
@@ -98,9 +97,13 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
   }
 
   @IBAction func webBtnPressed(_: Any) {
-    // TODO: Change to WKWebView, SFSafariViewController can not get its url.
-    let safariVC = SFSafariViewController(url: URL(string: "https://www.youtube.com/results?search_query=music")!)
-    present(safariVC, animated: true, completion: nil)
+    let customWebViewController = CustomWebViewController(nibName: "CustomWebViewController", bundle: nil)
+    guard let tempURL = URL(string: "https://www.youtube.com/results?search_query=music") else {
+      assertionFailure()
+      return
+    }
+    customWebViewController.theURL = tempURL
+    present(customWebViewController, animated: true, completion: nil)
   }
 }
 

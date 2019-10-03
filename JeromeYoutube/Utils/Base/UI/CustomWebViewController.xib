@@ -10,6 +10,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomWebViewController" customModule="JeromeYoutube" customModuleProvider="target">
             <connections>
+                <outlet property="backPageButton" destination="rH5-GB-qn7" id="ke7-OJ-hGn"/>
+                <outlet property="closeButton" destination="lCJ-37-NQW" id="959-Vr-SnD"/>
+                <outlet property="controlBarView" destination="rUr-2s-R5D" id="48O-2M-hSW"/>
+                <outlet property="mainView" destination="8Td-El-ScC" id="KJc-yY-3yv"/>
+                <outlet property="navagationView" destination="dgk-fW-kkA" id="hwE-6J-fbX"/>
+                <outlet property="navagationViewHeightConstraint" destination="bmw-O5-uYx" id="S8H-4Z-MI5"/>
+                <outlet property="nextPageButton" destination="CrO-Wk-OYI" id="KIH-4k-c5e"/>
+                <outlet property="refreshButton" destination="cSN-wv-Bye" id="eps-ga-Xxc"/>
+                <outlet property="statusView" destination="O0L-3A-GFe" id="W8H-Ti-Ppg"/>
+                <outlet property="statusViewHeightConstraint" destination="uHC-mJ-cwq" id="gkO-yG-Sza"/>
+                <outlet property="titleLabel" destination="euk-9Y-Pje" id="xVY-53-RxU"/>
+                <outlet property="topView" destination="AtK-2t-Ush" id="9c9-DX-cgN"/>
                 <outlet property="view" destination="1at-N5-cNB" id="mkw-2s-ahY"/>
             </connections>
         </placeholder>
@@ -37,9 +49,9 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCJ-37-NQW">
-                                    <rect key="frame" x="8" y="27.5" width="46" height="30"/>
-                                    <state key="normal" title="Button"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCJ-37-NQW">
+                                    <rect key="frame" x="8" y="31.5" width="18" height="22"/>
+                                    <state key="normal" image="xmark" catalog="system"/>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -65,7 +77,19 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8g-4X-a8e" userLabel="Content View">
                     <rect key="frame" x="0.0" y="128" width="320" height="440"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Td-El-ScC">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="440"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                    </subviews>
                     <color key="backgroundColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="8Td-El-ScC" firstAttribute="top" secondItem="R8g-4X-a8e" secondAttribute="top" id="OAx-Qu-dLB"/>
+                        <constraint firstAttribute="bottom" secondItem="8Td-El-ScC" secondAttribute="bottom" id="Rx4-0j-iNa"/>
+                        <constraint firstAttribute="trailing" secondItem="8Td-El-ScC" secondAttribute="trailing" id="ulo-QN-Ffg"/>
+                        <constraint firstItem="8Td-El-ScC" firstAttribute="leading" secondItem="R8g-4X-a8e" secondAttribute="leading" id="zLi-Dy-ytV"/>
+                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rUr-2s-R5D">
                     <rect key="frame" x="0.0" y="503" width="320" height="65"/>
@@ -73,20 +97,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27t-Ph-1zi">
                             <rect key="frame" x="20" y="0.0" width="280" height="65"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rH5-GB-qn7" userLabel="Previous Page Button">
-                                    <rect key="frame" x="55" y="12.5" width="40" height="40"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="Ku2-ny-xsV"/>
-                                        <constraint firstAttribute="width" constant="40" id="Sss-7s-oKs"/>
-                                    </constraints>
-                                    <inset key="imageEdgeInsets" minX="15" minY="11" maxX="15" maxY="11"/>
-                                    <state key="normal" image="gobackward" catalog="system"/>
-                                    <connections>
-                                        <action selector="backPageButtonAction:" destination="-1" eventType="touchUpInside" id="Dlu-jo-KdP"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CrO-Wk-OYI" userLabel="Next Page Button">
-                                    <rect key="frame" x="20" y="12.5" width="40" height="40"/>
+                                    <rect key="frame" x="68" y="12.5" width="40" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="dVN-GX-E6K"/>
                                         <constraint firstAttribute="width" constant="40" id="vdW-XP-KAT"/>
@@ -109,15 +121,27 @@
                                         <action selector="refreshButtonAction:" destination="-1" eventType="touchUpInside" id="ee4-mc-jhX"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rH5-GB-qn7" userLabel="Previous Page Button">
+                                    <rect key="frame" x="20" y="12.5" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="Ku2-ny-xsV"/>
+                                        <constraint firstAttribute="width" constant="40" id="Sss-7s-oKs"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="15" minY="11" maxX="15" maxY="11"/>
+                                    <state key="normal" image="gobackward" catalog="system"/>
+                                    <connections>
+                                        <action selector="backPageButtonAction:" destination="-1" eventType="touchUpInside" id="Dlu-jo-KdP"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstItem="CrO-Wk-OYI" firstAttribute="centerY" secondItem="27t-Ph-1zi" secondAttribute="centerY" id="0RC-2s-oMR"/>
-                                <constraint firstItem="rH5-GB-qn7" firstAttribute="leading" secondItem="CrO-Wk-OYI" secondAttribute="trailing" constant="-5" id="20R-qX-uBk"/>
-                                <constraint firstItem="CrO-Wk-OYI" firstAttribute="leading" secondItem="27t-Ph-1zi" secondAttribute="leading" constant="20" symbolic="YES" id="6rk-rW-CTZ"/>
                                 <constraint firstItem="cSN-wv-Bye" firstAttribute="centerY" secondItem="27t-Ph-1zi" secondAttribute="centerY" id="9W1-sC-MWP"/>
+                                <constraint firstItem="rH5-GB-qn7" firstAttribute="leading" secondItem="27t-Ph-1zi" secondAttribute="leading" constant="20" symbolic="YES" id="OwG-6S-cUt"/>
                                 <constraint firstAttribute="trailing" secondItem="cSN-wv-Bye" secondAttribute="trailing" constant="20" symbolic="YES" id="SOo-d7-BiY"/>
                                 <constraint firstItem="rH5-GB-qn7" firstAttribute="centerY" secondItem="CrO-Wk-OYI" secondAttribute="centerY" id="fZC-mi-e4o"/>
+                                <constraint firstItem="CrO-Wk-OYI" firstAttribute="leading" secondItem="rH5-GB-qn7" secondAttribute="trailing" constant="8" symbolic="YES" id="xxR-7k-q11"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -153,5 +177,6 @@
         <image name="arrow.clockwise" catalog="system" width="56" height="64"/>
         <image name="gobackward" catalog="system" width="58" height="64"/>
         <image name="goforward" catalog="system" width="58" height="64"/>
+        <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>
 </document>

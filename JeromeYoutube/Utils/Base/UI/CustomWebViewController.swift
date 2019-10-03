@@ -3,16 +3,21 @@
 // Created by Jerome Hsieh on 2019/10/3.
 
 import Reachability
-// import SVProgressHUD
 import UIKit
 import WebKit
 
-class CustomWebViewController: UIViewController, HasWebView {
+class CustomWebViewController: UIViewController, HasWebView, HasJeromeNavigationBar {
   @IBOutlet var mainView: UIView!
-  @IBOutlet var titleView: UIView!
   @IBOutlet var titleLabel: UILabel!
+  @IBOutlet var closeButton: UIButton!
   @IBOutlet var controlBarView: UIView!
-  @IBOutlet var maskView: UIView!
+  @IBOutlet var topView: UIView!
+  @IBOutlet var statusView: UIView!
+  @IBOutlet var navagationView: UIView!
+  @IBOutlet var statusViewHeightConstraint: NSLayoutConstraint!
+  @IBOutlet var navagationViewHeightConstraint: NSLayoutConstraint!
+  var observer: NSObjectProtocol?
+  
   @IBOutlet var refreshButton: UIButton!
   @IBOutlet var nextPageButton: UIButton!
   @IBOutlet var backPageButton: UIButton!
@@ -20,20 +25,13 @@ class CustomWebViewController: UIViewController, HasWebView {
   var webErrorViewContainer: UIView!
   var request: URLRequest!
   var theURL: URL!
-  var customTitle = ""
 
   override func viewDidLoad() {
     super.viewDidLoad()
     assert(theURL != nil)
-    titleView.layer.shadowColor = UIColor.black.cgColor
-    titleView.layer.shadowOpacity = 0.4
-    titleView.layer.shadowOffset = CGSize.zero
-    titleView.layer.shadowRadius = 5.0
-
-//    controlBarView.backgroundColor = UIColor(.enterpriseDarkblack)
-
-    titleLabel.text = customTitle
-//    titleLabel.textColor = UIColor(.enterpriseBlue)
+    setupSatusBarFrameChangedObserver()
+    statusViewHeightConstraint.constant = 0
+    titleLabel.text = theURL.absoluteString
 
     request = URLRequest(url: theURL)
     webView = WKWebView()
@@ -42,20 +40,7 @@ class CustomWebViewController: UIViewController, HasWebView {
     webView.navigationDelegate = self
     webView.scrollView.delegate = self
     webView.sizeToFit()
-    maskView.addSubview(webView)
-
-    let webErrorVC = WebErrorVC(nibName: "webErrorVC", bundle: nil)
-    webErrorViewContainer = UIView()
-    webErrorViewContainer.frame = maskView.bounds
-    maskView.addSubview(webErrorViewContainer)
-
-    webErrorVC.view.frame = webErrorViewContainer.bounds
-    webErrorViewContainer.addSubview(webErrorVC.view)
-    webErrorVC.tryAgainHandler = {
-      [weak self] in
-      guard let self = self else { return }
-      self.reloadIfPossible()
-    }
+    mainView.addSubview(webView)
 
     let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipe(_:)))
     swipeRight.direction = .right
@@ -88,6 +73,10 @@ class CustomWebViewController: UIViewController, HasWebView {
       }
     }
   }
+  
+  deinit {
+    removeSatusBarHeightChangedObserver()
+  }
 
   @objc func swipe(_ recognizer: UISwipeGestureRecognizer) {
     if recognizer.direction == .right {
@@ -102,7 +91,6 @@ class CustomWebViewController: UIViewController, HasWebView {
   }
 
   @IBAction func closeButtonAction(_: Any) {
-//    SVProgressHUD.dismiss()
 
     /*
      IOS920-1284: The older SDK use assign instead of weak,
@@ -137,11 +125,9 @@ extension CustomWebViewController: WKNavigationDelegate {
   func webView(_ webView: WKWebView, didStartProvisionalNavigation _: WKNavigation!) {
     let urlString = webView.url?.absoluteString
     logger.log("webView.url?.absoluteString: \(urlString)")
-//    SVProgressHUD.show(withStatus: "webLoading".localized())
   }
 
   func webView(_ webView: WKWebView, didFinish _: WKNavigation!) {
-//    SVProgressHUD.dismiss()
 
     webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';", completionHandler: nil)
 
@@ -150,12 +136,10 @@ extension CustomWebViewController: WKNavigationDelegate {
   }
 
   func webView(_: WKWebView, didFail _: WKNavigation!, withError _: Error) {
-//    SVProgressHUD.dismiss()
     setWebErrorViewContainer(shouldHidden: false)
   }
 
   func webView(_: WKWebView, didFailProvisionalNavigation _: WKNavigation!, withError _: Error) {
-//    SVProgressHUD.dismiss()
     setWebErrorViewContainer(shouldHidden: false)
   }
 
