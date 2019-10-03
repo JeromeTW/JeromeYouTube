@@ -29,7 +29,6 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
   @IBOutlet var tableView: UITableView! {
     didSet {
       tableView.tableFooterView = UIView()
-      tableView.contentInset = UIEdgeInsets(top: CGFloat.statusAndNavigationTotalHeight - 1, left: 0, bottom: 0, right: 0)
       tableView.contentInsetAdjustmentBehavior = .never
     }
   }
