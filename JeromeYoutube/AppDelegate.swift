@@ -112,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
   private func setupLogConfigure() {
-    logger.configure([.error, .warning, .debug, .info], shouldShow: false, shouldCache: true)
+    logger.configure([ .fault, .error, .debug, .info, .defaultLevel], shouldShow: false, shouldCache: true)
   }
 
   private func setupLogTextView() {

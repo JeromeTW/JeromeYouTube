@@ -124,7 +124,7 @@ class CustomWebVC: UIViewController, HasWebView, HasJeromeNavigationBar {
 extension CustomWebVC: WKNavigationDelegate {
   func webView(_ webView: WKWebView, didStartProvisionalNavigation _: WKNavigation!) {
     let urlString = webView.url?.absoluteString
-    logger.log("webView.url?.absoluteString: \(urlString)")
+    logger.log("webView.url?.absoluteString: \(String(describing: urlString))", theOSLog: .customWebView)
   }
 
   func webView(_ webView: WKWebView, didFinish _: WKNavigation!) {
@@ -148,7 +148,7 @@ extension CustomWebVC: WKNavigationDelegate {
       decisionHandler(.cancel)
       return
     }
-    logger.log("httpResponse.statusCode: \(httpResponse.statusCode)")
+    logger.log("httpResponse.statusCode: \(httpResponse.statusCode)", theOSLog: .customWebView)
     if httpResponse.statusCode != 200 {
       setWebErrorViewContainer(shouldHidden: false)
     }
