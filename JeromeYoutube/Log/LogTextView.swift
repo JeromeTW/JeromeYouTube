@@ -35,6 +35,12 @@ extension UIView {
     subview.translatesAutoresizingMaskIntoConstraints = false
     addConstraints(constraints.map { $0(subview, self) })
   }
+  
+  func insertSubview(_ subview: UIView, at: Int, constraints: [Constraint]) {
+    insertSubview(subview, at: at)
+    subview.translatesAutoresizingMaskIntoConstraints = false
+    addConstraints(constraints.map { $0(subview, self) })
+  }
 
   /// ex: subview.topAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.topAnchor, constant: constant)
   /// - Parameter subviewKeyPath: subview's KeyPath

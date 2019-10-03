@@ -46,20 +46,31 @@ extension HasJeromeNavigationBar {
 
     navagationView.removeToolBar()
     statusView.removeToolBar()
-
-    let toolbar1 = UIToolbar(frame: navagationView.bounds)
-    toolbar1.setShadowImage(UIImage(), forToolbarPosition: .any)
-    navagationView.backgroundColor = defaultNavigationBarColor
-    navagationView.insertSubview(toolbar1, at: 0)
-
-    let toolbar2 = UIToolbar(frame: statusView.bounds)
-    toolbar2.setShadowImage(UIImage(), forToolbarPosition: .any)
-    statusView.backgroundColor = defaultNavigationBarColor
-    statusView.insertSubview(toolbar2, at: 0)
-
+    
     let statusHeight = UIApplication.shared.statusBarFrame.size.height
     statusViewHeightConstraint.constant = statusHeight
     navagationViewHeightConstraint.constant = CGFloat.navagationViewHeight
+
+    let toolbar1 = UIToolbar(frame: CGRect.zero)
+    toolbar1.setShadowImage(UIImage(), forToolbarPosition: .any)
+    navagationView.backgroundColor = defaultNavigationBarColor
+
+    navagationView.insertSubview(toolbar1, at: 0, constraints: [
+      UIView.anchorConstraintEqual(with: \UIView.topAnchor, constant: 0),
+      UIView.anchorConstraintEqual(with: \UIView.leadingAnchor, constant: 0),
+      UIView.anchorConstraintEqual(with: \UIView.bottomAnchor, constant: 0),
+      UIView.anchorConstraintEqual(with: \UIView.trailingAnchor, constant: 0)
+    ])
+
+    let toolbar2 = UIToolbar(frame: CGRect.zero)
+    toolbar2.setShadowImage(UIImage(), forToolbarPosition: .any)
+    statusView.backgroundColor = defaultNavigationBarColor
+    statusView.insertSubview(toolbar2, at: 0, constraints: [
+      UIView.anchorConstraintEqual(with: \UIView.topAnchor, constant: 0),
+      UIView.anchorConstraintEqual(with: \UIView.leadingAnchor, constant: 0),
+      UIView.anchorConstraintEqual(with: \UIView.bottomAnchor, constant: 0),
+      UIView.anchorConstraintEqual(with: \UIView.trailingAnchor, constant: 0)
+    ])
   }
 
   func removeSatusBarHeightChangedObserver() {
