@@ -131,7 +131,7 @@ class CustomWebVC: UIViewController {
     
     alert.view.snp.makeConstraints { make in
       make.width.equalTo(view.bounds.width)
-      make.height.equalTo(400)
+      make.height.equalTo(350)  // Tuning 出來的 Magic Number
     }
     
     present(alert, animated: true)

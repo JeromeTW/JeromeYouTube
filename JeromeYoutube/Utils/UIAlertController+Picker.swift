@@ -26,11 +26,18 @@ class AlertControllerWithPicker<T>: UIAlertController, UIPickerViewDataSource, U
     assert(choices.isEmpty == false)
     view.addSubview(pickerView)
     pickerView.snp.makeConstraints { make in
-      make.edges.equalTo(view).inset(UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0))
+      make.left.equalTo(view).offset(0)
+      make.right.equalTo(view).offset(0)
+      make.top.equalTo(view).offset(80) // Tuning 出來的 Magic Number
+      make.height.equalTo(view.bounds.height * 0.2) // Tuning 出來的 Magic Number
     }
     pickerView.dataSource = self
     pickerView.delegate = self
     didSelectedString = choices[0]
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
   }
   
   func numberOfComponents(in pickerView: UIPickerView) -> Int {
