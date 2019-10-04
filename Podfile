@@ -9,4 +9,5 @@ target 'JeromeYoutube' do
   pod 'SwiftLint'
   pod 'DeviceGuru'
   pod 'ReachabilitySwift'
+  pod 'SnapKit', '~> 4.0'
 end

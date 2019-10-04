@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import SnapKit
 
 class AlertControllerWithPicker: UIAlertController {
   var choices: [String]!
   var didSelectedHandler: ((String) -> Void)!
-  private var pickerView = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 140))
+  private var pickerView = UIPickerView(frame: CGRect.zero)
   
   override func loadView() {
     super.loadView()
@@ -22,7 +23,9 @@ class AlertControllerWithPicker: UIAlertController {
   override func viewDidLoad() {
     super.viewDidLoad()
     view.addSubview(pickerView)
-    preferredContentSize.height = pickerView.frame.height + 40
+    pickerView.snp.makeConstraints { make in
+      make.edges.equalTo(view).inset(UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0))
+    }
     pickerView.dataSource = self
     pickerView.delegate = self
   }

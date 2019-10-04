@@ -5,6 +5,7 @@
 import Reachability
 import UIKit
 import WebKit
+import SnapKit
 
 class CustomWebVC: UIViewController {
   @IBOutlet weak var mainView: UIView!
@@ -102,9 +103,10 @@ class CustomWebVC: UIViewController {
       print(string)
     }
     
-    let height = NSLayoutConstraint(item: alert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 300)
-    let width = NSLayoutConstraint(item: alert.view!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 200)
-    alert.view.addConstraints([height, width])
+    alert.view.snp.makeConstraints { make in
+      make.width.equalTo(view.bounds.width)
+      make.height.equalTo(300)
+    }
     
     present(alert, animated: true)
   }
