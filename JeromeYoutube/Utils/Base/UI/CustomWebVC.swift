@@ -6,6 +6,7 @@ import Reachability
 import UIKit
 import WebKit
 import SnapKit
+import CoreData
 
 class CustomWebVC: UIViewController {
   @IBOutlet weak var mainView: UIView!
@@ -51,6 +52,12 @@ class CustomWebVC: UIViewController {
   
   var request: URLRequest!
   var theURL: URL!
+  
+  private var coredataConnect = CoreDataConnect()
+  private lazy var categoryFRC: NSFetchedResultsController<VideoCategory>! = {
+    let frc = coredataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
+    return frc
+  }()
 
   override func loadView() {
     super.loadView()
@@ -96,16 +103,28 @@ class CustomWebVC: UIViewController {
   }
   
   @IBAction func addButtonPressed(_ sender: Any) {
-    let alert = AlertControllerWithPicker(title: "Title", message: "Message", preferredStyle: .actionSheet)
-    alert.choices = ["1", "2", "3"]
-    alert.didSelectedHandler = {
-      string in
-      print(string)
+    // UIViewAlertForUnsatisfiableConstraints error 是 actionSheet 的 Bug
+    // http://openradar.appspot.com/49289931
+    let alert = AlertControllerWithPicker<VideoCategory>(title: "分類", message: "要將影片加入哪一個分類下", preferredStyle: .actionSheet)
+    alert.choices = categoryFRC.fetchedObjects!
+    alert.titleStringKeyPath = \VideoCategory.name!
+    
+    let comfirmAction = UIAlertActionWithAlertController(title: "加入", style: .default) { action in
+      guard let actionWithAlertVC = action as? UIAlertActionWithAlertController, let alert = actionWithAlertVC.alertController, let alertControllerWithPicker = alert as? AlertControllerWithPicker<VideoCategory> else {
+        fatalError()
+      }
+      let selectedCategory = alertControllerWithPicker.didSelectedString
+      // TODO: 加到 Category 中
     }
+    comfirmAction.alertController = alert
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    
+    alert.addAction(comfirmAction)
+    alert.addAction(cancelAction)
     
     alert.view.snp.makeConstraints { make in
       make.width.equalTo(view.bounds.width)
-      make.height.equalTo(300)
+      make.height.equalTo(400)
     }
     
     present(alert, animated: true)
