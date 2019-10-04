@@ -21,9 +21,16 @@ class CustomWebVC: UIViewController {
   
   @IBOutlet weak var closeButton: UIButton!
   @IBOutlet weak var addButton: UIButton! // 自定義行為之後或許可以 。。。 icon 表示更多功能。
-  @IBOutlet weak var nextPageButton: UIButton!
-  @IBOutlet weak var backPageButton: UIButton!
-  
+  @IBOutlet weak var nextPageButton: UIButton! {
+    didSet {
+      nextPageButton.isHidden = true
+    }
+  }
+  @IBOutlet weak var backPageButton: UIButton! {
+    didSet {
+      backPageButton.isHidden = true
+    }
+  }
   @IBOutlet var navigationButtons: [UIButton]!
   
   var webView: WKWebView! {
