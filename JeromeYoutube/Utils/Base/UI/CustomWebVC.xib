@@ -73,6 +73,9 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <color key="tintColor" name="烏黑"/>
                                     <state key="normal" image="plus" catalog="system"/>
+                                    <connections>
+                                        <action selector="addButtonPressed:" destination="-1" eventType="touchUpInside" id="LFr-B8-UL7"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>

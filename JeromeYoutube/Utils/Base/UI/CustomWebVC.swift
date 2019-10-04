@@ -18,7 +18,7 @@ class CustomWebVC: UIViewController {
   @IBOutlet weak var navagationViewHeightConstraint: NSLayoutConstraint!
   
   @IBOutlet weak var closeButton: UIButton!
-  @IBOutlet weak var addButton: UIButton!
+  @IBOutlet weak var addButton: UIButton! // 自定義行為之後或許可以 。。。 icon 表示更多功能。
   @IBOutlet weak var nextPageButton: UIButton!
   @IBOutlet weak var backPageButton: UIButton!
   
@@ -92,6 +92,21 @@ class CustomWebVC: UIViewController {
     if webView.canGoBack {
       webView.goBack()
     }
+  }
+  
+  @IBAction func addButtonPressed(_ sender: Any) {
+    let alert = AlertControllerWithPicker(title: "Title", message: "Message", preferredStyle: .actionSheet)
+    alert.choices = ["1", "2", "3"]
+    alert.didSelectedHandler = {
+      string in
+      print(string)
+    }
+    
+    let height = NSLayoutConstraint(item: alert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 300)
+    let width = NSLayoutConstraint(item: alert.view!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 200)
+    alert.view.addConstraints([height, width])
+    
+    present(alert, animated: true)
   }
 }
 

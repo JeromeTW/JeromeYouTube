@@ -38,6 +38,7 @@
 		02A88DFC234595B4007C5C65 /* BaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A88DF9234595B4007C5C65 /* BaseLogger.swift */; };
 		02A88DFD234595B4007C5C65 /* LogTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A88DFA234595B4007C5C65 /* LogTextView.swift */; };
 		02A88DFE23459606007C5C65 /* BaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A88DF9234595B4007C5C65 /* BaseLogger.swift */; };
+		02A88E00234625C5007C5C65 /* UIAlertController+Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A88DFF234625C5007C5C65 /* UIAlertController+Picker.swift */; };
 		02B48CCA232F30FB00F8AA85 /* YoutubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B48CC9232F30FB00F8AA85 /* YoutubePlayer.swift */; };
 		02B48CCB232F6E5D00F8AA85 /* NetworkRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FDC232895FB000B192B /* NetworkRequestOperation.swift */; };
 		02B48CCC232F6E5F00F8AA85 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FDD232895FB000B192B /* AsynchronousOperation.swift */; };
@@ -98,6 +99,7 @@
 		02A88DF8234595B3007C5C65 /* AdvancedLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedLogger.swift; sourceTree = "<group>"; };
 		02A88DF9234595B4007C5C65 /* BaseLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseLogger.swift; sourceTree = "<group>"; };
 		02A88DFA234595B4007C5C65 /* LogTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogTextView.swift; sourceTree = "<group>"; };
+		02A88DFF234625C5007C5C65 /* UIAlertController+Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Picker.swift"; sourceTree = "<group>"; };
 		02B48CC9232F30FB00F8AA85 /* YoutubePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubePlayer.swift; sourceTree = "<group>"; };
 		02B816A72329E80F00C81F8D /* Video.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Video.xcdatamodel; sourceTree = "<group>"; };
 		02BEA20A23321AF300C3E317 /* VideoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCoordinator.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				021B5FD8232891F1000B192B /* CGFloatExtension.swift */,
 				0235E0FB2329D53C00A82B7F /* StoryboardExtension.swift */,
 				02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */,
+				02A88DFF234625C5007C5C65 /* UIAlertController+Picker.swift */,
 				02187FC623308BA40040C5AC /* DeviceGuruExtension.swift */,
 			);
 			path = Utils;
@@ -512,6 +515,7 @@
 			files = (
 				02A88DF623459537007C5C65 /* CustomWebVC.swift in Sources */,
 				021B5FD9232891F1000B192B /* NSObjectExtension.swift in Sources */,
+				02A88E00234625C5007C5C65 /* UIAlertController+Picker.swift in Sources */,
 				022A4DE4232A34DD006EA137 /* CoreDataConnect.swift in Sources */,
 				02B816A82329E80F00C81F8D /* Video.xcdatamodeld in Sources */,
 				022A4DE7232A3871006EA137 /* VideoCategory+CoreData.swift in Sources */,
