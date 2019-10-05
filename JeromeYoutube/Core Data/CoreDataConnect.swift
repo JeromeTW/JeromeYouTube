@@ -6,19 +6,22 @@ import CoreData
 import UIKit
 
 class CoreDataConnect {
-  lazy var persistentContainer: NSPersistentContainer = {
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    return appDelegate.persistentContainer
+  let persistentContainer: NSPersistentContainer!
+  
+  lazy var backgroundContext: NSManagedObjectContext = {
+      return self.persistentContainer.newBackgroundContext()
   }()
 
-  var myContext: NSManagedObjectContext!
+  lazy var viewContext = persistentContainer.viewContext
 
-  init(context: NSManagedObjectContext) {
-    myContext = context
+  //MARK: Init with dependency
+  init(container: NSPersistentContainer) {
+      self.persistentContainer = container
+      self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
   }
-
-  init() { // Use viewContext
-    myContext = UIApplication.viewContext
+  
+  convenience init() {
+    self.init(container: PersistentContainerManager.shared.persistentContainer)
   }
 
   // MARK: - Functions
@@ -26,13 +29,13 @@ class CoreDataConnect {
   // insert
   // NOTE: myEntityName(在Video.xcdatamodeld中設定) 必須跟 class name 一致才能用範型
   func insert<T: NSManagedObject>(type _: T.Type, attributeInfo: [String: Any]) throws {
-    let insetObject = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: myContext)
+    let insetObject = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: backgroundContext)
 
     for (key, value) in attributeInfo {
       insetObject.setValue(value, forKey: key)
     }
 
-    try persistentContainer.saveContext(backgroundContext: myContext)
+    try persistentContainer.saveContext(backgroundContext: backgroundContext)
   }
 
   // retrieve
@@ -60,7 +63,7 @@ class CoreDataConnect {
     }
 
     do {
-      return try myContext.fetch(request) as? [T]
+      return try viewContext.fetch(request) as? [T]
 
     } catch {
       fatalError("\(error)")
@@ -75,7 +78,7 @@ class CoreDataConnect {
           result.setValue(value, forKey: key)
         }
       }
-      try persistentContainer.saveContext(backgroundContext: myContext)
+      try persistentContainer.saveContext(backgroundContext: backgroundContext)
     }
   }
 
@@ -83,10 +86,10 @@ class CoreDataConnect {
   func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?) throws {
     if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil) {
       for result in results {
-        myContext.delete(result)
+        backgroundContext.delete(result)
       }
 
-      try persistentContainer.saveContext(backgroundContext: myContext)
+      try persistentContainer.saveContext(backgroundContext: backgroundContext)
     }
   }
 
@@ -99,7 +102,7 @@ class CoreDataConnect {
     request.resultType = .countResultType
 
     do {
-      let countResult = try myContext.fetch(request)
+      let countResult = try viewContext.fetch(request)
       // 获取数量
       count = countResult.first!.intValue
     } catch let error as NSError {
@@ -122,7 +125,7 @@ class CoreDataConnect {
       request.fetchLimit = limitNumber
     }
     let fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
-                                                              managedObjectContext: myContext,
+                                                              managedObjectContext: viewContext,
                                                               sectionNameKeyPath: sectionNameKeyPath,
                                                               cacheName: cacheName) as! NSFetchedResultsController<T>
     do {
@@ -151,7 +154,7 @@ extension CoreDataConnect {
     request.fetchLimit = 1
 
     do {
-      let result = try myContext.fetch(request) as? [T]
+      let result = try viewContext.fetch(request) as? [T]
       if let first = result?.first {
         newID = first.id + 1
       }
@@ -177,7 +180,7 @@ extension CoreDataConnect {
     request.fetchLimit = 1
 
     do {
-      let result = try myContext.fetch(request) as? [T]
+      let result = try viewContext.fetch(request) as? [T]
       if let first = result?.first {
         newOrder = first.order + 1
       }

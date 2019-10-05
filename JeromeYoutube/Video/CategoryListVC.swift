@@ -34,7 +34,7 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
     }
   }
 
-  let viewContext = UIApplication.viewContext
+  let viewContext = PersistentContainerManager.shared.viewContext
   private var coredataConnect = CoreDataConnect()
   private var blockOperations = [BlockOperation]()
 

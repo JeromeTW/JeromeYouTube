@@ -10,4 +10,8 @@ target 'JeromeYoutube' do
   pod 'DeviceGuru'
   pod 'ReachabilitySwift'
   pod 'SnapKit', '~> 4.0'
+  
+  target 'JeromeYoutubeTests' do
+    inherit! :search_paths
+  end
 end
