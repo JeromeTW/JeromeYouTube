@@ -17,10 +17,10 @@ class ImageLoader {
     return queue
   }()
 
-  func imageByURL(_ url: URL, completionHandler: @escaping (_ image: UIImage?, _ url: URL) -> Void) {
+  func imageByURL(_ url: URL, completionHandler: ((_ image: UIImage?, _ url: URL) -> Void)? = nil) {
     // get image from cache
     if let imageFromCache = imageCache.object(forKey: url.absoluteString as NSString) {
-      completionHandler(imageFromCache, url)
+      completionHandler?(imageFromCache, url)
       return
     } else {
       // if no image from cache, get image from url
@@ -36,7 +36,7 @@ class ImageLoader {
             guard let image = self.imageCache.object(forKey: url.absoluteString as NSString) else {
               fatalError()
             }
-            completionHandler(image, url)
+            completionHandler?(image, url)
           }
         }
         blockOperation.addDependency(prevoiusOperation)
@@ -45,6 +45,9 @@ class ImageLoader {
       }
       let request = APIRequest(url: url)
       func mainThreadCompletionHandler(image innerImage: UIImage?, _ url: URL) {
+        guard let completionHandler = completionHandler else {
+          return
+        }
         DispatchQueue.main.async {
           completionHandler(innerImage, url)
         }
