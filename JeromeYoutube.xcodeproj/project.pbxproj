@@ -19,6 +19,10 @@
 		022A4DE2232A34C8006EA137 /* NSPersistentContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE1232A34C8006EA137 /* NSPersistentContainerExtension.swift */; };
 		022A4DE4232A34DD006EA137 /* CoreDataConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE3232A34DD006EA137 /* CoreDataConnect.swift */; };
 		022A4DE7232A3871006EA137 /* VideoCategory+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE6232A3871006EA137 /* VideoCategory+CoreData.swift */; };
+		02343EB323485DEB006E20F5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02343EB123485DEA006E20F5 /* main.swift */; };
+		02343EB423485DEB006E20F5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02343EB123485DEA006E20F5 /* main.swift */; };
+		02343EB523485DEB006E20F5 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02343EB223485DEB006E20F5 /* TestsAppDelegate.swift */; };
+		02343EB623485DEB006E20F5 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02343EB223485DEB006E20F5 /* TestsAppDelegate.swift */; };
 		0235E0F02329C8E800A82B7F /* CategoryListTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0235E0EF2329C8E800A82B7F /* CategoryListTab.storyboard */; };
 		0235E0FC2329D53C00A82B7F /* StoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0235E0FB2329D53C00A82B7F /* StoryboardExtension.swift */; };
 		025FB1C12346DEA000720DCE /* UIAlertActionWithAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025FB1C02346DEA000720DCE /* UIAlertActionWithAlertController.swift */; };
@@ -87,6 +91,8 @@
 		022A4DE1232A34C8006EA137 /* NSPersistentContainerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentContainerExtension.swift; sourceTree = "<group>"; };
 		022A4DE3232A34DD006EA137 /* CoreDataConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataConnect.swift; sourceTree = "<group>"; };
 		022A4DE6232A3871006EA137 /* VideoCategory+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoCategory+CoreData.swift"; sourceTree = "<group>"; };
+		02343EB123485DEA006E20F5 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		02343EB223485DEB006E20F5 /* TestsAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestsAppDelegate.swift; sourceTree = "<group>"; };
 		0235E0EF2329C8E800A82B7F /* CategoryListTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategoryListTab.storyboard; sourceTree = "<group>"; };
 		0235E0FB2329D53C00A82B7F /* StoryboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardExtension.swift; sourceTree = "<group>"; };
 		025FB1C02346DEA000720DCE /* UIAlertActionWithAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertActionWithAlertController.swift; sourceTree = "<group>"; };
@@ -265,6 +271,8 @@
 				021B5FD6232891F1000B192B /* Utils */,
 				021B5FCB23288FED000B192B /* Log */,
 				02644702232781A100822485 /* AppDelegate.swift */,
+				02343EB123485DEA006E20F5 /* main.swift */,
+				02343EB223485DEB006E20F5 /* TestsAppDelegate.swift */,
 				02BEA20C23321B9400C3E317 /* MainTabBarController.swift */,
 				02206905232E6420007A4BEB /* Video */,
 				021B5FE223289603000B192B /* Support */,
@@ -558,6 +566,7 @@
 			files = (
 				02A88DF623459537007C5C65 /* CustomWebVC.swift in Sources */,
 				02DE52A4234833F700007981 /* PersistentContainerManager.swift in Sources */,
+				02343EB323485DEB006E20F5 /* main.swift in Sources */,
 				021B5FD9232891F1000B192B /* NSObjectExtension.swift in Sources */,
 				02A88E00234625C5007C5C65 /* UIAlertController+Picker.swift in Sources */,
 				022A4DE4232A34DD006EA137 /* CoreDataConnect.swift in Sources */,
@@ -588,6 +597,7 @@
 				021B5FDA232891F1000B192B /* CGFloatExtension.swift in Sources */,
 				02206909232E6492007A4BEB /* CategoryDetailVC.swift in Sources */,
 				02644715232790F100822485 /* JeromeYoutubePlayerVC.swift in Sources */,
+				02343EB523485DEB006E20F5 /* TestsAppDelegate.swift in Sources */,
 				02BEA20D23321B9400C3E317 /* MainTabBarController.swift in Sources */,
 				027245B4232D00B300C86E72 /* CategoryListVC.swift in Sources */,
 				027245B2232D006D00C86E72 /* CategoryListTableViewCell.swift in Sources */,
@@ -602,10 +612,12 @@
 				02A5BFB6232C932E00E85495 /* JeromeYoutubeTests.swift in Sources */,
 				02A88DFE23459606007C5C65 /* BaseLogger.swift in Sources */,
 				02A5BFBD232C94CB00E85495 /* YoutubeHelper.swift in Sources */,
+				02343EB623485DEB006E20F5 /* TestsAppDelegate.swift in Sources */,
 				02DE52A5234833F700007981 /* PersistentContainerManager.swift in Sources */,
 				02DE529623482B5600007981 /* Video+CoredData.swift in Sources */,
 				02B48CCE232F6E6F00F8AA85 /* ImageLoader.swift in Sources */,
 				02DE529523482B5200007981 /* VideoCategory+CoreData.swift in Sources */,
+				02343EB423485DEB006E20F5 /* main.swift in Sources */,
 				02DE529923482BDF00007981 /* NSPersistentContainerExtension.swift in Sources */,
 				02B48CCB232F6E5D00F8AA85 /* NetworkRequestOperation.swift in Sources */,
 				02DE529423482B1200007981 /* CoreDataConnect.swift in Sources */,

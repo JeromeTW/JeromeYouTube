@@ -5,7 +5,6 @@
 import AVFoundation
 import UIKit
 
-@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   lazy var youtubePlayer = YoutubePlayer.shared
