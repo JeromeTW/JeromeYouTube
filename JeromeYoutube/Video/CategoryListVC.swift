@@ -15,8 +15,6 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
   weak var videoCoordinator: VideoCoordinator?
   var observer: NSObjectProtocol?
 
-  let youtubePlayer = YoutubePlayer.shared
-
   @IBOutlet var titleLabel: UILabel! {
     didSet {
       titleLabel.text = "類型清單"
@@ -57,40 +55,19 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
   }
 
   @IBAction func addBtnPressed(_: Any) {
-    showAlertController(withTitle: "添加影片", message: "請輸入 ID 或是網址:", textFieldsData: [TextFieldData(text: nil, placeholder: "e.g: 6v2L2UGZJAM or https://www.youtube.com/watch?v=XULUBg_ZcAU")], cancelTitle: "取消", cancelHandler: nil, okTitle: "新增") { [weak self] textFields in
+    showAlertController(withTitle: "添加新分類", message: "請輸入新分類名稱", textFieldsData: [TextFieldData(text: nil, placeholder: "e.g: 跑步時專用")], cancelTitle: "取消", cancelHandler: nil, okTitle: "新增") { [weak self] textFields in
       guard let self = self else {
         return
       }
       guard let textField = textFields.first, let text = textField.text else {
         fatalError()
       }
-      // Grab Text
       do {
-        let youtubeID = try YoutubeHelper.grabYoutubeIDBy(text: text).get()
-        guard self.coredataConnect.isTheYoutubeIDExisted(youtubeID) == false else {
-          self.showOKAlert("已經新增過此影片", message: nil, okTitle: "OK")
-          return
-        }
-
-        let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), VideoCategory.undeineCatogoryName)
-        guard let category = self.coredataConnect.retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1)?.first else {
-          fatalError()
-        }
-        try self.coredataConnect.insert(type: Video.self, attributeInfo: [
-          #keyPath(Video.id): self.coredataConnect.generateNewID(Video.self) as Any,
-          #keyPath(Video.order): self.coredataConnect.generateNewOrder(Video.self) as Any,
-          #keyPath(Video.youtubeID): youtubeID as Any,
-          #keyPath(Video.category): category as Any,
-        ])
-        let videoPredicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), youtubeID)
-        guard let video = self.coredataConnect.retrieve(type: Video.self, predicate: videoPredicate, sort: nil, limit: 1)?.first else {
-          return
-        }
-        self.youtubePlayer.video = video
-        self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
+        try self.coredataConnect.insertCategory(text)
+      } catch VideoCategoryError.duplicateCategoryName {
+        self.showOKAlert("名稱重複了", message: "已經存在名為 \(text) 的分類，請用原有分類或是再想一個新的名稱", okTitle: "OK")
       } catch {
-        // TODO: Error Handling
-        logger.log(error.localizedDescription, level: .error)
+        logger.log("Error: \(error.localizedDescription)", level: .error)
       }
     }
   }

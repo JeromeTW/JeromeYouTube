@@ -69,6 +69,28 @@ extension CoreDataConnect {
       fatalError()
     }
   }
+  
+  public func insertCategory(_ name: String) throws {
+    let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), name)
+    if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1), categories.isEmpty == false {
+      throw VideoCategoryError.duplicateCategoryName
+      logger.log("RETURN", level: .fault)
+      return
+    }
+    do {
+      try insert(type: VideoCategory.self, attributeInfo: [
+        #keyPath(VideoCategory.name): name as Any,
+        #keyPath(VideoCategory.id): generateNewID(VideoCategory.self) as Any,
+        #keyPath(VideoCategory.order): generateNewOrder(VideoCategory.self) as Any,
+      ])
+    } catch {
+      fatalError()
+    }
+  }
+}
+
+enum VideoCategoryError: Error {
+  case duplicateCategoryName
 }
 
 extension VideoCategory: HasID {}
