@@ -21,8 +21,8 @@
 		022A4DE7232A3871006EA137 /* VideoCategory+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE6232A3871006EA137 /* VideoCategory+CoreData.swift */; };
 		02343EB323485DEB006E20F5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02343EB123485DEA006E20F5 /* main.swift */; };
 		02343EB423485DEB006E20F5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02343EB123485DEA006E20F5 /* main.swift */; };
-		02343EB523485DEB006E20F5 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02343EB223485DEB006E20F5 /* TestsAppDelegate.swift */; };
 		02343EB623485DEB006E20F5 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02343EB223485DEB006E20F5 /* TestsAppDelegate.swift */; };
+		02343EB7234870FB006E20F5 /* TestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02343EB223485DEB006E20F5 /* TestsAppDelegate.swift */; };
 		0235E0F02329C8E800A82B7F /* CategoryListTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0235E0EF2329C8E800A82B7F /* CategoryListTab.storyboard */; };
 		0235E0FC2329D53C00A82B7F /* StoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0235E0FB2329D53C00A82B7F /* StoryboardExtension.swift */; };
 		025FB1C12346DEA000720DCE /* UIAlertActionWithAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025FB1C02346DEA000720DCE /* UIAlertActionWithAlertController.swift */; };
@@ -272,7 +272,6 @@
 				021B5FCB23288FED000B192B /* Log */,
 				02644702232781A100822485 /* AppDelegate.swift */,
 				02343EB123485DEA006E20F5 /* main.swift */,
-				02343EB223485DEB006E20F5 /* TestsAppDelegate.swift */,
 				02BEA20C23321B9400C3E317 /* MainTabBarController.swift */,
 				02206905232E6420007A4BEB /* Video */,
 				021B5FE223289603000B192B /* Support */,
@@ -292,6 +291,7 @@
 		02A5BFB4232C932E00E85495 /* JeromeYoutubeTests */ = {
 			isa = PBXGroup;
 			children = (
+				02343EB223485DEB006E20F5 /* TestsAppDelegate.swift */,
 				02A5BFB5232C932E00E85495 /* JeromeYoutubeTests.swift */,
 				02A5BFB7232C932E00E85495 /* Info.plist */,
 			);
@@ -597,7 +597,7 @@
 				021B5FDA232891F1000B192B /* CGFloatExtension.swift in Sources */,
 				02206909232E6492007A4BEB /* CategoryDetailVC.swift in Sources */,
 				02644715232790F100822485 /* JeromeYoutubePlayerVC.swift in Sources */,
-				02343EB523485DEB006E20F5 /* TestsAppDelegate.swift in Sources */,
+				02343EB7234870FB006E20F5 /* TestsAppDelegate.swift in Sources */,
 				02BEA20D23321B9400C3E317 /* MainTabBarController.swift in Sources */,
 				027245B4232D00B300C86E72 /* CategoryListVC.swift in Sources */,
 				027245B2232D006D00C86E72 /* CategoryListTableViewCell.swift in Sources */,

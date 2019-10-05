@@ -11,7 +11,6 @@ import UIKit
 private func isRunningTests() -> Bool {
     print("🐌 isTest")
     return UserDefaults.standard.bool(forKey: "isTest")
-//    return NSClassFromString("JeromeYoutube.XCTestCase") != nil
 }
 
 /// Gets the right AppDelegate class for the current environment.
