@@ -133,8 +133,11 @@ class CustomWebVC: UIViewController {
         try YoutubeHelper.add(youtubeID, to: selectedCategory)
         
         self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
-      } catch {
+      } catch YoutubeHelperError.youtubeIDInvalid {
+        logger.log("Youtube ID Invalid.", level: .error)
+        self.showOKAlert("Youtube ID Invalid", message: "\(text) 不是合法的 YouTube ID", okTitle: "OK")
         // TODO: Error Handling
+      } catch {
         logger.log(error.localizedDescription, level: .error)
       }
     }

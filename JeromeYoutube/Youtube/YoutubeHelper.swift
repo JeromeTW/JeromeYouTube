@@ -13,7 +13,7 @@ struct YoutubeHelper {
     let youtubeDomain = "youtube.com"
     let parameterSeparator = "?v="
     guard text.contains(youtubeDomain), text.contains(parameterSeparator), text.components(separatedBy: parameterSeparator).count == 2 else {
-      return .failure(GrabYoutubeIDError.invalied)
+      return .failure(YoutubeHelperError.youtubeIDInvalid)
     }
     return .success(text.components(separatedBy: parameterSeparator)[1])
   }
@@ -30,10 +30,10 @@ struct YoutubeHelper {
     guard let video = coredataConnect.retrieve(type: Video.self, predicate: videoPredicate, sort: nil, limit: 1)?.first else {
       return
     }
-//    youtubePlayer.video = video
+    YoutubePlayer.shared.getAndSaveVideoInfomation(video)
   }
-  
-  enum GrabYoutubeIDError: Error {
-    case invalied
-  }
+}
+
+enum YoutubeHelperError: Error {
+  case youtubeIDInvalid
 }
