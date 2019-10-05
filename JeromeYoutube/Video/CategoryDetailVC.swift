@@ -53,6 +53,34 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
   @IBAction func backBtnPressed(_: Any) {
     navigationController?.popViewController(animated: true)
   }
+  
+  @IBAction func addBtnPressed(_ sender: Any) {
+    showAlertController(withTitle: "添加影片", message: "請輸入 ID 或是網址:", textFieldsData: [TextFieldData(text: nil, placeholder: "e.g: 6v2L2UGZJAM or https://www.youtube.com/watch?v=XULUBg_ZcAU")], cancelTitle: "取消", cancelHandler: nil, okTitle: "新增") { [weak self] textFields in
+      guard let self = self else {
+        return
+      }
+      guard let textField = textFields.first, let text = textField.text else {
+        fatalError()
+      }
+      // Grab Text
+      do {
+        let youtubeID = try YoutubeHelper.grabYoutubeIDBy(text: text).get()
+        guard self.coredataConnect.isTheYoutubeIDExisted(youtubeID) == false else {
+          self.showOKAlert("已經新增過此影片", message: nil, okTitle: "OK")
+          return
+        }
+        try YoutubeHelper.add(youtubeID, to: self.category)
+        
+        self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
+      } catch YoutubeHelperError.youtubeIDInvalid {
+        logger.log("Youtube ID Invalid.", level: .error)
+        self.showOKAlert("Youtube ID Invalid", message: "\(text) 不是合法的 YouTube ID", okTitle: "OK")
+        // TODO: Error Handling
+      } catch {
+        logger.log(error.localizedDescription, level: .error)
+      }
+    }
+  }
 }
 
 // MARK: - UITableViewDataSource

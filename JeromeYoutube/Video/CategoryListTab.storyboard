@@ -96,16 +96,16 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptd-ip-nNf">
-                                                <rect key="frame" x="8" y="3" width="51" height="38"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptd-ip-nNf">
+                                                <rect key="frame" x="20" y="1" width="38" height="42"/>
                                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                <state key="normal" title="新增"/>
+                                                <state key="normal" image="plus" catalog="system"/>
                                                 <connections>
                                                     <action selector="addBtnPressed:" destination="wRE-KX-gBb" eventType="touchUpInside" id="WVX-qu-5Gs"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vs9-aj-Ln7">
-                                                <rect key="frame" x="355" y="3" width="51" height="38"/>
+                                                <rect key="frame" x="343" y="3" width="51" height="38"/>
                                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                 <state key="normal" title="網頁"/>
                                                 <connections>
@@ -115,12 +115,12 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="ptd-ip-nNf" firstAttribute="leading" secondItem="qud-Nq-SM1" secondAttribute="leading" constant="8" id="FxZ-LP-m3B"/>
+                                            <constraint firstItem="ptd-ip-nNf" firstAttribute="leading" secondItem="qud-Nq-SM1" secondAttribute="leading" constant="20" symbolic="YES" id="FxZ-LP-m3B"/>
                                             <constraint firstItem="4FW-cv-guH" firstAttribute="centerX" secondItem="qud-Nq-SM1" secondAttribute="centerX" id="L7J-Qt-Fct"/>
                                             <constraint firstItem="vs9-aj-Ln7" firstAttribute="centerY" secondItem="qud-Nq-SM1" secondAttribute="centerY" id="MZv-NB-tLm"/>
                                             <constraint firstItem="4FW-cv-guH" firstAttribute="centerY" secondItem="qud-Nq-SM1" secondAttribute="centerY" id="ZXq-MR-88a"/>
                                             <constraint firstItem="ptd-ip-nNf" firstAttribute="centerY" secondItem="qud-Nq-SM1" secondAttribute="centerY" id="dCM-Lh-oPq"/>
-                                            <constraint firstAttribute="trailing" secondItem="vs9-aj-Ln7" secondAttribute="trailing" constant="8" id="fhA-9C-Svb"/>
+                                            <constraint firstAttribute="trailing" secondItem="vs9-aj-Ln7" secondAttribute="trailing" constant="20" symbolic="YES" id="fhA-9C-Svb"/>
                                             <constraint firstAttribute="height" constant="44" id="sGq-at-XyU"/>
                                         </constraints>
                                     </view>
@@ -250,12 +250,20 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEb-k6-j5b">
-                                                <rect key="frame" x="8" y="3" width="51" height="38"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEb-k6-j5b">
+                                                <rect key="frame" x="20" y="1" width="32.5" height="42"/>
                                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                <state key="normal" title="返回"/>
+                                                <state key="normal" image="chevron.left" catalog="system"/>
                                                 <connections>
                                                     <action selector="backBtnPressed:" destination="bcW-4i-MyD" eventType="touchUpInside" id="8RN-6g-mfa"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q9W-Nk-shp">
+                                                <rect key="frame" x="356" y="1" width="38" height="42"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" image="plus" catalog="system"/>
+                                                <connections>
+                                                    <action selector="addBtnPressed:" destination="bcW-4i-MyD" eventType="touchUpInside" id="USp-BP-v36"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -264,7 +272,9 @@
                                             <constraint firstAttribute="height" constant="44" id="Ofw-9Q-ftA"/>
                                             <constraint firstItem="OdH-ov-ob0" firstAttribute="centerY" secondItem="1w9-ad-Tm5" secondAttribute="centerY" id="Wmd-Xe-jeh"/>
                                             <constraint firstItem="SEb-k6-j5b" firstAttribute="centerY" secondItem="1w9-ad-Tm5" secondAttribute="centerY" id="Zhj-DN-jx5"/>
-                                            <constraint firstItem="SEb-k6-j5b" firstAttribute="leading" secondItem="1w9-ad-Tm5" secondAttribute="leading" constant="8" id="ckI-Yv-dSz"/>
+                                            <constraint firstAttribute="trailing" secondItem="q9W-Nk-shp" secondAttribute="trailing" constant="20" symbolic="YES" id="beC-nH-SVo"/>
+                                            <constraint firstItem="SEb-k6-j5b" firstAttribute="leading" secondItem="1w9-ad-Tm5" secondAttribute="leading" constant="20" symbolic="YES" id="ckI-Yv-dSz"/>
+                                            <constraint firstItem="q9W-Nk-shp" firstAttribute="centerY" secondItem="SEb-k6-j5b" secondAttribute="centerY" id="gRG-kA-9ER"/>
                                             <constraint firstItem="OdH-ov-ob0" firstAttribute="centerX" secondItem="1w9-ad-Tm5" secondAttribute="centerX" id="wNW-cK-VwQ"/>
                                         </constraints>
                                     </view>
@@ -312,5 +322,7 @@
     </scenes>
     <resources>
         <image name="Soso" width="130.5" height="107"/>
+        <image name="chevron.left" catalog="system" width="46" height="64"/>
+        <image name="plus" catalog="system" width="64" height="58"/>
     </resources>
 </document>
