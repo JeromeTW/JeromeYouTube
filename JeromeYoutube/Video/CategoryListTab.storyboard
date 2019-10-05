@@ -104,10 +104,10 @@
                                                     <action selector="addBtnPressed:" destination="wRE-KX-gBb" eventType="touchUpInside" id="WVX-qu-5Gs"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vs9-aj-Ln7">
-                                                <rect key="frame" x="343" y="3" width="51" height="38"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vs9-aj-Ln7">
+                                                <rect key="frame" x="354" y="1" width="40" height="42"/>
                                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                <state key="normal" title="網頁"/>
+                                                <state key="normal" image="safari" catalog="system"/>
                                                 <connections>
                                                     <action selector="webBtnPressed:" destination="wRE-KX-gBb" eventType="touchUpInside" id="gOB-pa-etW"/>
                                                 </connections>
@@ -324,5 +324,6 @@
         <image name="Soso" width="130.5" height="107"/>
         <image name="chevron.left" catalog="system" width="46" height="64"/>
         <image name="plus" catalog="system" width="64" height="58"/>
+        <image name="safari" catalog="system" width="64" height="62"/>
     </resources>
 </document>
