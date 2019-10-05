@@ -126,10 +126,14 @@
 		02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JeromeNavigationBarStatusBarBaseVC.xib; sourceTree = "<group>"; };
 		02E12998232B420400E04942 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		02E12999232B420400E04942 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		1BCFF40DE32DDFEBF61850DF /* Pods-JeromeYoutubeTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutubeTests.test.xcconfig"; path = "Target Support Files/Pods-JeromeYoutubeTests/Pods-JeromeYoutubeTests.test.xcconfig"; sourceTree = "<group>"; };
 		37ACBD4939114AC885FEDC35 /* Pods-JeromeYoutubeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutubeTests.debug.xcconfig"; path = "Target Support Files/Pods-JeromeYoutubeTests/Pods-JeromeYoutubeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		516D901C8CA643B701D9BD58 /* Pods-JeromeYoutube.testing.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutube.testing.xcconfig"; path = "Target Support Files/Pods-JeromeYoutube/Pods-JeromeYoutube.testing.xcconfig"; sourceTree = "<group>"; };
+		6289A19665E12B6983C90693 /* Pods-JeromeYoutube.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutube.test.xcconfig"; path = "Target Support Files/Pods-JeromeYoutube/Pods-JeromeYoutube.test.xcconfig"; sourceTree = "<group>"; };
 		7121F67B9CBCD6CEAA040FBA /* Pods-JeromeYoutubeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutubeTests.release.xcconfig"; path = "Target Support Files/Pods-JeromeYoutubeTests/Pods-JeromeYoutubeTests.release.xcconfig"; sourceTree = "<group>"; };
 		82F0D977B2D76E8429AAE042 /* Pods_JeromeYoutube.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JeromeYoutube.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9287628384312760E2696B78 /* Pods-JeromeYoutube.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutube.debug.xcconfig"; path = "Target Support Files/Pods-JeromeYoutube/Pods-JeromeYoutube.debug.xcconfig"; sourceTree = "<group>"; };
+		AFE27DB6E43BD2B234621C30 /* Pods-JeromeYoutubeTests.testing.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutubeTests.testing.xcconfig"; path = "Target Support Files/Pods-JeromeYoutubeTests/Pods-JeromeYoutubeTests.testing.xcconfig"; sourceTree = "<group>"; };
 		D77485149F153C0B206B8A2B /* Pods-JeromeYoutube.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutube.release.xcconfig"; path = "Target Support Files/Pods-JeromeYoutube/Pods-JeromeYoutube.release.xcconfig"; sourceTree = "<group>"; };
 		EB2BCF4F9E9670A9D890A17B /* Pods_JeromeYoutubeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JeromeYoutubeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -336,6 +340,10 @@
 				D77485149F153C0B206B8A2B /* Pods-JeromeYoutube.release.xcconfig */,
 				37ACBD4939114AC885FEDC35 /* Pods-JeromeYoutubeTests.debug.xcconfig */,
 				7121F67B9CBCD6CEAA040FBA /* Pods-JeromeYoutubeTests.release.xcconfig */,
+				516D901C8CA643B701D9BD58 /* Pods-JeromeYoutube.testing.xcconfig */,
+				AFE27DB6E43BD2B234621C30 /* Pods-JeromeYoutubeTests.testing.xcconfig */,
+				6289A19665E12B6983C90693 /* Pods-JeromeYoutube.test.xcconfig */,
+				1BCFF40DE32DDFEBF61850DF /* Pods-JeromeYoutubeTests.test.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -472,7 +480,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/R.generated.swift,
+				"$SRCROOT/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -648,6 +656,114 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		02343ECA2348C5C6006E20F5 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Test;
+		};
+		02343ECB2348C5C6006E20F5 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6289A19665E12B6983C90693 /* Pods-JeromeYoutube.test.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T78S2HYPMK;
+				INFOPLIST_FILE = JeromeYoutube/Support/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -DTEST";
+				PRODUCT_BUNDLE_IDENTIFIER = me3.jerome.JeromeYoutube;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Test;
+		};
+		02343ECC2348C5C6006E20F5 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BCFF40DE32DDFEBF61850DF /* Pods-JeromeYoutubeTests.test.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 47FGBWZVJ9;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = JeromeYoutubeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "-DTEST";
+				PRODUCT_BUNDLE_IDENTIFIER = me.jerome.JeromeYoutubeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JeromeYoutube.app/JeromeYoutube";
+			};
+			name = Test;
+		};
 		0264470F232781A300822485 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -859,6 +975,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0264470F232781A300822485 /* Debug */,
+				02343ECA2348C5C6006E20F5 /* Test */,
 				02644710232781A300822485 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -868,6 +985,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				02644712232781A300822485 /* Debug */,
+				02343ECB2348C5C6006E20F5 /* Test */,
 				02644713232781A300822485 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -877,6 +995,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				02A5BFBB232C932E00E85495 /* Debug */,
+				02343ECC2348C5C6006E20F5 /* Test */,
 				02A5BFBC232C932E00E85495 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

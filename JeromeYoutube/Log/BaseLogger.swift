@@ -43,8 +43,7 @@ enum LogLevel: Int, CustomStringConvertible {
 #if TEST
   let logger = BaseLogger() // Test Target 要測試時用這個
 #else
-  let logger = UserDefaults.standard.bool(forKey: "isTest") ? BaseLogger() : AdvancedLogger() // APP Target 用這個，此包含 UI 和 Log 檔案儲存。
-  // Test 的話就用 BaseLogger()。
+  let logger = AdvancedLogger() // APP Target 用這個，此包含 UI 和 Log 檔案儲存。
 #endif
 
 
