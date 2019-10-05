@@ -9,8 +9,8 @@ import UIKit
 ///
 /// - Returns: True if the app is opened by the test target
 private func isRunningTests() -> Bool {
-    print("🐌 isTest")
-    return UserDefaults.standard.bool(forKey: "isTest")
+  print("🐌 isTest:\(UserDefaults.standard.bool(forKey: "isTest"))")
+  return UserDefaults.standard.bool(forKey: "isTest")
 }
 
 /// Gets the right AppDelegate class for the current environment.
