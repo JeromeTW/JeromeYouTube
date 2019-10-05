@@ -12,25 +12,22 @@ class YoutubePlayer {
 
   private let commandCenter = MPRemoteCommandCenter.shared()
   private let youtubeClient = XCDYouTubeClient(languageIdentifier: "zh")
+  private var coredataConnect = CoreDataConnect()
+  
+  // Current Playing Video
+  private var streamURL: URL?
   private var isPlaying = false
   private var isExtendingBGJob = false
   var youtubePlayerVC: AVPlayerViewController?
   var youtubeAVPlayer: AVPlayer?
   var setUpYoutubePlayerVCCompletionHandler: ((AVPlayerViewController) -> Void)?
-  private var coredataConnect = CoreDataConnect()
-  var video: Video? {
-    didSet {
-      getAndSaveVideoInfomation()
-    }
-  }
-
-  private var streamURL: URL?
+  var video: Video?
 
   private init() {}
 
-  func getAndSaveVideoInfomation() {
-    youtubePlayerVC = AVPlayerViewController()
-    youtubeClient.getVideoWithIdentifier(video!.youtubeID) { [weak self] youtubeVideo, error in
+  func getAndSaveVideoInfomation(_ aVideo: Video) {
+//    youtubePlayerVC = AVPlayerViewController()
+    youtubeClient.getVideoWithIdentifier(aVideo.youtubeID) { [weak self] youtubeVideo, error in
       guard let self = self else {
         return
       }
@@ -42,29 +39,31 @@ class YoutubePlayer {
         assertionFailure()
         return
       }
-      let streamURLs = youtubeVideo.streamURLs
-      if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
-        self.streamURL = tempStreamURL
-//        self.saveVideoInforamation(youtubeVideo: youtubeVideo)
-        self.youtubeAVPlayer = AVPlayer(url: tempStreamURL)
-        self.youtubePlayerVC?.player = self.youtubeAVPlayer
-        self.setUpYoutubePlayerVCCompletionHandler?(self.youtubePlayerVC!)
-        if let url = youtubeVideo.thumbnailURL {
-          ImageLoader.shared.imageByURL(url) {
-            _, _ in
-          }
-        }
-      }
+      self.saveVideoInforamation(aVideo, youtubeVideo: youtubeVideo)
+//      let streamURLs = youtubeVideo.streamURLs
+//      if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
+//        self.streamURL = tempStreamURL
+//        self.youtubeAVPlayer = AVPlayer(url: tempStreamURL)
+//        self.youtubePlayerVC?.player = self.youtubeAVPlayer
+//        self.setUpYoutubePlayerVCCompletionHandler?(self.youtubePlayerVC!)
+//      }
     }
   }
 
-  private func saveVideoInforamation(youtubeVideo: XCDYouTubeVideo) {
-    let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), video!.youtubeID)
+  private func saveVideoInforamation(_ aVideo: Video, youtubeVideo: XCDYouTubeVideo) {
+    let streamURLs = youtubeVideo.streamURLs
+    guard let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) else {
+      fatalError()
+    }
+    if let url = youtubeVideo.thumbnailURL {
+      ImageLoader.shared.imageByURL(url)
+    }
+    let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), aVideo.youtubeID)
     do {
       try coredataConnect.update(type: Video.self, predicate: predicate, limit: 1, attributeInfo: [
         #keyPath(Video.name): youtubeVideo.title as Any,
         #keyPath(Video.thumbnailURL): youtubeVideo.thumbnailURL!.absoluteString as Any,
-        #keyPath(Video.url): self.streamURL!.absoluteString as Any,
+        #keyPath(Video.url): tempStreamURL.absoluteString as Any,
         #keyPath(Video.duration): youtubeVideo.duration as Any,
       ])
     } catch {

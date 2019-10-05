@@ -116,12 +116,27 @@ class CustomWebVC: UIViewController {
     alert.objects = categoryFRC.fetchedObjects!
     alert.titleStringKeyPath = \VideoCategory.name!
     
-    let comfirmAction = UIAlertActionWithAlertController(title: "加入", style: .default) { action in
+    let comfirmAction = UIAlertActionWithAlertController(title: "加入", style: .default) { [weak self] action in
+      guard let self = self else { return }
       guard let actionWithAlertVC = action as? UIAlertActionWithAlertController, let alert = actionWithAlertVC.alertController, let alertControllerWithPicker = alert as? AlertControllerWithPicker<VideoCategory> else {
         fatalError()
       }
-      let selectedCategory = alertControllerWithPicker.didSelectedString
-      // TODO: 加到 Category 中
+      guard let text = self.webView.url?.absoluteString, let selectedCategory = alertControllerWithPicker.didSelectedObject else {
+        fatalError()
+      }
+      do {
+        let youtubeID = try YoutubeHelper.grabYoutubeIDBy(text: text).get()
+        guard self.coredataConnect.isTheYoutubeIDExisted(youtubeID) == false else {
+          self.showOKAlert("已經新增過此影片", message: nil, okTitle: "OK")
+          return
+        }
+        try YoutubeHelper.add(youtubeID, to: selectedCategory)
+        
+        self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
+      } catch {
+        // TODO: Error Handling
+        logger.log(error.localizedDescription, level: .error)
+      }
     }
     comfirmAction.alertController = alert
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
