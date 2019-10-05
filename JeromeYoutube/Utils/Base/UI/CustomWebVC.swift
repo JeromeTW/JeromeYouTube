@@ -113,7 +113,7 @@ class CustomWebVC: UIViewController {
     // UIViewAlertForUnsatisfiableConstraints error 是 actionSheet 的 Bug
     // http://openradar.appspot.com/49289931
     let alert = AlertControllerWithPicker<VideoCategory>(title: "分類", message: "要將影片加入哪一個分類下", preferredStyle: .actionSheet)
-    alert.choices = categoryFRC.fetchedObjects!
+    alert.objects = categoryFRC.fetchedObjects!
     alert.titleStringKeyPath = \VideoCategory.name!
     
     let comfirmAction = UIAlertActionWithAlertController(title: "加入", style: .default) { action in

@@ -10,20 +10,20 @@ import UIKit
 import SnapKit
 
 class AlertControllerWithPicker<T>: UIAlertController, UIPickerViewDataSource, UIPickerViewDelegate {
-  var choices: [T]!
-  var didSelectedString: T!
+  var objects: [T]!
+  var didSelectedObject: T!
   var titleStringKeyPath: ReferenceWritableKeyPath<T, String>!
   private var pickerView = UIPickerView(frame: CGRect.zero)
   
   override func loadView() {
     super.loadView()
-    assert(choices != nil)
+    assert(objects != nil)
     assert(titleStringKeyPath != nil)
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    assert(choices.isEmpty == false)
+    assert(objects.isEmpty == false)
     view.addSubview(pickerView)
     pickerView.snp.makeConstraints { make in
       make.left.equalTo(view).offset(0)
@@ -33,7 +33,7 @@ class AlertControllerWithPicker<T>: UIAlertController, UIPickerViewDataSource, U
     }
     pickerView.dataSource = self
     pickerView.delegate = self
-    didSelectedString = choices[0]
+    didSelectedObject = objects[0]
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -45,15 +45,15 @@ class AlertControllerWithPicker<T>: UIAlertController, UIPickerViewDataSource, U
     }
     
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return choices.count
+    return objects.count
   }
 
   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    return choices[row][keyPath: titleStringKeyPath]
+    return objects[row][keyPath: titleStringKeyPath]
   }
       
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    didSelectedString = choices[row]
+    didSelectedObject = objects[row]
   }
 }
 
