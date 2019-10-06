@@ -8,8 +8,6 @@ class TestsAppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   override init() {
     super.init()
-    logger.configure([ .fault, .error, .debug, .info, .defaultLevel], shouldShow: false, shouldCache: true)
-    logger.log("NSHomeDirectory:\(NSHomeDirectory())", level: .debug)
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.rootViewController = UIViewController()
     window?.makeKeyAndVisible()

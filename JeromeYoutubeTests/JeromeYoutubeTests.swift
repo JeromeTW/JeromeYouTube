@@ -10,6 +10,7 @@ class JeromeYoutubeTests: XCTestCase {
     // This is the setUp() class method.
     // It is called before the first test method begins.
     // Set up any overall initial state here.
+    // 如果 logger.configure 寫在 TestsAppDelegate 中，在這裡會沒有反應，可能是因為在不同的 Target 下。
     logger.configure([ .fault, .error, .debug, .info, .defaultLevel], shouldShow: false, shouldCache: false)
   }
 
@@ -73,12 +74,12 @@ class JeromeYoutubeTests: XCTestCase {
     imageLoader.queue.maxConcurrentOperationCount = 1
     imageLoader.imageByURL(successfulURL) { image, _ in
       if image != nil {
-        logger.log("testImageLoader-1")
+        logger.log("testImageLoader-1", theOSLog: .test)
       }
     }
     imageLoader.imageByURL(successfulURL) { image, _ in
       if image != nil {
-        logger.log("testImageLoader-2")
+        logger.log("testImageLoader-2", theOSLog: .test)
         XCTAssert(spyQueue.networkOperationFiredCounter < 2)
         exp.fulfill()
       }
