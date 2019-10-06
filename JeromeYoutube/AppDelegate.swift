@@ -17,42 +17,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   lazy var persistentContainerManager = PersistentContainerManager.shared
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    #if TEST
-      print("🌘 TEST")
-    #else
-      print("🌘 NOT TEST")
-    #endif
-    do {
-      try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-      try AVAudioSession.sharedInstance().setActive(true)
-
-      //! ! IMPORTANT !!
-      /*
-       If you're using 3rd party libraries to play sound or generate sound you should
-       set sample rate manually here.
-       Otherwise you wont be able to hear any sound when you lock screen
-       */
-      try AVAudioSession.sharedInstance().setPreferredSampleRate(4096)
-    } catch {
-      logger.log(error)
-    }
-    // This will enable to show nowplaying controls on lock screen
-    application.beginReceivingRemoteControlEvents()
+    
     UserDefaults.standard.setAPPVersionAndHistory()
     setupLogConfigure()
     logger.log("NSHomeDirectory:\(NSHomeDirectory())", level: .debug)
-    setupWindow()
-    setupLogTextView()
     persistentContainerManager.setupCoreDataDB()
-    return true
+    #if TEST
+      print("🌘 TEST")
+      setupWindow(rootViewController: UIViewController())
+      return true
+    #else
+      print("🌘 NOT TEST")
+      setupWindow(rootViewController: MainTabBarController())
+      setupLogTextView()
+      do {
+        try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+        try AVAudioSession.sharedInstance().setActive(true)
+
+        //! ! IMPORTANT !!
+        /*
+         If you're using 3rd party libraries to play sound or generate sound you should
+         set sample rate manually here.
+         Otherwise you wont be able to hear any sound when you lock screen
+         */
+        try AVAudioSession.sharedInstance().setPreferredSampleRate(4096)
+      } catch {
+        logger.log(error)
+      }
+      // This will enable to show nowplaying controls on lock screen
+      application.beginReceivingRemoteControlEvents()
+      return true
+    #endif
+
   }
 
   // MARK: - Private method
 
-  private func setupWindow() {
+    private func setupWindow(rootViewController: UIViewController) {
     window = UIWindow(frame: UIScreen.main.bounds)
     guard let window = window else { fatalError() }
-    window.rootViewController = MainTabBarController()
+    window.rootViewController = rootViewController
     window.makeKeyAndVisible()
   }
 
