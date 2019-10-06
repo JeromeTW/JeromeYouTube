@@ -17,6 +17,7 @@ class ImageLoader {
     return queue
   }()
 
+  // TODO: 這裡的寫法有問題, 修正參考 MOD Project
   func imageByURL(_ url: URL, completionHandler: ((_ image: UIImage?, _ url: URL) -> Void)? = nil) {
     // get image from cache
     if let imageFromCache = imageCache.object(forKey: url.absoluteString as NSString) {

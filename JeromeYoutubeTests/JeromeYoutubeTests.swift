@@ -4,9 +4,34 @@
 
 import JeromeYoutube
 import XCTest
+import CoreData
 
 class JeromeYoutubeTests: XCTestCase {
+  var coreDataConnect: CoreDataConnect!
+  
+  lazy var mockPersistantContainer: NSPersistentContainer = {
+      
+      let container = NSPersistentContainer(name: "Video")
+      let description = NSPersistentStoreDescription()
+      description.type = NSInMemoryStoreType
+      description.shouldAddStoreAsynchronously = false
+      
+      container.persistentStoreDescriptions = [description]
+      container.loadPersistentStores { (description, error) in
+          // Check if the data store is in memory
+          precondition( description.type == NSInMemoryStoreType )
+          
+          // Check if creating container wrong
+          if let error = error {
+              fatalError("In memory coordinator creation failed \(error)")
+          }
+      }
+      return container
+  }()
+
+  
   override class func setUp() {
+    XCTestCase.setUp()
     // This is the setUp() class method.
     // It is called before the first test method begins.
     // Set up any overall initial state here.
@@ -15,11 +40,23 @@ class JeromeYoutubeTests: XCTestCase {
   }
 
   override func setUp() {
+    super.setUp()
+    coreDataConnect = CoreDataConnect(container: mockPersistantContainer)
     // Put setup code here. This method is called before the invocation of each test method in the class.
   }
 
   override func tearDown() {
+    super.tearDown()
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+  }
+  
+  func testCheckEmpty() {
+    coreDataConnect.insertFirstVideoCategoryIfNeeded()
+    guard let categories = coreDataConnect.retrieve(type: VideoCategory.self) else {
+      XCTFail("Cannot retrieve categories")
+      return
+    }
+    XCTAssert(categories.count == 1)
   }
 
   func testYoutubeHelper() {

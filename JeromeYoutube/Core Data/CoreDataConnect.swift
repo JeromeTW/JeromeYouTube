@@ -39,7 +39,7 @@ class CoreDataConnect {
   }
 
   // retrieve
-  func retrieve<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate?, sort: [[String: Bool]]?, limit: Int?) -> [T]? {
+  func retrieve<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate? = nil, sort: [[String: Bool]]? = nil, limit: Int? = nil) -> [T]? {
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
 
     // predicate
