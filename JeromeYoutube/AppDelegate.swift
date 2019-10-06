@@ -5,6 +5,7 @@
 import AVFoundation
 import UIKit
 
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   lazy var youtubePlayer = YoutubePlayer.shared
@@ -16,6 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   lazy var persistentContainerManager = PersistentContainerManager.shared
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    #if TEST
+      print("🌘 TEST")
+    #else
+      print("🌘 NOT TEST")
+    #endif
     do {
       try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
       try AVAudioSession.sharedInstance().setActive(true)
