@@ -171,4 +171,28 @@ class CoreDataTests: XCTestCase {
       XCTFail()
     }
   }
+  
+  func test_insert_a_video_in_category_then_remove_category() {
+    // the video should be gone.
+    do {
+      let categoryName = "1"
+      try coreDataConnect.insertCategory(categoryName)
+      guard let categories = coreDataConnect.retrieve(type: VideoCategory.self), let category = categories.first else {
+        XCTFail()
+        return
+      }
+      let youtubeID = "id1"
+      try YoutubeHelper.add(youtubeID, to: category, in: coreDataConnect)
+      let categoryPredicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), categoryName)
+      try coreDataConnect.delete(type: VideoCategory.self, predicate: categoryPredicate)
+      let categoryCount = coreDataConnect.getCount(type: VideoCategory.self, predicate: nil)
+      let videoCount = coreDataConnect.getCount(type: Video.self, predicate: nil)
+      XCTAssert(categoryCount == 0)
+      XCTAssert(videoCount == 0)
+      // Pass Test
+    } catch {
+      logger.log("Error: \(error.localizedDescription)", level: .error)
+      XCTFail()
+    }
+  }
 }
