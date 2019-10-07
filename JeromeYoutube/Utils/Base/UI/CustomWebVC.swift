@@ -60,9 +60,9 @@ class CustomWebVC: UIViewController {
   var request: URLRequest!
   var theURL: URL!
   
-  private var coredataConnect = CoreDataConnect()
+  private var coreDataConnect = CoreDataConnect()
   private lazy var categoryFRC: NSFetchedResultsController<VideoCategory>! = {
-    let frc = coredataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
+    let frc = coreDataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
     return frc
   }()
 
@@ -126,11 +126,11 @@ class CustomWebVC: UIViewController {
       }
       do {
         let youtubeID = try YoutubeHelper.grabYoutubeIDBy(text: text).get()
-        guard self.coredataConnect.isTheYoutubeIDExisted(youtubeID) == false else {
+        guard self.coreDataConnect.isTheYoutubeIDExisted(youtubeID) == false else {
           self.showOKAlert("已經新增過此影片", message: nil, okTitle: "OK")
           return
         }
-        try YoutubeHelper.add(youtubeID, to: selectedCategory, in: self.coredataConnect)
+        try YoutubeHelper.add(youtubeID, to: selectedCategory, in: self.coreDataConnect)
         
         self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
       } catch YoutubeHelperError.youtubeIDInvalid {

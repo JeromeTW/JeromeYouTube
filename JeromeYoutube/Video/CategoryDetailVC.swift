@@ -17,7 +17,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
   var observer: NSObjectProtocol?
 
   var category: VideoCategory!
-  var coredataConnect = CoreDataConnect()
+  var coreDataConnect = CoreDataConnect()
   let youtubePlayer = YoutubePlayer.shared
 
   @IBOutlet var titleLabel: UILabel! {
@@ -65,11 +65,11 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
       // Grab Text
       do {
         let youtubeID = try YoutubeHelper.grabYoutubeIDBy(text: text).get()
-        guard self.coredataConnect.isTheYoutubeIDExisted(youtubeID) == false else {
+        guard self.coreDataConnect.isTheYoutubeIDExisted(youtubeID) == false else {
           self.showOKAlert("已經新增過此影片", message: nil, okTitle: "OK")
           return
         }
-        try YoutubeHelper.add(youtubeID, to: self.category, in: self.coredataConnect)
+        try YoutubeHelper.add(youtubeID, to: self.category, in: self.coreDataConnect)
         
         self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
       } catch YoutubeHelperError.youtubeIDInvalid {

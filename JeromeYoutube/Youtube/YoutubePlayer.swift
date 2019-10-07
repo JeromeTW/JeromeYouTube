@@ -12,7 +12,7 @@ class YoutubePlayer {
 
   private let commandCenter = MPRemoteCommandCenter.shared()
   private let youtubeClient = XCDYouTubeClient(languageIdentifier: "zh")
-  private var coredataConnect = CoreDataConnect()
+  private var coreDataConnect = CoreDataConnect()
   
   // Current Playing Video
   private var streamURL: URL?
@@ -60,7 +60,7 @@ class YoutubePlayer {
     }
     let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), aVideo.youtubeID)
     do {
-      try coredataConnect.update(type: Video.self, predicate: predicate, limit: 1, attributeInfo: [
+      try coreDataConnect.update(type: Video.self, predicate: predicate, limit: 1, attributeInfo: [
         #keyPath(Video.name): youtubeVideo.title as Any,
         #keyPath(Video.thumbnailURL): youtubeVideo.thumbnailURL!.absoluteString as Any,
         #keyPath(Video.url): tempStreamURL.absoluteString as Any,

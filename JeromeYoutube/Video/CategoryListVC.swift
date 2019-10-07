@@ -22,7 +22,7 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
   }
 
   private lazy var categoryFRC: NSFetchedResultsController<VideoCategory>! = {
-    let frc = coredataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
+    let frc = coreDataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
     frc.delegate = self
     return frc
   }()
@@ -35,7 +35,7 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
   }
 
   let viewContext = PersistentContainerManager.shared.viewContext
-  private var coredataConnect = CoreDataConnect()
+  private var coreDataConnect = CoreDataConnect()
   private var blockOperations = [BlockOperation]()
 
   override func viewDidLoad() {
@@ -63,7 +63,7 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
         fatalError()
       }
       do {
-        try self.coredataConnect.insertCategory(text)
+        try self.coreDataConnect.insertCategory(text)
       } catch VideoCategoryError.duplicateCategoryName {
         self.showOKAlert("名稱重複了", message: "已經存在名為 \(text) 的分類，請用原有分類或是再想一個新的名稱", okTitle: "OK")
       } catch {
