@@ -76,7 +76,7 @@ class CoreDataConnect {
   }
 
   // update
-  func update<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?, limit: Int? = 1, attributeInfo: [String: Any]) throws {
+  func update<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, limit: Int? = 1, attributeInfo: [String: Any]) throws {
     if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: limit) {
       for result in results {
         for (key, value) in attributeInfo {
@@ -88,7 +88,7 @@ class CoreDataConnect {
   }
 
   // delete
-  func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?) throws {
+  func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil) throws {
     if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil) {
       for result in results {
         backgroundContextWhenNotTesting.delete(result)
@@ -98,7 +98,7 @@ class CoreDataConnect {
     }
   }
 
-  func getCount<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate?) -> Int {
+  func getCount<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate? = nil) -> Int {
     var count = 0
     let request = NSFetchRequest<NSNumber>(entityName: String(describing: T.self))
 

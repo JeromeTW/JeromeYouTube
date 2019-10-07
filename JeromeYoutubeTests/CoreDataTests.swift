@@ -69,7 +69,7 @@ class CoreDataTests: XCTestCase {
   func test_CoreDataConnect_insertFirstVideoCategoryIfNeeded() {
     coreDataConnect.insertFirstVideoCategoryIfNeeded()
     guard let categories = coreDataConnect.retrieve(type: VideoCategory.self) else {
-      XCTFail()
+      XCTFail("")
       return
     }
 
@@ -84,7 +84,7 @@ class CoreDataTests: XCTestCase {
       try coreDataConnect.insertCategory("4")
       try coreDataConnect.insertCategory("5")
       guard let categories = coreDataConnect.retrieve(type: VideoCategory.self) else {
-        XCTFail()
+        XCTFail("")
         return
       }
       XCTAssert(categories.count == 5)
@@ -92,7 +92,7 @@ class CoreDataTests: XCTestCase {
       XCTAssert(count == 5)
     } catch {
       logger.log("Error: \(error.localizedDescription)", level: .error)
-      XCTFail()
+      XCTFail("")
     }
   }
 
@@ -112,7 +112,7 @@ class CoreDataTests: XCTestCase {
     do {
       try coreDataConnect.insertCategory("1")
       guard let categories = coreDataConnect.retrieve(type: VideoCategory.self), let category = categories.first else {
-        XCTFail()
+        XCTFail("")
         return
       }
       try YoutubeHelper.add("id1", to: category, in: coreDataConnect)
@@ -122,7 +122,7 @@ class CoreDataTests: XCTestCase {
       XCTAssert(count == 3)
     } catch {
       logger.log("Error: \(error.localizedDescription)", level: .error)
-      XCTFail()
+      XCTFail("")
     }
   }
 
@@ -130,7 +130,7 @@ class CoreDataTests: XCTestCase {
     do {
       try coreDataConnect.insertCategory("1")
       guard let categories = coreDataConnect.retrieve(type: VideoCategory.self), let category = categories.first else {
-        XCTFail()
+        XCTFail("")
         return
       }
       try YoutubeHelper.add("id1", to: category, in: coreDataConnect)
@@ -140,7 +140,7 @@ class CoreDataTests: XCTestCase {
       // Pass Test
     } catch {
       logger.log("Error: \(error.localizedDescription)", level: .error)
-      XCTFail()
+      XCTFail("")
     }
   }
 
@@ -149,7 +149,7 @@ class CoreDataTests: XCTestCase {
       try coreDataConnect.insertCategory("1")
       try coreDataConnect.insertCategory("2")
       guard let categories = coreDataConnect.retrieve(type: VideoCategory.self) else {
-        XCTFail()
+        XCTFail("")
         return
       }
       let category1 = categories[0]
@@ -159,7 +159,7 @@ class CoreDataTests: XCTestCase {
       try YoutubeHelper.add(youtubeID, to: category2, in: coreDataConnect)
       let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), youtubeID)
       guard let videos = coreDataConnect.retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1), let video = videos.first else {
-        XCTFail()
+        XCTFail("")
         return
       }
       XCTAssert(video.categories?.count == 2)
@@ -168,7 +168,7 @@ class CoreDataTests: XCTestCase {
       XCTFail("User Can insert duplicate videos in the different category.")
     } catch {
       logger.log("Error: \(error.localizedDescription)", level: .error)
-      XCTFail()
+      XCTFail("")
     }
   }
   
@@ -178,7 +178,7 @@ class CoreDataTests: XCTestCase {
       let categoryName = "1"
       try coreDataConnect.insertCategory(categoryName)
       guard let categories = coreDataConnect.retrieve(type: VideoCategory.self), let category = categories.first else {
-        XCTFail()
+        XCTFail("")
         return
       }
       let youtubeID = "id1"
@@ -192,7 +192,7 @@ class CoreDataTests: XCTestCase {
       // Pass Test
     } catch {
       logger.log("Error: \(error.localizedDescription)", level: .error)
-      XCTFail()
+      XCTFail("")
     }
   }
 }
