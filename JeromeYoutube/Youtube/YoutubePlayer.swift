@@ -26,7 +26,6 @@ class YoutubePlayer {
   private init() {}
 
   func getAndSaveVideoInfomation(_ aVideo: Video) {
-//    youtubePlayerVC = AVPlayerViewController()
     youtubeClient.getVideoWithIdentifier(aVideo.youtubeID) { [weak self] youtubeVideo, error in
       guard let self = self else {
         return
@@ -40,13 +39,6 @@ class YoutubePlayer {
         return
       }
       self.saveVideoInforamation(aVideo, youtubeVideo: youtubeVideo)
-//      let streamURLs = youtubeVideo.streamURLs
-//      if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
-//        self.streamURL = tempStreamURL
-//        self.youtubeAVPlayer = AVPlayer(url: tempStreamURL)
-//        self.youtubePlayerVC?.player = self.youtubeAVPlayer
-//        self.setUpYoutubePlayerVCCompletionHandler?(self.youtubePlayerVC!)
-//      }
     }
   }
 
@@ -71,9 +63,44 @@ class YoutubePlayer {
     }
   }
 
+  private func resetPlayer() {
+    streamURL = nil
+    isPlaying = false
+    isExtendingBGJob = false
+    youtubePlayerVC = nil
+    youtubeAVPlayer?.pause()
+    youtubeAVPlayer = nil
+    setUpYoutubePlayerVCCompletionHandler = nil
+    video = nil
+  }
+  
   func play(video: Video, setUpYoutubePlayerVCCompletionHandler: ((AVPlayerViewController) -> Void)?) {
+    resetPlayer()
     self.setUpYoutubePlayerVCCompletionHandler = setUpYoutubePlayerVCCompletionHandler
     self.video = video
+    
+    youtubePlayerVC = AVPlayerViewController()
+    youtubeClient.getVideoWithIdentifier(video.youtubeID) { [weak self] youtubeVideo, error in
+      guard let self = self else {
+        return
+      }
+      guard error == nil else {
+        logger.log(error.debugDescription, level: .error)
+        return
+      }
+      guard let youtubeVideo = youtubeVideo else {
+        assertionFailure()
+        return
+      }
+      let streamURLs = youtubeVideo.streamURLs
+      if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
+        self.streamURL = tempStreamURL
+        self.youtubeAVPlayer = AVPlayer(url: tempStreamURL)
+        self.youtubePlayerVC?.player = self.youtubeAVPlayer
+        self.setUpYoutubePlayerVCCompletionHandler?(self.youtubePlayerVC!)
+      }
+    }
+    
     setupRemoteCommandCenter()
     setupNowPlayingInfo()
   }
