@@ -74,7 +74,6 @@ extension CoreDataConnect {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), name)
     if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1), categories.isEmpty == false {
       throw VideoCategoryError.duplicateCategoryName
-      logger.log("RETURN", level: .fault)
       return
     }
     do {

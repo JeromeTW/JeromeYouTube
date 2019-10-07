@@ -7,11 +7,15 @@ import XCTest
 import CoreData
 
 class JeromeYoutubeTests: XCTestCase {
-  var coreDataConnect: CoreDataConnect!
+  lazy var coreDataConnect = CoreDataConnect(container: mockPersistantContainer)
+  
+  var managedObjectModel: NSManagedObjectModel = {
+      let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main])!
+      return managedObjectModel
+  }()
   
   lazy var mockPersistantContainer: NSPersistentContainer = {
-      
-      let container = NSPersistentContainer(name: "Video")
+      let container = NSPersistentContainer(name: "Video", managedObjectModel: managedObjectModel)
       let description = NSPersistentStoreDescription()
       description.type = NSInMemoryStoreType
       description.shouldAddStoreAsynchronously = false
@@ -41,7 +45,6 @@ class JeromeYoutubeTests: XCTestCase {
 
   override func setUp() {
     super.setUp()
-    coreDataConnect = CoreDataConnect(container: mockPersistantContainer)
     // Put setup code here. This method is called before the invocation of each test method in the class.
   }
 
@@ -50,13 +53,21 @@ class JeromeYoutubeTests: XCTestCase {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
   }
   
-  func testCheckEmpty() {
+  private lazy var categoryFRC: NSFetchedResultsController<VideoCategory>! = {
+    let frc = coreDataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
+    return frc
+  }()
+  
+  func test_CoreDataConnect_insertFirstVideoCategoryIfNeeded() {
     coreDataConnect.insertFirstVideoCategoryIfNeeded()
-    guard let categories = coreDataConnect.retrieve(type: VideoCategory.self) else {
-      XCTFail("Cannot retrieve categories")
+    guard let objects = categoryFRC.fetchedObjects else {
+      XCTFail()
       return
     }
-    XCTAssert(categories.count == 1)
+    XCTAssert(objects.count == 1)
+    // coreDataConnect.retrieve(type: VideoCategory.self) 總是回傳 nil。
+    // try viewContext.fetch(request) 有數值。
+    // try viewContext.fetch(request) as? [T] 就變成 nil 了。
   }
 
   func testYoutubeHelper() {

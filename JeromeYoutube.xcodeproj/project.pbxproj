@@ -21,6 +21,7 @@
 		022A4DE7232A3871006EA137 /* VideoCategory+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE6232A3871006EA137 /* VideoCategory+CoreData.swift */; };
 		0235E0F02329C8E800A82B7F /* CategoryListTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0235E0EF2329C8E800A82B7F /* CategoryListTab.storyboard */; };
 		0235E0FC2329D53C00A82B7F /* StoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0235E0FB2329D53C00A82B7F /* StoryboardExtension.swift */; };
+		023E28BD234A08DF00250013 /* Video.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02B816A62329E80F00C81F8D /* Video.xcdatamodeld */; };
 		025FB1C12346DEA000720DCE /* UIAlertActionWithAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025FB1C02346DEA000720DCE /* UIAlertActionWithAlertController.swift */; };
 		02644703232781A100822485 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02644702232781A100822485 /* AppDelegate.swift */; };
 		0264470A232781A300822485 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02644709232781A300822485 /* Assets.xcassets */; };
@@ -609,6 +610,7 @@
 				02DE529723482B6A00007981 /* YoutubePlayer.swift in Sources */,
 				02A5BFB6232C932E00E85495 /* JeromeYoutubeTests.swift in Sources */,
 				02A88DFE23459606007C5C65 /* BaseLogger.swift in Sources */,
+				023E28BD234A08DF00250013 /* Video.xcdatamodeld in Sources */,
 				02A5BFBD232C94CB00E85495 /* YoutubeHelper.swift in Sources */,
 				02DE52A5234833F700007981 /* PersistentContainerManager.swift in Sources */,
 				02DE529623482B5600007981 /* Video+CoredData.swift in Sources */,
