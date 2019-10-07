@@ -69,7 +69,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
           self.showOKAlert("已經新增過此影片", message: nil, okTitle: "OK")
           return
         }
-        try YoutubeHelper.add(youtubeID, to: self.category)
+        try YoutubeHelper.add(youtubeID, to: self.category, in: self.coredataConnect)
         
         self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
       } catch YoutubeHelperError.youtubeIDInvalid {

@@ -22,7 +22,7 @@ extension Video {
   @NSManaged public var thumbnailURL: String?
   @NSManaged public var url: String?
   @NSManaged public var youtubeID: String
-  @NSManaged public var category: VideoCategory?
+  @NSManaged public var categories: NSSet?
 }
 
 extension Video: HasID {}

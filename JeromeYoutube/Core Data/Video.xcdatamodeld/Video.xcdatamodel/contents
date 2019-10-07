@@ -8,13 +8,13 @@
         <attribute name="thumbnailURL" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
         <attribute name="youtubeID" attributeType="String"/>
-        <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="VideoCategory" inverseName="videos" inverseEntity="VideoCategory"/>
+        <relationship name="categories" toMany="YES" deletionRule="Cascade" destinationEntity="VideoCategory" inverseName="videos" inverseEntity="VideoCategory"/>
     </entity>
     <entity name="VideoCategory" representedClassName=".VideoCategory" syncable="YES">
         <attribute name="id" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="order" attributeType="Integer 64" usesScalarValueType="YES"/>
-        <relationship name="videos" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Video" inverseName="category" inverseEntity="Video"/>
+        <relationship name="videos" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Video" inverseName="categories" inverseEntity="Video"/>
     </entity>
     <elements>
         <element name="Video" positionX="-54" positionY="18" width="128" height="163"/>
