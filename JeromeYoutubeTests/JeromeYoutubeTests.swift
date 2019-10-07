@@ -4,35 +4,8 @@
 
 import JeromeYoutube
 import XCTest
-import CoreData
 
 class JeromeYoutubeTests: XCTestCase {
-  lazy var coreDataConnect = CoreDataConnect(container: mockPersistantContainer)
-  
-  var managedObjectModel: NSManagedObjectModel = {
-      let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main])!
-      return managedObjectModel
-  }()
-  
-  lazy var mockPersistantContainer: NSPersistentContainer = {
-      let container = NSPersistentContainer(name: "Video", managedObjectModel: managedObjectModel)
-      let description = NSPersistentStoreDescription()
-      description.type = NSInMemoryStoreType
-      description.shouldAddStoreAsynchronously = false
-      
-      container.persistentStoreDescriptions = [description]
-      container.loadPersistentStores { (description, error) in
-          // Check if the data store is in memory
-          precondition( description.type == NSInMemoryStoreType )
-          
-          // Check if creating container wrong
-          if let error = error {
-              fatalError("In memory coordinator creation failed \(error)")
-          }
-      }
-      return container
-  }()
-
   
   override class func setUp() {
     XCTestCase.setUp()
@@ -51,23 +24,6 @@ class JeromeYoutubeTests: XCTestCase {
   override func tearDown() {
     super.tearDown()
     // Put teardown code here. This method is called after the invocation of each test method in the class.
-  }
-  
-  private lazy var categoryFRC: NSFetchedResultsController<VideoCategory>! = {
-    let frc = coreDataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
-    return frc
-  }()
-  
-  func test_CoreDataConnect_insertFirstVideoCategoryIfNeeded() {
-    coreDataConnect.insertFirstVideoCategoryIfNeeded()
-    guard let objects = categoryFRC.fetchedObjects else {
-      XCTFail()
-      return
-    }
-    XCTAssert(objects.count == 1)
-    // coreDataConnect.retrieve(type: VideoCategory.self) 總是回傳 nil。
-    // try viewContext.fetch(request) 有數值。
-    // try viewContext.fetch(request) as? [T] 就變成 nil 了。
   }
 
   func testYoutubeHelper() {
@@ -146,12 +102,5 @@ class JeromeYoutubeTests: XCTestCase {
       exp.fulfill()
     }
     wait(for: [exp], timeout: 5)
-  }
-
-  func testPerformanceExample() {
-    // This is an example of a performance test case.
-    measure {
-      // Put the code you want to measure the time of here.
-    }
   }
 }

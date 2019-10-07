@@ -61,6 +61,7 @@
 		02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */; };
 		02E1299A232B420500E04942 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12998232B420400E04942 /* Observable.swift */; };
 		02E1299B232B420500E04942 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12999232B420400E04942 /* BaseViewController.swift */; };
+		02FCCAF5234ACADC00EEF6C8 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCCAF4234ACADC00EEF6C8 /* CoreDataTests.swift */; };
 		05ED524C4876035E6A711653 /* Pods_JeromeYoutube.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F0D977B2D76E8429AAE042 /* Pods_JeromeYoutube.framework */; };
 		3F13C63486ADEA195CFA8768 /* Pods_JeromeYoutubeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB2BCF4F9E9670A9D890A17B /* Pods_JeromeYoutubeTests.framework */; };
 /* End PBXBuildFile section */
@@ -121,6 +122,7 @@
 		02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JeromeNavigationBarStatusBarBaseVC.xib; sourceTree = "<group>"; };
 		02E12998232B420400E04942 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		02E12999232B420400E04942 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		02FCCAF4234ACADC00EEF6C8 /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		1BCFF40DE32DDFEBF61850DF /* Pods-JeromeYoutubeTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutubeTests.test.xcconfig"; path = "Target Support Files/Pods-JeromeYoutubeTests/Pods-JeromeYoutubeTests.test.xcconfig"; sourceTree = "<group>"; };
 		37ACBD4939114AC885FEDC35 /* Pods-JeromeYoutubeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutubeTests.debug.xcconfig"; path = "Target Support Files/Pods-JeromeYoutubeTests/Pods-JeromeYoutubeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		516D901C8CA643B701D9BD58 /* Pods-JeromeYoutube.testing.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutube.testing.xcconfig"; path = "Target Support Files/Pods-JeromeYoutube/Pods-JeromeYoutube.testing.xcconfig"; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 			children = (
 				02A5BFB5232C932E00E85495 /* JeromeYoutubeTests.swift */,
 				02A5BFB7232C932E00E85495 /* Info.plist */,
+				02FCCAF4234ACADC00EEF6C8 /* CoreDataTests.swift */,
 			);
 			path = JeromeYoutubeTests;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				02DE529423482B1200007981 /* CoreDataConnect.swift in Sources */,
 				02B48CCD232F6E6100F8AA85 /* APIRequest.swift in Sources */,
 				02B48CCC232F6E5F00F8AA85 /* AsynchronousOperation.swift in Sources */,
+				02FCCAF5234ACADC00EEF6C8 /* CoreDataTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
