@@ -8,8 +8,12 @@ import UIKit
 class CoreDataConnect {
   let persistentContainer: NSPersistentContainer!
   
-  lazy var backgroundContext: NSManagedObjectContext = {
+  lazy var backgroundContextWhenNotTesting: NSManagedObjectContext = {
+    #if !TEST
       return self.persistentContainer.newBackgroundContext()
+    #else
+      return viewContext
+    #endif
   }()
 
   lazy var viewContext = persistentContainer.viewContext
@@ -29,13 +33,13 @@ class CoreDataConnect {
   // insert
   // NOTE: myEntityName(在Video.xcdatamodeld中設定) 必須跟 class name 一致才能用範型
   func insert<T: NSManagedObject>(type _: T.Type, attributeInfo: [String: Any]) throws {
-    let insetObject = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: backgroundContext)
+    let insetObject = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: backgroundContextWhenNotTesting)
 
     for (key, value) in attributeInfo {
       insetObject.setValue(value, forKey: key)
     }
 
-    try persistentContainer.saveContext(backgroundContext: backgroundContext)
+    try persistentContainer.saveContext(backgroundContext: backgroundContextWhenNotTesting)
   }
 
   // retrieve
@@ -78,7 +82,7 @@ class CoreDataConnect {
           result.setValue(value, forKey: key)
         }
       }
-      try persistentContainer.saveContext(backgroundContext: backgroundContext)
+      try persistentContainer.saveContext(backgroundContext: backgroundContextWhenNotTesting)
     }
   }
 
@@ -86,10 +90,10 @@ class CoreDataConnect {
   func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate?) throws {
     if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil) {
       for result in results {
-        backgroundContext.delete(result)
+        backgroundContextWhenNotTesting.delete(result)
       }
 
-      try persistentContainer.saveContext(backgroundContext: backgroundContext)
+      try persistentContainer.saveContext(backgroundContext: backgroundContextWhenNotTesting)
     }
   }
 
