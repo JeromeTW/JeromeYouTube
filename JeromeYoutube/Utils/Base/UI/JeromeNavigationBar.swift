@@ -1,6 +1,6 @@
 // JeromeNavigationBar.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
-// Created by Jerome Hsieh on 2019/10/3.
+// Created by Jerome Hsieh on 2019/10/5.
 
 import UIKit
 
@@ -46,7 +46,7 @@ extension HasJeromeNavigationBar {
 
     navagationView.removeToolBar()
     statusView.removeToolBar()
-    
+
     let statusHeight = UIApplication.shared.statusBarFrame.size.height
     statusViewHeightConstraint.constant = statusHeight
     navagationViewHeightConstraint.constant = CGFloat.navagationViewHeight
@@ -59,7 +59,7 @@ extension HasJeromeNavigationBar {
       UIView.anchorConstraintEqual(with: \UIView.topAnchor, constant: 0),
       UIView.anchorConstraintEqual(with: \UIView.leadingAnchor, constant: 0),
       UIView.anchorConstraintEqual(with: \UIView.bottomAnchor, constant: 0),
-      UIView.anchorConstraintEqual(with: \UIView.trailingAnchor, constant: 0)
+      UIView.anchorConstraintEqual(with: \UIView.trailingAnchor, constant: 0),
     ])
 
     let toolbar2 = UIToolbar(frame: CGRect.zero)
@@ -69,7 +69,7 @@ extension HasJeromeNavigationBar {
       UIView.anchorConstraintEqual(with: \UIView.topAnchor, constant: 0),
       UIView.anchorConstraintEqual(with: \UIView.leadingAnchor, constant: 0),
       UIView.anchorConstraintEqual(with: \UIView.bottomAnchor, constant: 0),
-      UIView.anchorConstraintEqual(with: \UIView.trailingAnchor, constant: 0)
+      UIView.anchorConstraintEqual(with: \UIView.trailingAnchor, constant: 0),
     ])
   }
 

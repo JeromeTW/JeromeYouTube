@@ -1,19 +1,18 @@
 // JeromeYoutubeTests.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
-// Created by Jerome Hsieh on 2019/10/3.
+// Created by Jerome Hsieh on 2019/10/6.
 
 import JeromeYoutube
 import XCTest
 
 class JeromeYoutubeTests: XCTestCase {
-  
   override class func setUp() {
     XCTestCase.setUp()
     // This is the setUp() class method.
     // It is called before the first test method begins.
     // Set up any overall initial state here.
     // 如果 logger.configure 寫在 TestsAppDelegate 中，在這裡會沒有反應，可能是因為在不同的 Target 下。
-    logger.configure([ .fault, .error, .debug, .info, .defaultLevel], shouldShow: false, shouldCache: false)
+    logger.configure([.fault, .error, .debug, .info, .defaultLevel], shouldShow: false, shouldCache: false)
   }
 
   override func setUp() {

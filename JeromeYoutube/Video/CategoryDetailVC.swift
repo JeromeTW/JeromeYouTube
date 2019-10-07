@@ -1,6 +1,6 @@
 // CategoryDetailVC.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
-// Created by Jerome Hsieh on 2019/10/3.
+// Created by Jerome Hsieh on 2019/10/5.
 
 import CoreData
 import Reachability
@@ -53,8 +53,8 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
   @IBAction func backBtnPressed(_: Any) {
     navigationController?.popViewController(animated: true)
   }
-  
-  @IBAction func addBtnPressed(_ sender: Any) {
+
+  @IBAction func addBtnPressed(_: Any) {
     showAlertController(withTitle: "添加影片", message: "請輸入 ID 或是網址:", textFieldsData: [TextFieldData(text: nil, placeholder: "e.g: 6v2L2UGZJAM or https://www.youtube.com/watch?v=XULUBg_ZcAU")], cancelTitle: "取消", cancelHandler: nil, okTitle: "新增") { [weak self] textFields in
       guard let self = self else {
         return
@@ -70,7 +70,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
           return
         }
         try YoutubeHelper.add(youtubeID, to: self.category, in: self.coreDataConnect)
-        
+
         self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
       } catch YoutubeHelperError.youtubeIDInvalid {
         logger.log("Youtube ID Invalid.", level: .error)

@@ -1,19 +1,15 @@
-//
-//  PersistentContainerManager.swift
-//  JeromeYoutube
-//
-//  Created by JEROME on 2019/10/5.
-//  Copyright © 2019 jerome. All rights reserved.
-//
+// PersistentContainerManager.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/5.
 
-import Foundation
 import CoreData
+import Foundation
 
 class PersistentContainerManager {
   static let shared = PersistentContainerManager()
 
   private init() {}
-  
+
   // MARK: - Core Data stack
 
   lazy var persistentContainer: NSPersistentContainer = {
@@ -51,5 +47,4 @@ class PersistentContainerManager {
     // 如果沒有未分類，則建立一個未分類。
     CoreDataConnect().insertFirstVideoCategoryIfNeeded()
   }
-
 }

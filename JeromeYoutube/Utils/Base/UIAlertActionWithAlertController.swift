@@ -1,13 +1,9 @@
-//
-//  UIAlertActionWithAlertController.swift
-//  JeromeYoutube
-//
-//  Created by JEROME on 2019/10/4.
-//  Copyright © 2019 jerome. All rights reserved.
-//
+// UIAlertActionWithAlertController.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/5.
 
 import UIKit
 
-public class UIAlertActionWithAlertController : UIAlertAction {
-    public weak var alertController: UIAlertController?
+public class UIAlertActionWithAlertController: UIAlertAction {
+  public weak var alertController: UIAlertController?
 }

@@ -1,38 +1,41 @@
 // CustomWebVC.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
-// Created by Jerome Hsieh on 2019/10/3.
+// Created by Jerome Hsieh on 2019/10/7.
 
+import CoreData
 import Reachability
+import SnapKit
 import UIKit
 import WebKit
-import SnapKit
-import CoreData
 
 class CustomWebVC: UIViewController {
-  @IBOutlet weak var mainView: UIView!
-  @IBOutlet weak var titleLabel: UILabel! {
+  @IBOutlet var mainView: UIView!
+  @IBOutlet var titleLabel: UILabel! {
     didSet {
       titleLabel.text = theURL.absoluteString
     }
   }
-  @IBOutlet weak var topView: UIView!
-  @IBOutlet weak var navagationView: UIView!
-  @IBOutlet weak var navagationViewHeightConstraint: NSLayoutConstraint!
-  
-  @IBOutlet weak var closeButton: UIButton!
-  @IBOutlet weak var addButton: UIButton! // 自定義行為之後或許可以 。。。 icon 表示更多功能。
-  @IBOutlet weak var nextPageButton: UIButton! {
+
+  @IBOutlet var topView: UIView!
+  @IBOutlet var navagationView: UIView!
+  @IBOutlet var navagationViewHeightConstraint: NSLayoutConstraint!
+
+  @IBOutlet var closeButton: UIButton!
+  @IBOutlet var addButton: UIButton! // 自定義行為之後或許可以 。。。 icon 表示更多功能。
+  @IBOutlet var nextPageButton: UIButton! {
     didSet {
       nextPageButton.isHidden = true
     }
   }
-  @IBOutlet weak var backPageButton: UIButton! {
+
+  @IBOutlet var backPageButton: UIButton! {
     didSet {
       backPageButton.isHidden = true
     }
   }
+
   @IBOutlet var navigationButtons: [UIButton]!
-  
+
   var webView: WKWebView! {
     didSet {
       request = URLRequest(url: theURL)
@@ -56,10 +59,10 @@ class CustomWebVC: UIViewController {
       webView.load(request)
     }
   }
-  
+
   var request: URLRequest!
   var theURL: URL!
-  
+
   private var coreDataConnect = CoreDataConnect()
   private lazy var categoryFRC: NSFetchedResultsController<VideoCategory>! = {
     let frc = coreDataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
@@ -70,7 +73,7 @@ class CustomWebVC: UIViewController {
     super.loadView()
     assert(theURL != nil)
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     webView = WKWebView()
@@ -108,14 +111,14 @@ class CustomWebVC: UIViewController {
       webView.goBack()
     }
   }
-  
-  @IBAction func addButtonPressed(_ sender: Any) {
+
+  @IBAction func addButtonPressed(_: Any) {
     // UIViewAlertForUnsatisfiableConstraints error 是 actionSheet 的 Bug
     // http://openradar.appspot.com/49289931
     let alert = AlertControllerWithPicker<VideoCategory>(title: "分類", message: "要將影片加入哪一個分類下", preferredStyle: .actionSheet)
     alert.objects = categoryFRC.fetchedObjects!
     alert.titleStringKeyPath = \VideoCategory.name!
-    
+
     let comfirmAction = UIAlertActionWithAlertController(title: "加入", style: .default) { [weak self] action in
       guard let self = self else { return }
       guard let actionWithAlertVC = action as? UIAlertActionWithAlertController, let alert = actionWithAlertVC.alertController, let alertControllerWithPicker = alert as? AlertControllerWithPicker<VideoCategory> else {
@@ -131,7 +134,7 @@ class CustomWebVC: UIViewController {
           return
         }
         try YoutubeHelper.add(youtubeID, to: selectedCategory, in: self.coreDataConnect)
-        
+
         self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
       } catch YoutubeHelperError.youtubeIDInvalid {
         logger.log("Youtube ID Invalid.", level: .error)
@@ -143,15 +146,15 @@ class CustomWebVC: UIViewController {
     }
     comfirmAction.alertController = alert
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    
+
     alert.addAction(comfirmAction)
     alert.addAction(cancelAction)
-    
+
     alert.view.snp.makeConstraints { make in
       make.width.equalTo(view.bounds.width)
-      make.height.equalTo(350)  // Tuning 出來的 Magic Number
+      make.height.equalTo(350) // Tuning 出來的 Magic Number
     }
-    
+
     present(alert, animated: true)
   }
 }
@@ -171,11 +174,11 @@ extension CustomWebVC: WKNavigationDelegate {
     nextPageButton.isHidden = !webView.canGoForward
   }
 
-  func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+  func webView(_: WKWebView, didFail _: WKNavigation!, withError error: Error) {
     logger.log("webView didFail. Error: \(error.localizedDescription)", theOSLog: .customWebView)
   }
 
-  func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+  func webView(_: WKWebView, didFailProvisionalNavigation _: WKNavigation!, withError error: Error) {
     logger.log("webView didFailProvisionalNavigation. Error: \(error.localizedDescription)", theOSLog: .customWebView)
   }
 
@@ -186,8 +189,7 @@ extension CustomWebVC: WKNavigationDelegate {
       return
     }
     logger.log("httpResponse.statusCode: \(httpResponse.statusCode)", theOSLog: .customWebView)
-    if httpResponse.statusCode != 200 {
-    }
+    if httpResponse.statusCode != 200 {}
     decisionHandler(.allow)
   }
 }

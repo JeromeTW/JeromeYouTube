@@ -1,9 +1,9 @@
 // YoutubeHelper.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
-// Created by Jerome Hsieh on 2019/10/3.
+// Created by Jerome Hsieh on 2019/10/7.
 
-import Foundation
 import CoreData
+import Foundation
 
 struct YoutubeHelper {
   static func grabYoutubeIDBy(text: String) -> Result<String, Error> {

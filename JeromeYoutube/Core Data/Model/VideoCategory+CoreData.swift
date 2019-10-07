@@ -1,6 +1,6 @@
 // VideoCategory+CoreData.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
-// Created by Jerome Hsieh on 2019/10/3.
+// Created by Jerome Hsieh on 2019/10/7.
 
 import CoreData
 import Foundation
@@ -69,7 +69,7 @@ extension CoreDataConnect {
       fatalError()
     }
   }
-  
+
   public func insertCategory(_ name: String) throws {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), name)
     if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1), categories.isEmpty == false {

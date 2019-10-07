@@ -1,13 +1,13 @@
 // CoreDataConnect.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
-// Created by Jerome Hsieh on 2019/10/3.
+// Created by Jerome Hsieh on 2019/10/7.
 
 import CoreData
 import UIKit
 
 class CoreDataConnect {
   let persistentContainer: NSPersistentContainer!
-  
+
   lazy var backgroundContextWhenNotTesting: NSManagedObjectContext = {
     #if !TEST
       return self.persistentContainer.newBackgroundContext()
@@ -18,12 +18,13 @@ class CoreDataConnect {
 
   lazy var viewContext = persistentContainer.viewContext
 
-  //MARK: Init with dependency
+  // MARK: Init with dependency
+
   init(container: NSPersistentContainer) {
-      self.persistentContainer = container
-      self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+    persistentContainer = container
+    persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
   }
-  
+
   convenience init() {
     self.init(container: PersistentContainerManager.shared.persistentContainer)
   }

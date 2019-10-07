@@ -1,26 +1,22 @@
-//
-//  UIAlertController+Picker.swift
-//  JeromeYoutube
-//
-//  Created by JEROME on 2019/10/3.
-//  Copyright © 2019 jerome. All rights reserved.
-//
+// UIAlertController+Picker.swift
+// Copyright (c) 2019 Jerome Hsieh. All rights reserved.
+// Created by Jerome Hsieh on 2019/10/5.
 
-import UIKit
 import SnapKit
+import UIKit
 
 class AlertControllerWithPicker<T>: UIAlertController, UIPickerViewDataSource, UIPickerViewDelegate {
   var objects: [T]!
   var didSelectedObject: T!
   var titleStringKeyPath: ReferenceWritableKeyPath<T, String>!
   private var pickerView = UIPickerView(frame: CGRect.zero)
-  
+
   override func loadView() {
     super.loadView()
     assert(objects != nil)
     assert(titleStringKeyPath != nil)
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     assert(objects.isEmpty == false)
@@ -35,24 +31,24 @@ class AlertControllerWithPicker<T>: UIAlertController, UIPickerViewDataSource, U
     pickerView.delegate = self
     didSelectedObject = objects[0]
   }
-  
+
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
   }
-  
-  func numberOfComponents(in pickerView: UIPickerView) -> Int {
-      return 1
-    }
-    
-  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+
+  func numberOfComponents(in _: UIPickerView) -> Int {
+    return 1
+  }
+
+  func pickerView(_: UIPickerView, numberOfRowsInComponent _: Int) -> Int {
     return objects.count
   }
 
-  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+  func pickerView(_: UIPickerView, titleForRow row: Int, forComponent _: Int) -> String? {
     return objects[row][keyPath: titleStringKeyPath]
   }
-      
-  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
+  func pickerView(_: UIPickerView, didSelectRow row: Int, inComponent _: Int) {
     didSelectedObject = objects[row]
   }
 }

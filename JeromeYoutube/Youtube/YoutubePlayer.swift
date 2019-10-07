@@ -1,6 +1,6 @@
 // YoutubePlayer.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
-// Created by Jerome Hsieh on 2019/10/3.
+// Created by Jerome Hsieh on 2019/10/5.
 
 import AVKit
 import CoreData
@@ -13,7 +13,7 @@ class YoutubePlayer {
   private let commandCenter = MPRemoteCommandCenter.shared()
   private let youtubeClient = XCDYouTubeClient(languageIdentifier: "zh")
   private var coreDataConnect = CoreDataConnect()
-  
+
   // Current Playing Video
   private var streamURL: URL?
   private var isPlaying = false

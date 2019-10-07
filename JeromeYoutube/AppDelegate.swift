@@ -1,6 +1,6 @@
 // AppDelegate.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
-// Created by Jerome Hsieh on 2019/10/3.
+// Created by Jerome Hsieh on 2019/10/6.
 
 import AVFoundation
 import UIKit
@@ -14,10 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     logTextView.layer.zPosition = .greatestFiniteMagnitude
     return logTextView
   }()
+
   lazy var persistentContainerManager = PersistentContainerManager.shared
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    
     UserDefaults.standard.setAPPVersionAndHistory()
     setupLogConfigure()
     logger.log("NSHomeDirectory:\(NSHomeDirectory())", level: .debug)
@@ -48,12 +48,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       application.beginReceivingRemoteControlEvents()
       return true
     #endif
-
   }
 
   // MARK: - Private method
 
-    private func setupWindow(rootViewController: UIViewController) {
+  private func setupWindow(rootViewController: UIViewController) {
     window = UIWindow(frame: UIScreen.main.bounds)
     guard let window = window else { fatalError() }
     window.rootViewController = rootViewController
@@ -83,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
   private func setupLogConfigure() {
-    logger.configure([ .fault, .error, .debug, .info, .defaultLevel], shouldShow: false, shouldCache: true)
+    logger.configure([.fault, .error, .debug, .info, .defaultLevel], shouldShow: false, shouldCache: true)
   }
 
   private func setupLogTextView() {

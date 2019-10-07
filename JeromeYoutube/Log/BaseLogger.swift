@@ -1,6 +1,6 @@
 // BaseLogger.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
-// Created by Jerome Hsieh on 2019/9/18.
+// Created by Jerome Hsieh on 2019/10/5.
 
 import Foundation
 import os
@@ -22,7 +22,7 @@ enum LogLevel: Int, CustomStringConvertible {
   }
 
   case fault, error, debug, info, defaultLevel
-  
+
   var theOSLogType: OSLogType {
     switch self {
     case .fault:
@@ -37,7 +37,6 @@ enum LogLevel: Int, CustomStringConvertible {
       return .default
     }
   }
-  
 }
 
 #if TEST
@@ -45,7 +44,6 @@ enum LogLevel: Int, CustomStringConvertible {
 #else
   let logger = AdvancedLogger() // APP Target 用這個，此包含 UI 和 Log 檔案儲存。
 #endif
-
 
 enum JeOSLog {
   static let subsystem = "me.jerome.Mod"
