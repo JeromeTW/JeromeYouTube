@@ -16,11 +16,11 @@ class YoutubePlayer {
 
   // Current Playing Video
   private var streamURL: URL?
-  private var isPlaying = false
+  var isPlaying = false
   private var isExtendingBGJob = false
-  var youtubePlayerVC: AVPlayerViewController?
+  var youtubePlayerVC: JePlayerVC?
   var youtubeAVPlayer: AVPlayer?
-  var setUpYoutubePlayerVCCompletionHandler: ((AVPlayerViewController) -> Void)?
+  var setUpYoutubePlayerVCCompletionHandler: ((JePlayerVC) -> Void)?
   var video: Video?
 
   private init() {}
@@ -74,12 +74,17 @@ class YoutubePlayer {
     video = nil
   }
   
-  func play(video: Video, setUpYoutubePlayerVCCompletionHandler: ((AVPlayerViewController) -> Void)?) {
+  func play(video: Video, setUpYoutubePlayerVCCompletionHandler: ((JePlayerVC) -> Void)?) {
     resetPlayer()
     self.setUpYoutubePlayerVCCompletionHandler = setUpYoutubePlayerVCCompletionHandler
     self.video = video
     
-    youtubePlayerVC = AVPlayerViewController()
+    youtubePlayerVC = JePlayerVC()
+    youtubePlayerVC?.onDismiss = { [weak self] in
+      guard let self = self else { return }
+      self.resetPlayer()
+    }
+    
     youtubeClient.getVideoWithIdentifier(video.youtubeID) { [weak self] youtubeVideo, error in
       guard let self = self else {
         return

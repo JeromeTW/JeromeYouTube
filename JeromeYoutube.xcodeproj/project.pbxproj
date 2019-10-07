@@ -62,6 +62,7 @@
 		02E1299A232B420500E04942 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12998232B420400E04942 /* Observable.swift */; };
 		02E1299B232B420500E04942 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12999232B420400E04942 /* BaseViewController.swift */; };
 		02FCCAF5234ACADC00EEF6C8 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCCAF4234ACADC00EEF6C8 /* CoreDataTests.swift */; };
+		02FCCAF7234B655600EEF6C8 /* JePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCCAF6234B655600EEF6C8 /* JePlayerVC.swift */; };
 		05ED524C4876035E6A711653 /* Pods_JeromeYoutube.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F0D977B2D76E8429AAE042 /* Pods_JeromeYoutube.framework */; };
 		3F13C63486ADEA195CFA8768 /* Pods_JeromeYoutubeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB2BCF4F9E9670A9D890A17B /* Pods_JeromeYoutubeTests.framework */; };
 /* End PBXBuildFile section */
@@ -123,6 +124,7 @@
 		02E12998232B420400E04942 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		02E12999232B420400E04942 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		02FCCAF4234ACADC00EEF6C8 /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
+		02FCCAF6234B655600EEF6C8 /* JePlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JePlayerVC.swift; sourceTree = "<group>"; };
 		1BCFF40DE32DDFEBF61850DF /* Pods-JeromeYoutubeTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutubeTests.test.xcconfig"; path = "Target Support Files/Pods-JeromeYoutubeTests/Pods-JeromeYoutubeTests.test.xcconfig"; sourceTree = "<group>"; };
 		37ACBD4939114AC885FEDC35 /* Pods-JeromeYoutubeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutubeTests.debug.xcconfig"; path = "Target Support Files/Pods-JeromeYoutubeTests/Pods-JeromeYoutubeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		516D901C8CA643B701D9BD58 /* Pods-JeromeYoutube.testing.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutube.testing.xcconfig"; path = "Target Support Files/Pods-JeromeYoutube/Pods-JeromeYoutube.testing.xcconfig"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				027245B1232D006D00C86E72 /* CategoryListTableViewCell.swift */,
 				02206908232E6492007A4BEB /* CategoryDetailVC.swift */,
 				0220690A232E6664007A4BEB /* CategoryDetailTableViewCell.swift */,
+				02FCCAF6234B655600EEF6C8 /* JePlayerVC.swift */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -584,6 +587,7 @@
 				02A88DFB234595B4007C5C65 /* AdvancedLogger.swift in Sources */,
 				021B5FDF232895FB000B192B /* NetworkRequestOperation.swift in Sources */,
 				02E1299A232B420500E04942 /* Observable.swift in Sources */,
+				02FCCAF7234B655600EEF6C8 /* JePlayerVC.swift in Sources */,
 				021B5FE52328965C000B192B /* ImageLoader.swift in Sources */,
 				02BEA20B23321AF300C3E317 /* VideoCoordinator.swift in Sources */,
 				02E12994232B3D8600E04942 /* JeromeNavigationBar.swift in Sources */,

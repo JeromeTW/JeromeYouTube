@@ -5,6 +5,7 @@
 import CoreData
 import Reachability
 import UIKit
+import AVKit
 
 class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
   @IBOutlet var topView: UIView!
@@ -40,7 +41,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
     setupSatusBarFrameChangedObserver()
     updateTopView()
   }
-
+  
   deinit {
     removeSatusBarHeightChangedObserver()
   }
@@ -122,6 +123,7 @@ extension CategoryDetailVC: UITableViewDelegate {
       guard let self = self else { return }
       self.present(playerVC, animated: true) {
         playerVC.player?.play()
+        self.youtubePlayer.isPlaying = true
       }
     }
   }
