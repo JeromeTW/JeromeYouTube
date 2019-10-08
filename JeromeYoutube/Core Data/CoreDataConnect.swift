@@ -36,6 +36,7 @@ class CoreDataConnect {
   }
 
   // retrieve
+  // NOTE: 如果找不到結果會回傳 nil, 不會回傳空陣列
   func retrieve<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate? = nil, sort: [[String: Bool]]? = nil, limit: Int? = nil) -> [T]? {
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
 
@@ -60,7 +61,8 @@ class CoreDataConnect {
     }
 
     do {
-      return try viewContext.fetch(request) as? [T]
+      let result = try viewContext.fetch(request) as! [T]
+      return result.isEmpty ? nil : result
 
     } catch {
       fatalError("\(error)")

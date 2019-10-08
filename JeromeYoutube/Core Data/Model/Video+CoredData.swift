@@ -30,7 +30,7 @@ extension Video: HasOrder {} // 數字越大在越前面，最小是 1 在最後
 extension CoreDataConnect {
   func isTheYoutubeIDExisted(_ id: String) -> Bool {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), id)
-    if let result = retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1), result.isEmpty == false {
+    if let result = retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1) {
       return true
     } else {
       return false

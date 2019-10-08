@@ -56,7 +56,7 @@ extension VideoCategory {
 extension CoreDataConnect {
   public func insertFirstVideoCategoryIfNeeded() {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), VideoCategory.undeineCatogoryName)
-    if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1), categories.isEmpty == false {
+    if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1) {
       return
     }
     do {
@@ -72,7 +72,7 @@ extension CoreDataConnect {
 
   public func insertCategory(_ name: String) throws {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), name)
-    if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1), categories.isEmpty == false {
+    if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1) {
       throw VideoCategoryError.duplicateCategoryName
       return
     }
