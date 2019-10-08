@@ -16,6 +16,7 @@
 		021B5FE52328965C000B192B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FE42328965C000B192B /* ImageLoader.swift */; };
 		02206909232E6492007A4BEB /* CategoryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02206908232E6492007A4BEB /* CategoryDetailVC.swift */; };
 		0220690B232E6664007A4BEB /* CategoryDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220690A232E6664007A4BEB /* CategoryDetailTableViewCell.swift */; };
+		02269A51234C2C89004BF27C /* Musics.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 02269A50234C2C89004BF27C /* Musics.bundle */; };
 		022A4DE2232A34C8006EA137 /* NSPersistentContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE1232A34C8006EA137 /* NSPersistentContainerExtension.swift */; };
 		022A4DE4232A34DD006EA137 /* CoreDataConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE3232A34DD006EA137 /* CoreDataConnect.swift */; };
 		022A4DE7232A3871006EA137 /* VideoCategory+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE6232A3871006EA137 /* VideoCategory+CoreData.swift */; };
@@ -87,6 +88,7 @@
 		021B5FE42328965C000B192B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		02206908232E6492007A4BEB /* CategoryDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailVC.swift; sourceTree = "<group>"; };
 		0220690A232E6664007A4BEB /* CategoryDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailTableViewCell.swift; sourceTree = "<group>"; };
+		02269A50234C2C89004BF27C /* Musics.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Musics.bundle; sourceTree = "<group>"; };
 		022A4DE1232A34C8006EA137 /* NSPersistentContainerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentContainerExtension.swift; sourceTree = "<group>"; };
 		022A4DE3232A34DD006EA137 /* CoreDataConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataConnect.swift; sourceTree = "<group>"; };
 		022A4DE6232A3871006EA137 /* VideoCategory+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoCategory+CoreData.swift"; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		021B5FE223289603000B192B /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				02269A50234C2C89004BF27C /* Musics.bundle */,
 				02644709232781A300822485 /* Assets.xcassets */,
 				0264470B232781A300822485 /* LaunchScreen.storyboard */,
 				0264470E232781A300822485 /* Info.plist */,
@@ -452,6 +455,7 @@
 				0235E0F02329C8E800A82B7F /* CategoryListTab.storyboard in Resources */,
 				02A88DF723459537007C5C65 /* CustomWebVC.xib in Resources */,
 				02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */,
+				02269A51234C2C89004BF27C /* Musics.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
