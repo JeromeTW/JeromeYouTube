@@ -17,6 +17,8 @@
 		02206909232E6492007A4BEB /* CategoryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02206908232E6492007A4BEB /* CategoryDetailVC.swift */; };
 		0220690B232E6664007A4BEB /* CategoryDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220690A232E6664007A4BEB /* CategoryDetailTableViewCell.swift */; };
 		02269A51234C2C89004BF27C /* Musics.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 02269A50234C2C89004BF27C /* Musics.bundle */; };
+		02269A54234C2F77004BF27C /* BundleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02269A53234C2F77004BF27C /* BundleManager.swift */; };
+		02269A55234C2F77004BF27C /* BundleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02269A53234C2F77004BF27C /* BundleManager.swift */; };
 		022A4DE2232A34C8006EA137 /* NSPersistentContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE1232A34C8006EA137 /* NSPersistentContainerExtension.swift */; };
 		022A4DE4232A34DD006EA137 /* CoreDataConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE3232A34DD006EA137 /* CoreDataConnect.swift */; };
 		022A4DE7232A3871006EA137 /* VideoCategory+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A4DE6232A3871006EA137 /* VideoCategory+CoreData.swift */; };
@@ -89,6 +91,7 @@
 		02206908232E6492007A4BEB /* CategoryDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailVC.swift; sourceTree = "<group>"; };
 		0220690A232E6664007A4BEB /* CategoryDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailTableViewCell.swift; sourceTree = "<group>"; };
 		02269A50234C2C89004BF27C /* Musics.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Musics.bundle; sourceTree = "<group>"; };
+		02269A53234C2F77004BF27C /* BundleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleManager.swift; sourceTree = "<group>"; };
 		022A4DE1232A34C8006EA137 /* NSPersistentContainerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentContainerExtension.swift; sourceTree = "<group>"; };
 		022A4DE3232A34DD006EA137 /* CoreDataConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataConnect.swift; sourceTree = "<group>"; };
 		022A4DE6232A3871006EA137 /* VideoCategory+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoCategory+CoreData.swift"; sourceTree = "<group>"; };
@@ -226,6 +229,14 @@
 			path = Video;
 			sourceTree = "<group>";
 		};
+		02269A52234C2F5C004BF27C /* Bundle */ = {
+			isa = PBXGroup;
+			children = (
+				02269A53234C2F77004BF27C /* BundleManager.swift */,
+			);
+			path = Bundle;
+			sourceTree = "<group>";
+		};
 		022A4DDE232A33FC006EA137 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +281,7 @@
 		02644701232781A100822485 /* JeromeYoutube */ = {
 			isa = PBXGroup;
 			children = (
+				02269A52234C2F5C004BF27C /* Bundle */,
 				02BEA20923321ACC00C3E317 /* Coordinator */,
 				02A5BFAC232C843F00E85495 /* Youtube */,
 				022A4DDE232A33FC006EA137 /* Core Data */,
@@ -577,6 +589,7 @@
 			files = (
 				02A88DF623459537007C5C65 /* CustomWebVC.swift in Sources */,
 				02DE52A4234833F700007981 /* PersistentContainerManager.swift in Sources */,
+				02269A54234C2F77004BF27C /* BundleManager.swift in Sources */,
 				021B5FD9232891F1000B192B /* NSObjectExtension.swift in Sources */,
 				02A88E00234625C5007C5C65 /* UIAlertController+Picker.swift in Sources */,
 				022A4DE4232A34DD006EA137 /* CoreDataConnect.swift in Sources */,
@@ -621,6 +634,7 @@
 				02DE529723482B6A00007981 /* YoutubePlayer.swift in Sources */,
 				02A5BFB6232C932E00E85495 /* JeromeYoutubeTests.swift in Sources */,
 				02A88DFE23459606007C5C65 /* BaseLogger.swift in Sources */,
+				02269A55234C2F77004BF27C /* BundleManager.swift in Sources */,
 				023E28BD234A08DF00250013 /* Video.xcdatamodeld in Sources */,
 				02A5BFBD232C94CB00E85495 /* YoutubeHelper.swift in Sources */,
 				02DE52A5234833F700007981 /* PersistentContainerManager.swift in Sources */,

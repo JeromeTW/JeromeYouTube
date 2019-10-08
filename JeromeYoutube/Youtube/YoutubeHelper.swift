@@ -44,6 +44,7 @@ struct YoutubeHelper {
         #keyPath(Video.id): coreDataConnect.generateNewID(Video.self) as Any,
         #keyPath(Video.order): coreDataConnect.generateNewOrder(Video.self) as Any,
         #keyPath(Video.youtubeID): youtubeID as Any,
+        #keyPath(Video.savePlace): 1 as Any,
         #keyPath(Video.categories): categories,
       ])
       guard let video = coreDataConnect.retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1)?.first else {

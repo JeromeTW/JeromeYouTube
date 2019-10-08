@@ -119,11 +119,25 @@ extension CategoryDetailVC: UITableViewDelegate {
     guard let video = category.videos?.object(at: indexPath.row) as? Video else {
       fatalError()
     }
-    youtubePlayer.play(video: video) { [weak self] playerVC in
-      guard let self = self else { return }
+    if video.savePlace == 0 {
+      // Local Music
+      let playerVC = AVPlayerViewController()
+      
+      let bundle = BundleManager.musicsBundle
+      let url = bundle.url(forResource: video.url!, withExtension: nil)!
+
+      playerVC.player = AVPlayer(url: url)
       self.present(playerVC, animated: true) {
         playerVC.player?.play()
-        self.youtubePlayer.isPlaying = true
+      }
+    } else {
+      // 網上音樂
+      youtubePlayer.play(video: video) { [weak self] playerVC in
+        guard let self = self else { return }
+        self.present(playerVC, animated: true) {
+          playerVC.player?.play()
+          self.youtubePlayer.isPlaying = true
+        }
       }
     }
   }

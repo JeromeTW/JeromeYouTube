@@ -50,7 +50,10 @@ class YoutubePlayer {
     if let url = youtubeVideo.thumbnailURL {
       ImageLoader.shared.imageByURL(url)
     }
-    let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), aVideo.youtubeID)
+    guard let youtubeIDNotNil = aVideo.youtubeID else {
+      fatalError()
+    }
+    let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), youtubeIDNotNil)
     do {
       try coreDataConnect.update(type: Video.self, predicate: predicate, limit: 1, attributeInfo: [
         #keyPath(Video.name): youtubeVideo.title as Any,

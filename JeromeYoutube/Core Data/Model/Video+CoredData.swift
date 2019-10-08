@@ -18,11 +18,12 @@ extension Video {
   @NSManaged public var duration: Int64
   @NSManaged public var id: Int64
   @NSManaged public var name: String?
-  @NSManaged public var order: Int64
+  @NSManaged public var order: Int64  // TODO: order 要移除放在 Video Category裡。 Video Category加一個欄位叫 orderIDs ? 可能的作法
   @NSManaged public var thumbnailURL: String?
   @NSManaged public var url: String?
-  @NSManaged public var youtubeID: String
+  @NSManaged public var youtubeID: String?
   @NSManaged public var categories: NSSet?
+  @NSManaged public var savePlace: Int  // 0: 存在本機； 1: 在網上
 }
 
 extension Video: HasID {}

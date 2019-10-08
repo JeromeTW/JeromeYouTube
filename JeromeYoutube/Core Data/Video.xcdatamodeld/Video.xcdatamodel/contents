@@ -5,9 +5,10 @@
         <attribute name="id" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="order" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="savePlace" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="thumbnailURL" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
-        <attribute name="youtubeID" attributeType="String"/>
+        <attribute name="youtubeID" optional="YES" attributeType="String"/>
         <relationship name="categories" toMany="YES" deletionRule="Nullify" destinationEntity="VideoCategory" inverseName="videos" inverseEntity="VideoCategory"/>
     </entity>
     <entity name="VideoCategory" representedClassName=".VideoCategory" syncable="YES">
@@ -17,7 +18,7 @@
         <relationship name="videos" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Video" inverseName="categories" inverseEntity="Video"/>
     </entity>
     <elements>
-        <element name="Video" positionX="-54" positionY="18" width="128" height="163"/>
+        <element name="Video" positionX="-54" positionY="18" width="128" height="178"/>
         <element name="VideoCategory" positionX="-63" positionY="-18" width="128" height="103"/>
     </elements>
 </model>
