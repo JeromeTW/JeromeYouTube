@@ -19,9 +19,9 @@ struct YoutubeHelper {
     return .success(text.components(separatedBy: parameterSeparator)[1])
   }
 
-  static func add(_ youtubeID: String, to category: VideoCategory, in coreDataConnect: CoreDataConnect) throws {
+  static func add(_ youtubeID: String, to category: VideoCategory, in coreDataConnect: CoreDataConnect, aContext: NSManagedObjectContext? = nil) throws {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), youtubeID)
-    if let videos = coreDataConnect.retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1), let video = videos.first {
+    if let videos = coreDataConnect.retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1, aContext: aContext), let video = videos.first {
       // DB 中已經有該影片
       guard let categories = video.categories else {
         fatalError()
@@ -35,7 +35,7 @@ struct YoutubeHelper {
         let newCategories = NSSet(array: newCategoriesArray)
         try coreDataConnect.update(type: Video.self, predicate: predicate, attributeInfo: [
           #keyPath(Video.categories): newCategories,
-        ])
+        ], aContext: aContext)
       }
     } else {
       // DB 中沒有該影片
@@ -46,8 +46,8 @@ struct YoutubeHelper {
         #keyPath(Video.youtubeID): youtubeID as Any,
         #keyPath(Video.savePlace): 1 as Any,
         #keyPath(Video.categories): categories,
-      ])
-      guard let video = coreDataConnect.retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1)?.first else {
+      ], aContext: aContext)
+      guard let video = coreDataConnect.retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1, aContext: aContext)?.first else {
         return
       }
       YoutubePlayer.shared.getAndSaveVideoInfomation(video)

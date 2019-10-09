@@ -70,9 +70,9 @@ extension CoreDataConnect {
     }
   }
 
-  public func insertCategory(_ name: String) throws {
+  public func insertCategory(_ name: String, aContext: NSManagedObjectContext? = nil) throws {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), name)
-    if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1) {
+    if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1, aContext: aContext) {
       throw VideoCategoryError.duplicateCategoryName
       return
     }
@@ -81,7 +81,7 @@ extension CoreDataConnect {
         #keyPath(VideoCategory.name): name as Any,
         #keyPath(VideoCategory.id): generateNewID(VideoCategory.self) as Any,
         #keyPath(VideoCategory.order): generateNewOrder(VideoCategory.self) as Any,
-      ])
+      ], aContext: aContext)
     } catch {
       fatalError()
     }

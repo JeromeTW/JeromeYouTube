@@ -8,6 +8,10 @@ import UIKit
 class CoreDataConnect {
   let persistentContainer: NSPersistentContainer!
 
+  lazy var backgroundContext\: NSManagedObjectContext = {
+    return persistentContainer.newBackgroundContext()
+  }()
+
   lazy var viewContext = persistentContainer.viewContext
 
   // MARK: Init with dependency
@@ -25,8 +29,9 @@ class CoreDataConnect {
 
   // insert
   // NOTE: myEntityName(在Video.xcdatamodeld中設定) 必須跟 class name 一致才能用範型
-  func insert<T: NSManagedObject>(type _: T.Type, attributeInfo: [String: Any]) throws {
-    let insetObject = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: viewContext)
+  func insert<T: NSManagedObject>(type _: T.Type, attributeInfo: [String: Any], aContext: NSManagedObjectContext? = nil) throws {
+    let context = aContext ?? viewContext
+    let insetObject = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: context)
 
     for (key, value) in attributeInfo {
       insetObject.setValue(value, forKey: key)
@@ -37,7 +42,8 @@ class CoreDataConnect {
 
   // retrieve
   // NOTE: 如果找不到結果會回傳 nil, 不會回傳空陣列
-  func retrieve<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate? = nil, sort: [[String: Bool]]? = nil, limit: Int? = nil) -> [T]? {
+  func retrieve<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate? = nil, sort: [[String: Bool]]? = nil, limit: Int? = nil, aContext: NSManagedObjectContext? = nil) -> [T]? {
+    let context = aContext ?? viewContext
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
 
     // predicate
@@ -61,7 +67,7 @@ class CoreDataConnect {
     }
 
     do {
-      let result = try viewContext.fetch(request) as! [T]
+      let result = try context.fetch(request) as! [T]
       return result.isEmpty ? nil : result
 
     } catch {
@@ -70,8 +76,8 @@ class CoreDataConnect {
   }
 
   // update
-  func update<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, limit: Int? = 1, attributeInfo: [String: Any]) throws {
-    if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: limit) {
+  func update<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, limit: Int? = 1, attributeInfo: [String: Any], aContext: NSManagedObjectContext? = nil) throws {
+    if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: limit, aContext: aContext) {
       for result in results {
         for (key, value) in attributeInfo {
           result.setValue(value, forKey: key)
@@ -82,17 +88,19 @@ class CoreDataConnect {
   }
 
   // delete
-  func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil) throws {
-    if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil) {
+  func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, aContext: NSManagedObjectContext? = nil) throws {
+    let context = aContext ?? viewContext
+    if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil, aContext: aContext) {
       for result in results {
-        viewContext.delete(result)
+        context.delete(result)
       }
 
       try persistentContainer.saveContext()
     }
   }
 
-  func getCount<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate? = nil) -> Int {
+  func getCount<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate? = nil, aContext: NSManagedObjectContext? = nil) -> Int {
+    let context = aContext ?? viewContext
     var count = 0
     let request = NSFetchRequest<NSNumber>(entityName: String(describing: T.self))
 
@@ -101,7 +109,7 @@ class CoreDataConnect {
     request.resultType = .countResultType
 
     do {
-      let countResult = try viewContext.fetch(request)
+      let countResult = try context.fetch(request)
       // 获取数量
       count = countResult.first!.intValue
     } catch let error as NSError {
@@ -111,7 +119,8 @@ class CoreDataConnect {
   }
 
   public func getFRC<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate? = nil, sortDescriptors:
-    [NSSortDescriptor]? = nil, limit: Int? = nil, sectionNameKeyPath: String? = nil, cacheName: String? = nil) -> NSFetchedResultsController<T> {
+    [NSSortDescriptor]? = nil, limit: Int? = nil, sectionNameKeyPath: String? = nil, cacheName: String? = nil, aContext: NSManagedObjectContext? = nil) -> NSFetchedResultsController<T> {
+    let context = aContext ?? viewContext
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
 
     // predicate
@@ -124,7 +133,7 @@ class CoreDataConnect {
       request.fetchLimit = limitNumber
     }
     let fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
-                                                              managedObjectContext: viewContext,
+                                                              managedObjectContext: context,
                                                               sectionNameKeyPath: sectionNameKeyPath,
                                                               cacheName: cacheName) as! NSFetchedResultsController<T>
     do {
@@ -146,14 +155,15 @@ protocol HasID {
 
 extension CoreDataConnect {
   // This Entity must has id property
-  func generateNewID<T: HasID>(_: T.Type) -> Int64 {
+  func generateNewID<T: HasID>(_: T.Type, aContext: NSManagedObjectContext? = nil) -> Int64 {
+    let context = aContext ?? viewContext
     var newID: Int64 = 1
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
     request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
     request.fetchLimit = 1
 
     do {
-      let result = try viewContext.fetch(request) as? [T]
+      let result = try context.fetch(request) as? [T]
       if let first = result?.first {
         newID = first.id + 1
       }
@@ -172,14 +182,15 @@ protocol HasOrder {
 
 extension CoreDataConnect {
   // This Entity must has order property
-  func generateNewOrder<T: HasOrder>(_: T.Type) -> Int64 {
+  func generateNewOrder<T: HasOrder>(_: T.Type, aContext: NSManagedObjectContext? = nil) -> Int64 {
+    let context = aContext ?? viewContext
     var newOrder: Int64 = 1
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
     request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: false)]
     request.fetchLimit = 1
 
     do {
-      let result = try viewContext.fetch(request) as? [T]
+      let result = try context.fetch(request) as? [T]
       if let first = result?.first {
         newOrder = first.order + 1
       }
