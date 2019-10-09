@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     setupLogConfigure()
     logger.log("NSHomeDirectory:\(NSHomeDirectory())", level: .debug)
     persistentContainerManager.setupCoreDataDB()
+    BundleManager.addMusicsToDBIfNeeded()
     #if TEST
       print("🌘 TEST")
       setupWindow(rootViewController: UIViewController())
@@ -46,7 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
       // This will enable to show nowplaying controls on lock screen
       application.beginReceivingRemoteControlEvents()
-      BundleManager.addMusicsToDBIfNeeded()
       return true
     #endif
   }
