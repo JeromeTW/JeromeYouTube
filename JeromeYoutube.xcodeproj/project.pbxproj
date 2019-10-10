@@ -66,6 +66,7 @@
 		02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */; };
 		02E1299A232B420500E04942 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12998232B420400E04942 /* Observable.swift */; };
 		02E1299B232B420500E04942 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E12999232B420400E04942 /* BaseViewController.swift */; };
+		02F2D794234F707A0026361F /* MiniPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F2D793234F707A0026361F /* MiniPlayerView.xib */; };
 		02FCCAF5234ACADC00EEF6C8 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCCAF4234ACADC00EEF6C8 /* CoreDataTests.swift */; };
 		02FCCAF7234B655600EEF6C8 /* JePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCCAF6234B655600EEF6C8 /* JePlayerVC.swift */; };
 		05ED524C4876035E6A711653 /* Pods_JeromeYoutube.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F0D977B2D76E8429AAE042 /* Pods_JeromeYoutube.framework */; };
@@ -131,6 +132,7 @@
 		02E12995232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JeromeNavigationBarStatusBarBaseVC.xib; sourceTree = "<group>"; };
 		02E12998232B420400E04942 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		02E12999232B420400E04942 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		02F2D793234F707A0026361F /* MiniPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiniPlayerView.xib; sourceTree = "<group>"; };
 		02FCCAF4234ACADC00EEF6C8 /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		02FCCAF6234B655600EEF6C8 /* JePlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JePlayerVC.swift; sourceTree = "<group>"; };
 		1BCFF40DE32DDFEBF61850DF /* Pods-JeromeYoutubeTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JeromeYoutubeTests.test.xcconfig"; path = "Target Support Files/Pods-JeromeYoutubeTests/Pods-JeromeYoutubeTests.test.xcconfig"; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				02206908232E6492007A4BEB /* CategoryDetailVC.swift */,
 				0220690A232E6664007A4BEB /* CategoryDetailTableViewCell.swift */,
 				02FCCAF6234B655600EEF6C8 /* JePlayerVC.swift */,
+				02F2D793234F707A0026361F /* MiniPlayerView.xib */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				0264470D232781A300822485 /* LaunchScreen.storyboard in Resources */,
 				0264470A232781A300822485 /* Assets.xcassets in Resources */,
 				0235E0F02329C8E800A82B7F /* CategoryListTab.storyboard in Resources */,
+				02F2D794234F707A0026361F /* MiniPlayerView.xib in Resources */,
 				02A88DF723459537007C5C65 /* CustomWebVC.xib in Resources */,
 				02E12996232B412D00E04942 /* JeromeNavigationBarStatusBarBaseVC.xib in Resources */,
 				02269A51234C2C89004BF27C /* Musics.bundle in Resources */,
