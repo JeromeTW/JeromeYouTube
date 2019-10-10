@@ -8,7 +8,7 @@ import UIKit
 class CoreDataConnect {
   let persistentContainer: NSPersistentContainer!
 
-  lazy var backgroundContext\: NSManagedObjectContext = {
+  lazy var backgroundContext: NSManagedObjectContext = {
     return persistentContainer.newBackgroundContext()
   }()
 
