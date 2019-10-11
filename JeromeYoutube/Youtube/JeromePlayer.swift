@@ -7,8 +7,6 @@ import CoreData
 import Foundation
 import XCDYouTubeKit
 
-typealias YoutubePlayerIsRedayHandler = (AVPlayerLayer) -> Void
-
 class JeromePlayer {
   static var shared = JeromePlayer()
 
@@ -27,9 +25,20 @@ class JeromePlayer {
   }
   
   private var isExtendingBGJob = false
+  var theAVPlayItem: AVPlayerItem? {
+    willSet {
+      if newValue == nil, let item = theAVPlayItem {
+        NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: item)
+      }
+    }
+    didSet {
+      if let item = theAVPlayItem {
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackFinished), name: .AVPlayerItemDidPlayToEndTime, object: item)
+      }
+    }
+  }
   var theAVPlayer: AVPlayer?
   var theAVPlayerLayer: AVPlayerLayer?
-  var youtubePlayerIsRedayHandler: YoutubePlayerIsRedayHandler?
   var video: Video?
   var videoList: [Video]?
   private var currentIndex = 0
@@ -81,22 +90,23 @@ class JeromePlayer {
     currentIndex = 0
     isExtendingBGJob = false
     theAVPlayer?.pause()
+    theAVPlayItem = nil
     theAVPlayer = nil
     theAVPlayerLayer = nil
-    youtubePlayerIsRedayHandler = nil
     video = nil
   }
   
-  func play(video: Video, videoList: [Video], youtubePlayerIsRedayHandler: YoutubePlayerIsRedayHandler? = nil) {
+  func play(video: Video, videoList: [Video]) {
     resetPlayer()
-    self.youtubePlayerIsRedayHandler = youtubePlayerIsRedayHandler
     self.video = video
+    self.videoList = videoList
     
     if video.savePlace == 0 {
       // Local Music
       let bundle = BundleManager.musicsBundle
       let url = bundle.url(forResource: video.url!, withExtension: nil)!
-      theAVPlayer = AVPlayer(url: url)
+      theAVPlayItem = AVPlayerItem(url: url)
+      theAVPlayer = AVPlayer(playerItem: theAVPlayItem)
       theAVPlayer?.play()
     } else {
       youtubeClient.getVideoWithIdentifier(video.youtubeID) { [weak self] youtubeVideo, error in
@@ -113,9 +123,12 @@ class JeromePlayer {
         }
         let streamURLs = youtubeVideo.streamURLs
         if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
-          self.theAVPlayer = AVPlayer(url: tempStreamURL)
+          self.theAVPlayItem = AVPlayerItem(url: tempStreamURL)
+          self.theAVPlayer = AVPlayer(playerItem: self.theAVPlayItem)
           self.theAVPlayerLayer = AVPlayerLayer(player: self.theAVPlayer)
-          self.youtubePlayerIsRedayHandler?(self.theAVPlayerLayer!)
+          let userInfo = ["layer": self.theAVPlayerLayer!] as [String : Any]
+          let notification = Notification(name: Notification.Name(rawValue: "youtubePlayerIsRedayHandler"), object: self, userInfo: userInfo)
+          NotificationCenter.default.post(notification)
           self.theAVPlayer?.play()
         }
       }
@@ -144,6 +157,25 @@ class JeromePlayer {
       return
     }
     player.play()
+  }
+  
+  @objc func playbackFinished() {
+    guard let videoList = videoList else {
+      return
+    }
+    currentIndex += 1
+    var video: Video!
+    if currentIndex >= videoList.count {
+      // 已經播到最後一首了
+      currentIndex = 0
+    }
+    video = videoList[currentIndex]
+    
+    let userInfo = ["video": video] as [String : Any]
+    let notification = Notification(name: Notification.Name(rawValue: "playbackFinished"), object: self, userInfo: userInfo)
+    NotificationCenter.default.post(notification)
+    
+    play(video: video, videoList: videoList)
   }
   
   private func setupRemoteCommandCenter() {

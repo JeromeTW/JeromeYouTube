@@ -32,6 +32,10 @@ class MiniPlayerView: UIView {
     xibSetup()
   }
   
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+  
   func xibSetup() {
     contentView = loadViewFromNib()
     // Use bounds not frame or it'll be offset
@@ -42,10 +46,25 @@ class MiniPlayerView: UIView {
     self.backgroundColor = UIColor.clear
     
     songTitleLabel.text = ""
-    //        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: Notification.Name(rawValue: kUpdateSimplePlayerUI), object: nil)
-    // Adding custom subview on top of our view (over any custom drawing > see note below)
     addSubview(contentView!)
-//    updateUI()
+    NotificationCenter.default.addObserver(self, selector: #selector(playbackFinished(notification:)), name: NSNotification.Name(rawValue: "playbackFinished"), object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(youtubePlayerIsRedayHandler(notification:)), name: NSNotification.Name(rawValue: "youtubePlayerIsRedayHandler"), object: nil)
+  }
+  
+  @objc func playbackFinished(notification: Notification) {
+    let userInfo = notification.userInfo
+    if let video = userInfo?["video"] as? Video {
+      updateUI(by: video)
+    }
+  }
+  
+  @objc func youtubePlayerIsRedayHandler(notification: Notification) {
+    let userInfo = notification.userInfo
+    if let layer = userInfo?["layer"] as? AVPlayerLayer {
+      self.videoLayer = layer
+      self.videoContainerView.layer.addSublayer(layer)
+      layer.frame = self.videoContainerView.bounds
+    }
   }
   
   func loadViewFromNib() -> UIView! {
@@ -55,7 +74,7 @@ class MiniPlayerView: UIView {
     return view
   }
   
-  func updateUI(by video: Video, videoList: [Video]) {
+  func updateUI(by video: Video) {
     songTitleLabel.text = video.name
     if let videoLayer = videoLayer {
       videoLayer.removeFromSuperlayer()
@@ -66,83 +85,8 @@ class MiniPlayerView: UIView {
     } else {
       imageView.isHidden = true
     }
-    let handler: YoutubePlayerIsRedayHandler = {
-      [weak self] layer in
-      guard let self = self else { return }
-      self.videoLayer = layer
-      self.videoContainerView.layer.addSublayer(layer)
-      layer.frame = self.videoContainerView.bounds
-    }
-    jeromePlayer.play(video: video, videoList: videoList, youtubePlayerIsRedayHandler: handler)
     isHidden = false
   }
-//
-//  func updateUI() {
-//    /// FIXME: 如果切換歌單太快會crash.
-//    guard let playerController = playerHelper.returnExistPlayableObject() else { return }
-//    updatePrevNextButtons()
-//    updatePlayBtn()
-//    if playerController is LocalPlayer {
-//      let item = playerController.contentArray[playerController.currentIndex] as! MusicBean
-//      updateData(image: item.musicCover, imageURL: nil, songName: item.musicName, albumName: item.albumTitle)
-//    } else if playerController is JeromePlayer {
-//      let item = playerController.contentArray[playerController.currentIndex] as! ContentItem
-//      var thumbnailURL = ""
-//      if item.thumbnailURL == "" {  // 我的音樂的ContentItem server沒有給縮圖，得自己抓
-//        thumbnailURL = getYoutubeThumbnailURL(from: item.URL)
-//      } else {  // 線上影音的ContentItem server有給縮圖，可以直接用
-//        thumbnailURL = item.thumbnailURL
-//      }
-//      updateData(image: nil, imageURL: thumbnailURL, songName: item.name, albumName: nil)
-//    } else if playerController is TXPlayer {
-//      let item = playerController.contentArray[playerController.currentIndex] as! ContentItem
-//      var thumbnailURL = ""
-//      if item.thumbnailURL == "" {  // 我的音樂的ContentItem server沒有給縮圖，得自己抓
-//        thumbnailURL = getTencentThumbnailURL(from: item.getTXID()!)
-//      } else {  // 線上影音的ContentItem server有給縮圖，可以直接用
-//        thumbnailURL = item.thumbnailURL
-//      }
-//      updateData(image: nil, imageURL: thumbnailURL, songName: item.name, albumName: nil)
-//    }
-//  }
-//  func updateData(image: UIImage?, imageURL: String?, songName: String?, albumName: String?) {
-//    if let image = image {
-//      imageView.image = image
-//    } else if let imageURL = imageURL, let tmpURL = URL(string: imageURL) {
-//      let URLMD5Hex = MD5Hex(imageURL)
-//      let imageResource = ImageResource(downloadURL: tmpURL, cacheKey: URLMD5Hex)
-//      imageView.kf.indicatorType = .custom(indicator: MyIndicator() as Indicator)
-//      imageView.kf.setImage(with: imageResource, placeholder: UNKNOWN_IMAGE, options: [.transition(.fade(0.2))])
-//    }
-//    if let songName = songName {
-//      songLabel.text = songName
-//    } else {
-//      songLabel.text = LocStr(NO_SONG_NAME)
-//    }
-//    if let albumName = albumName {
-//      albumLabel.isHidden = false
-//      albumLabel.text = albumName
-//    } else {
-//      albumLabel.isHidden = true
-//    }
-//    if albumName == "" {
-//      albumLabel.isHidden = true
-//    }
-//  }
-//
-//  func updatePrevNextButtons() {
-//    guard let playerController = playerHelper.returnExistPlayableObject() else { return }
-//    if playerController.currentIndex <= 0 {  // 第一首，不能按上一首
-//      previousBtn.isEnabled = false
-//    } else {
-//      previousBtn.isEnabled = true
-//    }
-//    if playerController.currentIndex >= playerController.contentArray.count - 1 { // 如果為最後一首歌，當currentIndex == contentArray.count - 1 超出邊界時, 不能按下一首
-//      nextBtn.isEnabled = false
-//    } else {
-//      nextBtn.isEnabled = true
-//    }
-//  }
   
   func updatePlayBtn() {
     if jeromePlayer.isPlaying {
@@ -166,10 +110,5 @@ class MiniPlayerView: UIView {
     jeromePlayer.resetPlayer()
     isHidden = true
   }
-  
-//  func lockChangeSongBtn() {
-//    previousBtn.isEnabled = false
-//    nextBtn.isEnabled = false
-//  }
 }
 

@@ -19,7 +19,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
 
   var category: VideoCategory!
   var coreDataConnect = CoreDataConnect()
-  let youtubePlayer = JeromePlayer.shared
+  let jeromePlayer = JeromePlayer.shared
 
   @IBOutlet var titleLabel: UILabel! {
     didSet {
@@ -125,10 +125,11 @@ extension CategoryDetailVC: UITableViewDelegate {
     }
     
     let index = indexPath.row
-    var beforeVideos = Array(videos[0..<index])
-    var afterVideos = Array(videos[index..<videos.count])
+    let beforeVideos = Array(videos[0..<index])
+    let afterVideos = Array(videos[index..<videos.count])
     let newVideoList = afterVideos + beforeVideos
     
-    mainTabBarController.miniPlayerView.updateUI(by: video, videoList: newVideoList)
+    mainTabBarController.miniPlayerView.updateUI(by: video)
+    jeromePlayer.play(video: video, videoList: newVideoList)
   }
 }
