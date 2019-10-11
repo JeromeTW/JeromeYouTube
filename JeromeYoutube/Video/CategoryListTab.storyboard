@@ -31,16 +31,16 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQV-Df-042">
-                                                            <rect key="frame" x="20" y="-11.5" width="372.5" height="123"/>
+                                                            <rect key="frame" x="0.0" y="-11.5" width="414" height="123"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vV1-87-bvE">
-                                                                    <rect key="frame" x="19" y="33" width="52.5" height="26.5"/>
+                                                                    <rect key="frame" x="20" y="33" width="52.5" height="26.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKA-N8-j7O">
-                                                                    <rect key="frame" x="19" y="73" width="44" height="21.5"/>
+                                                                    <rect key="frame" x="20" y="73" width="44" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -51,15 +51,15 @@
                                                                 <constraint firstAttribute="bottom" secondItem="oKA-N8-j7O" secondAttribute="bottom" constant="28.5" id="Atv-rP-OuD"/>
                                                                 <constraint firstItem="vV1-87-bvE" firstAttribute="top" secondItem="yQV-Df-042" secondAttribute="top" constant="33" id="FTa-ct-5gP"/>
                                                                 <constraint firstItem="oKA-N8-j7O" firstAttribute="top" secondItem="vV1-87-bvE" secondAttribute="bottom" constant="13.5" id="RkO-wd-P2O"/>
-                                                                <constraint firstItem="vV1-87-bvE" firstAttribute="leading" secondItem="yQV-Df-042" secondAttribute="leading" constant="19" id="nuY-ZH-nu5"/>
+                                                                <constraint firstItem="vV1-87-bvE" firstAttribute="leading" secondItem="yQV-Df-042" secondAttribute="leading" constant="20" symbolic="YES" id="nuY-ZH-nu5"/>
                                                                 <constraint firstItem="oKA-N8-j7O" firstAttribute="leading" secondItem="vV1-87-bvE" secondAttribute="leading" id="sNY-Gi-eAX"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="yQV-Df-042" firstAttribute="centerY" secondItem="8x7-1C-4sV" secondAttribute="centerY" id="7lE-Jw-hej"/>
-                                                        <constraint firstItem="yQV-Df-042" firstAttribute="width" secondItem="8x7-1C-4sV" secondAttribute="width" multiplier="0.9" id="ZAd-cd-eci"/>
-                                                        <constraint firstItem="yQV-Df-042" firstAttribute="leading" secondItem="8x7-1C-4sV" secondAttribute="leading" constant="20" symbolic="YES" id="cUC-JS-kcR"/>
+                                                        <constraint firstAttribute="trailing" secondItem="yQV-Df-042" secondAttribute="trailing" id="GiY-0O-ZgH"/>
+                                                        <constraint firstItem="yQV-Df-042" firstAttribute="leading" secondItem="8x7-1C-4sV" secondAttribute="leading" id="cUC-JS-kcR"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
