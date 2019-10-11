@@ -119,6 +119,11 @@ extension CategoryDetailVC: UITableViewDelegate {
     guard let video = category.videos?.object(at: indexPath.row) as? Video else {
       fatalError()
     }
+    guard let mainTabBarController = tabBarController as? MainTabBarController else {
+      fatalError()
+    }
+    mainTabBarController.miniPlayerView.updateUI(by: video)
+    /*
     if video.savePlace == 0 {
       // Local Music
       let playerVC = AVPlayerViewController()
@@ -140,5 +145,6 @@ extension CategoryDetailVC: UITableViewDelegate {
         }
       }
     }
+     */
   }
 }

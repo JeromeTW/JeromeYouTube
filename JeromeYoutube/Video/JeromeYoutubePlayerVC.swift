@@ -4,7 +4,7 @@
 
 import UIKit
 import XCDYouTubeKit
-
+/*
 class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
   private var observer: NSObjectProtocol?
   override func viewDidLoad() {
@@ -22,3 +22,4 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
     logger.log("\(self.className) deinit")
   }
 }
+*/

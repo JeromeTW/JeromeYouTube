@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class MiniPlayerView: UIView {
     
@@ -54,7 +55,22 @@ class MiniPlayerView: UIView {
   }
   
   func updateUI(by video: Video) {
+    songTitleLabel.text = video.name
     
+    if video.savePlace == 0 {
+      imageView.isHidden = false
+    } else {
+      imageView.isHidden = true
+      // 網上音樂
+    }
+    let handler: YoutubePlayerIsRedayHandler = {
+      [weak self] layer in
+      guard let self = self else { return }
+      self.videoContainerView.layer.addSublayer(layer)
+      layer.frame = self.videoContainerView.bounds
+    }
+    jeromePlayer.play(video: video, youtubePlayerIsRedayHandler: handler)
+    isHidden = false
   }
 //
 //  func updateUI() {

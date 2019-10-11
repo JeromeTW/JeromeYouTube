@@ -7,6 +7,8 @@ import CoreData
 import Foundation
 import XCDYouTubeKit
 
+typealias YoutubePlayerIsRedayHandler = (AVPlayerLayer) -> Void
+
 class JeromePlayer {
   static var shared = JeromePlayer()
 
@@ -18,9 +20,9 @@ class JeromePlayer {
   private var streamURL: URL?
   var isPlaying = false
   private var isExtendingBGJob = false
-  var youtubePlayerVC: JePlayerVC?
   var theAVPlayer: AVPlayer?
-  var setUpYoutubePlayerVCCompletionHandler: ((JePlayerVC) -> Void)?
+  var theAVPlayerLayer: AVPlayerLayer?
+  var youtubePlayerIsRedayHandler: YoutubePlayerIsRedayHandler?
   var video: Video?
 
   private init() {}
@@ -70,44 +72,52 @@ class JeromePlayer {
     streamURL = nil
     isPlaying = false
     isExtendingBGJob = false
-    youtubePlayerVC = nil
     theAVPlayer?.pause()
     theAVPlayer = nil
-    setUpYoutubePlayerVCCompletionHandler = nil
+    theAVPlayerLayer = nil
+    youtubePlayerIsRedayHandler = nil
     video = nil
   }
   
-  func play(video: Video, setUpYoutubePlayerVCCompletionHandler: ((JePlayerVC) -> Void)?) {
+  func play(video: Video, youtubePlayerIsRedayHandler: YoutubePlayerIsRedayHandler? = nil) {
     resetPlayer()
-    self.setUpYoutubePlayerVCCompletionHandler = setUpYoutubePlayerVCCompletionHandler
+    self.youtubePlayerIsRedayHandler = youtubePlayerIsRedayHandler
     self.video = video
     
-    youtubePlayerVC = JePlayerVC()
-    youtubePlayerVC?.onDismiss = { [weak self] in
-      guard let self = self else { return }
-      self.resetPlayer()
+    if video.savePlace == 0 {
+      // Local Music
+      let bundle = BundleManager.musicsBundle
+      let url = bundle.url(forResource: video.url!, withExtension: nil)!
+      theAVPlayer = AVPlayer(url: url)
+      theAVPlayer?.play()
+    } else {
+      youtubeClient.getVideoWithIdentifier(video.youtubeID) { [weak self] youtubeVideo, error in
+        guard let self = self else {
+          return
+        }
+        guard error == nil else {
+          logger.log(error.debugDescription, level: .error)
+          return
+        }
+        guard let youtubeVideo = youtubeVideo else {
+          assertionFailure()
+          return
+        }
+        let streamURLs = youtubeVideo.streamURLs
+        if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
+          self.streamURL = tempStreamURL
+          self.theAVPlayer = AVPlayer(url: tempStreamURL)
+          self.theAVPlayerLayer = AVPlayerLayer(player: self.theAVPlayer)
+          self.youtubePlayerIsRedayHandler?(self.theAVPlayerLayer!)
+          self.theAVPlayer?.play()
+        }
+      }
     }
-    
-    youtubeClient.getVideoWithIdentifier(video.youtubeID) { [weak self] youtubeVideo, error in
-      guard let self = self else {
-        return
-      }
-      guard error == nil else {
-        logger.log(error.debugDescription, level: .error)
-        return
-      }
-      guard let youtubeVideo = youtubeVideo else {
-        assertionFailure()
-        return
-      }
-      let streamURLs = youtubeVideo.streamURLs
-      if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
-        self.streamURL = tempStreamURL
-        self.theAVPlayer = AVPlayer(url: tempStreamURL)
-        self.youtubePlayerVC?.player = self.theAVPlayer
-        self.setUpYoutubePlayerVCCompletionHandler?(self.youtubePlayerVC!)
-      }
-    }
+//    youtubePlayerVC = JePlayerVC()
+//    youtubePlayerVC?.onDismiss = { [weak self] in
+//      guard let self = self else { return }
+//      self.resetPlayer()
+//    }
     
     setupRemoteCommandCenter()
     setupNowPlayingInfo()
@@ -120,7 +130,7 @@ class JeromePlayer {
     commandCenter.playCommand.addTarget { [weak self] _ in
       guard let self = self else { return .commandFailed }
 
-      guard let player = self.youtubePlayerVC?.player else { return .commandFailed }
+      guard let player = self.theAVPlayer else { return .commandFailed }
       guard player.rate == 0 else {
         return .success
       }
@@ -133,7 +143,7 @@ class JeromePlayer {
 
     commandCenter.pauseCommand.addTarget { [weak self] _ -> MPRemoteCommandHandlerStatus in
       guard let self = self else { return .commandFailed }
-      guard let player = self.youtubePlayerVC?.player else { return .commandFailed }
+      guard let player = self.theAVPlayer else { return .commandFailed }
       guard player.rate == 1 else {
         return .success
       }
