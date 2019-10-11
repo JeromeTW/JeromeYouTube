@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020AB43B234FFDFA00ED6A6A /* MiniPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020AB43A234FFDFA00ED6A6A /* MiniPlayerView.swift */; };
 		02187FC723308BA40040C5AC /* DeviceGuruExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02187FC623308BA40040C5AC /* DeviceGuruExtension.swift */; };
 		021B5FD9232891F1000B192B /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FD7232891F1000B192B /* NSObjectExtension.swift */; };
 		021B5FDA232891F1000B192B /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021B5FD8232891F1000B192B /* CGFloatExtension.swift */; };
@@ -84,6 +85,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		020AB43A234FFDFA00ED6A6A /* MiniPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerView.swift; sourceTree = "<group>"; };
 		02187FC623308BA40040C5AC /* DeviceGuruExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceGuruExtension.swift; sourceTree = "<group>"; };
 		021B5FD7232891F1000B192B /* NSObjectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		021B5FD8232891F1000B192B /* CGFloatExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatExtension.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				0220690A232E6664007A4BEB /* CategoryDetailTableViewCell.swift */,
 				02FCCAF6234B655600EEF6C8 /* JePlayerVC.swift */,
 				02F2D793234F707A0026361F /* MiniPlayerView.xib */,
+				020AB43A234FFDFA00ED6A6A /* MiniPlayerView.swift */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				02187FC723308BA40040C5AC /* DeviceGuruExtension.swift in Sources */,
 				02A5BFAB232C7CB100E85495 /* Video+CoredData.swift in Sources */,
 				02A88DFD234595B4007C5C65 /* LogTextView.swift in Sources */,
+				020AB43B234FFDFA00ED6A6A /* MiniPlayerView.swift in Sources */,
 				02A88DFB234595B4007C5C65 /* AdvancedLogger.swift in Sources */,
 				021B5FDF232895FB000B192B /* NetworkRequestOperation.swift in Sources */,
 				02E1299A232B420500E04942 /* Observable.swift in Sources */,
