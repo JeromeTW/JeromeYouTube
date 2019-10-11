@@ -188,7 +188,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VrI-OC-PNN">
-                                                            <rect key="frame" x="20" y="-8" width="372.5" height="116"/>
+                                                            <rect key="frame" x="0.0" y="-8" width="414" height="116"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="jx3-Ch-kWB">
                                                                     <rect key="frame" x="16" y="8" width="100" height="100"/>
@@ -197,8 +197,8 @@
                                                                         <constraint firstAttribute="width" secondItem="jx3-Ch-kWB" secondAttribute="height" id="wuy-vp-rNb"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lve-wb-c4i">
-                                                                    <rect key="frame" x="132" y="45" width="52.5" height="26.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lve-wb-c4i">
+                                                                    <rect key="frame" x="132" y="45" width="262" height="26.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -209,14 +209,15 @@
                                                                 <constraint firstItem="lve-wb-c4i" firstAttribute="centerY" secondItem="VrI-OC-PNN" secondAttribute="centerY" id="1gt-gj-TOv"/>
                                                                 <constraint firstAttribute="bottom" secondItem="jx3-Ch-kWB" secondAttribute="bottom" constant="8" id="3LS-ed-Eyh"/>
                                                                 <constraint firstItem="jx3-Ch-kWB" firstAttribute="leading" secondItem="VrI-OC-PNN" secondAttribute="leading" constant="16" id="BmV-7B-Xe6"/>
+                                                                <constraint firstAttribute="trailing" secondItem="lve-wb-c4i" secondAttribute="trailing" constant="20" symbolic="YES" id="S1j-zG-EAt"/>
                                                                 <constraint firstItem="jx3-Ch-kWB" firstAttribute="top" secondItem="VrI-OC-PNN" secondAttribute="top" constant="8" id="Tai-uz-Cv9"/>
                                                                 <constraint firstItem="lve-wb-c4i" firstAttribute="leading" secondItem="jx3-Ch-kWB" secondAttribute="trailing" constant="16" id="lJO-7q-LZK"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="VrI-OC-PNN" firstAttribute="leading" secondItem="a4G-XO-Xs4" secondAttribute="leading" constant="20" symbolic="YES" id="MsX-Uf-TTL"/>
-                                                        <constraint firstItem="VrI-OC-PNN" firstAttribute="width" secondItem="a4G-XO-Xs4" secondAttribute="width" multiplier="0.9" id="QcJ-y5-Jfg"/>
+                                                        <constraint firstAttribute="trailing" secondItem="VrI-OC-PNN" secondAttribute="trailing" id="Fd9-cx-j05"/>
+                                                        <constraint firstItem="VrI-OC-PNN" firstAttribute="leading" secondItem="a4G-XO-Xs4" secondAttribute="leading" id="MsX-Uf-TTL"/>
                                                         <constraint firstItem="VrI-OC-PNN" firstAttribute="centerY" secondItem="a4G-XO-Xs4" secondAttribute="centerY" id="uoK-MX-baD"/>
                                                     </constraints>
                                                 </tableViewCellContentView>

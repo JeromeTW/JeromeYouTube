@@ -27,8 +27,7 @@ class CategoryDetailTableViewCell: UITableViewCell {
   func updateUI(by video: Video) {
     titleLabel.text = video.name
     if let urlString = video.thumbnailURL, let url = URL(string: urlString) {
-      ImageLoader.shared.imageByURL(url) {
-        [weak self] image, _ in
+      ImageLoader.shared.imageByURL(url) { [weak self] image, _ in
         guard let self = self else {
           return
         }
@@ -36,6 +35,8 @@ class CategoryDetailTableViewCell: UITableViewCell {
           self.thumbnailImage.image = image
         }
       }
+    } else {
+      self.thumbnailImage.image = UIImage(systemName: "photo")!
     }
   }
 }
