@@ -17,7 +17,6 @@ class JeromePlayer {
   private var coreDataConnect = CoreDataConnect()
 
   // Current Playing Video
-  private var streamURL: URL?
   var isPlaying: Bool {
     guard let player = self.theAVPlayer else { return false }
     if player.rate == 0 {
@@ -77,7 +76,6 @@ class JeromePlayer {
   }
 
   func resetPlayer() {
-    streamURL = nil
     isExtendingBGJob = false
     theAVPlayer?.pause()
     theAVPlayer = nil
@@ -112,7 +110,6 @@ class JeromePlayer {
         }
         let streamURLs = youtubeVideo.streamURLs
         if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
-          self.streamURL = tempStreamURL
           self.theAVPlayer = AVPlayer(url: tempStreamURL)
           self.theAVPlayerLayer = AVPlayerLayer(player: self.theAVPlayer)
           self.youtubePlayerIsRedayHandler?(self.theAVPlayerLayer!)
