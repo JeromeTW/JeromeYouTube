@@ -33,7 +33,7 @@ class JeromePlayer {
     }
     didSet {
       if let item = theAVPlayItem {
-        NotificationCenter.default.addObserver(self, selector: #selector(playbackFinished), name: .AVPlayerItemDidPlayToEndTime, object: item)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.playbackFinished), name: .AVPlayerItemDidPlayToEndTime, object: item)
       }
     }
   }
@@ -87,7 +87,6 @@ class JeromePlayer {
   }
 
   func resetPlayer() {
-    currentIndex = 0
     isExtendingBGJob = false
     theAVPlayer?.pause()
     theAVPlayItem = nil
@@ -96,10 +95,13 @@ class JeromePlayer {
     video = nil
   }
   
-  func play(video: Video, videoList: [Video]) {
+  func play(video: Video, videoList: [Video], index: Int? = nil) {
     resetPlayer()
     self.video = video
     self.videoList = videoList
+    if let index = index {
+      currentIndex = index
+    }
     
     if video.savePlace == 0 {
       // Local Music
@@ -165,6 +167,7 @@ class JeromePlayer {
     }
     currentIndex += 1
     var video: Video!
+    logger.log("currentIndex:\(currentIndex)", level: .debug)
     if currentIndex >= videoList.count {
       // 已經播到最後一首了
       currentIndex = 0

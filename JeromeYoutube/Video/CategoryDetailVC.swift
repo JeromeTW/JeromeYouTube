@@ -130,6 +130,6 @@ extension CategoryDetailVC: UITableViewDelegate {
     let newVideoList = afterVideos + beforeVideos
     
     mainTabBarController.miniPlayerView.updateUI(by: video)
-    jeromePlayer.play(video: video, videoList: newVideoList)
+    jeromePlayer.play(video: video, videoList: newVideoList, index: 0)
   }
 }

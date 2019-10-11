@@ -47,7 +47,7 @@ class MiniPlayerView: UIView {
     
     songTitleLabel.text = ""
     addSubview(contentView!)
-    NotificationCenter.default.addObserver(self, selector: #selector(playbackFinished(notification:)), name: NSNotification.Name(rawValue: "playbackFinished"), object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(self.playbackFinished(notification:)), name: NSNotification.Name(rawValue: "playbackFinished"), object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(youtubePlayerIsRedayHandler(notification:)), name: NSNotification.Name(rawValue: "youtubePlayerIsRedayHandler"), object: nil)
   }
   
@@ -86,6 +86,7 @@ class MiniPlayerView: UIView {
       imageView.isHidden = true
     }
     isHidden = false
+    playPauseBtn.setImage(UIImage(systemName: "pause")!, for: .normal)
   }
   
   func updatePlayBtn() {
