@@ -1,4 +1,4 @@
-// YoutubePlayer.swift
+// JeromePlayer.swift
 // Copyright (c) 2019 Jerome Hsieh. All rights reserved.
 // Created by Jerome Hsieh on 2019/10/5.
 
@@ -7,8 +7,8 @@ import CoreData
 import Foundation
 import XCDYouTubeKit
 
-class YoutubePlayer {
-  static var shared = YoutubePlayer()
+class JeromePlayer {
+  static var shared = JeromePlayer()
 
   private let commandCenter = MPRemoteCommandCenter.shared()
   private let youtubeClient = XCDYouTubeClient(languageIdentifier: "zh")
@@ -19,7 +19,7 @@ class YoutubePlayer {
   var isPlaying = false
   private var isExtendingBGJob = false
   var youtubePlayerVC: JePlayerVC?
-  var youtubeAVPlayer: AVPlayer?
+  var theAVPlayer: AVPlayer?
   var setUpYoutubePlayerVCCompletionHandler: ((JePlayerVC) -> Void)?
   var video: Video?
 
@@ -71,8 +71,8 @@ class YoutubePlayer {
     isPlaying = false
     isExtendingBGJob = false
     youtubePlayerVC = nil
-    youtubeAVPlayer?.pause()
-    youtubeAVPlayer = nil
+    theAVPlayer?.pause()
+    theAVPlayer = nil
     setUpYoutubePlayerVCCompletionHandler = nil
     video = nil
   }
@@ -103,8 +103,8 @@ class YoutubePlayer {
       let streamURLs = youtubeVideo.streamURLs
       if let tempStreamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
         self.streamURL = tempStreamURL
-        self.youtubeAVPlayer = AVPlayer(url: tempStreamURL)
-        self.youtubePlayerVC?.player = self.youtubeAVPlayer
+        self.theAVPlayer = AVPlayer(url: tempStreamURL)
+        self.youtubePlayerVC?.player = self.theAVPlayer
         self.setUpYoutubePlayerVCCompletionHandler?(self.youtubePlayerVC!)
       }
     }
@@ -172,8 +172,7 @@ class YoutubePlayer {
           setMPMediaItemPropertyArtwork(image: image)
         })
       } else {
-        // 無縮圖用 soso 美照
-        let image = UIImage(named: "Soso")!
+        let image = UIImage(systemName: "photo")!
         setMPMediaItemPropertyArtwork(image: image)
       }
     }
@@ -183,9 +182,9 @@ class YoutubePlayer {
 // MARK: - App in Background Mode
 
 // https://developer.apple.com/library/archive/qa/qa1668/_index.html#//apple_ref/doc/uid/DTS40010209-CH1-VIDEO
-extension YoutubePlayer {
+extension JeromePlayer {
   func setVideoTrack(_ isEnable: Bool) {
-    if let player = youtubeAVPlayer {
+    if let player = theAVPlayer {
       if let playerItem = player.currentItem {
         let tracks = playerItem.tracks
         for playerItemTrack in tracks {

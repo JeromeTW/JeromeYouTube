@@ -18,8 +18,7 @@ class MiniPlayerView: UIView {
   
   var contentView: UIView?
   
-  // Player
-  weak var youtubePlayer = YoutubePlayer.shared
+  let jeromePlayer = JeromePlayer.shared
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -66,7 +65,7 @@ class MiniPlayerView: UIView {
 //    if playerController is LocalPlayer {
 //      let item = playerController.contentArray[playerController.currentIndex] as! MusicBean
 //      updateData(image: item.musicCover, imageURL: nil, songName: item.musicName, albumName: item.albumTitle)
-//    } else if playerController is YoutubePlayer {
+//    } else if playerController is JeromePlayer {
 //      let item = playerController.contentArray[playerController.currentIndex] as! ContentItem
 //      var thumbnailURL = ""
 //      if item.thumbnailURL == "" {  // 我的音樂的ContentItem server沒有給縮圖，得自己抓

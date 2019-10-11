@@ -50,7 +50,7 @@ struct YoutubeHelper {
       guard let video = coreDataConnect.retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1, aContext: aContext)?.first else {
         return
       }
-      YoutubePlayer.shared.getAndSaveVideoInfomation(video)
+      JeromePlayer.shared.getAndSaveVideoInfomation(video)
     }
   }
 }

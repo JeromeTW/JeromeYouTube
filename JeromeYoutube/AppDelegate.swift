@@ -8,7 +8,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
-  lazy var youtubePlayer = YoutubePlayer.shared
+  lazy var jeromePlayer = JeromePlayer.shared
   lazy var logTextView: LogTextView = {
     let logTextView = LogTextView(frame: .zero)
     logTextView.layer.zPosition = .greatestFiniteMagnitude
@@ -61,11 +61,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func applicationDidBecomeActive(_: UIApplication) {
-    youtubePlayer.setVideoTrack(true)
+    jeromePlayer.setVideoTrack(true)
   }
 
   func applicationDidEnterBackground(_: UIApplication) {
-    youtubePlayer.setVideoTrack(false)
+    jeromePlayer.setVideoTrack(false)
   }
 
   func applicationWillTerminate(_: UIApplication) {

@@ -10,7 +10,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.MPMoviePlayerPlaybackDidFinish, object: nil, queue: nil) { _ in
-      YoutubePlayer.shared.youtubePlayerVC = nil
+      JeromePlayer.shared.youtubePlayerVC = nil
     }
   }
 
@@ -18,7 +18,7 @@ class JeromeYoutubePlayerVC: XCDYouTubeVideoPlayerViewController {
     if let observer = observer {
       NotificationCenter.default.removeObserver(observer)
     }
-    YoutubePlayer.shared.youtubePlayerVC = nil
+    JeromePlayer.shared.youtubePlayerVC = nil
     logger.log("\(self.className) deinit")
   }
 }
