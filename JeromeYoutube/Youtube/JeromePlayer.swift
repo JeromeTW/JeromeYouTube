@@ -18,7 +18,15 @@ class JeromePlayer {
 
   // Current Playing Video
   private var streamURL: URL?
-  var isPlaying = false
+  var isPlaying: Bool {
+    guard let player = self.theAVPlayer else { return false }
+    if player.rate == 0 {
+      return false
+    } else {
+      return true
+    }
+  }
+  
   private var isExtendingBGJob = false
   var theAVPlayer: AVPlayer?
   var theAVPlayerLayer: AVPlayerLayer?
@@ -68,9 +76,8 @@ class JeromePlayer {
     }
   }
 
-  private func resetPlayer() {
+  func resetPlayer() {
     streamURL = nil
-    isPlaying = false
     isExtendingBGJob = false
     theAVPlayer?.pause()
     theAVPlayer = nil
@@ -122,7 +129,23 @@ class JeromePlayer {
     setupRemoteCommandCenter()
     setupNowPlayingInfo()
   }
+  
+  func pause() {
+    guard let player = self.theAVPlayer else { return }
+    guard player.rate != 0 else {
+      return
+    }
+    player.pause()
+  }
 
+  func continuePlaying() {
+    guard let player = self.theAVPlayer else { return }
+    guard player.rate == 0 else {
+      return
+    }
+    player.play()
+  }
+  
   private func setupRemoteCommandCenter() {
     commandCenter.pauseCommand.isEnabled = true
     commandCenter.playCommand.isEnabled = true

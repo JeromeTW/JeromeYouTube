@@ -16,6 +16,7 @@ class MiniPlayerView: UIView {
   @IBOutlet weak var playPauseBtn: UIButton!
   @IBOutlet weak var closeBtn: UIButton!
   @IBOutlet weak var imageView: UIImageView!
+  weak var videoLayer: CALayer?
   
   var contentView: UIView?
   
@@ -56,16 +57,19 @@ class MiniPlayerView: UIView {
   
   func updateUI(by video: Video) {
     songTitleLabel.text = video.name
+    if let videoLayer = videoLayer {
+      videoLayer.removeFromSuperlayer()
+    }
     
     if video.savePlace == 0 {
       imageView.isHidden = false
     } else {
       imageView.isHidden = true
-      // 網上音樂
     }
     let handler: YoutubePlayerIsRedayHandler = {
       [weak self] layer in
       guard let self = self else { return }
+      self.videoLayer = layer
       self.videoContainerView.layer.addSublayer(layer)
       layer.frame = self.videoContainerView.bounds
     }
@@ -141,25 +145,26 @@ class MiniPlayerView: UIView {
 //  }
   
   func updatePlayBtn() {
-//    let isPlaying = playerController.isPlaying
-//    if isPlaying {
-//      playBtn.setImage(UIImage(named: INplaymode_simple_pause), for: .normal)
-//    } else {
-//      playBtn.setImage(UIImage(named: INplaymode_simple_play), for: .normal)
-//    }
+    if jeromePlayer.isPlaying {
+      playPauseBtn.setImage(UIImage(systemName: "pause")!, for: .normal)
+    } else {
+      playPauseBtn.setImage(UIImage(systemName: "play")!, for: .normal)
+    }
   }
   
   // MARK: - IBActions
   @IBAction func playPauseBtn(_ sender: UIButton) {
-//    lockChangeSongBtn()
-//    guard let playerController = playerHelper.returnExistPlayableObject() else { return }
-//    playerController.startNextSong(isPrevious: true, didPlayToEnd: false)
+    if jeromePlayer.isPlaying {
+      jeromePlayer.pause()
+    } else {
+      jeromePlayer.continuePlaying()
+    }
+    updatePlayBtn()
   }
   
   @IBAction func closeBtn(_ sender: UIButton) {
-//    lockChangeSongBtn()
-//    guard let playerController = playerHelper.returnExistPlayableObject() else { return }
-//    playerController.startNextSong(isPrevious: false, didPlayToEnd: false)
+    jeromePlayer.resetPlayer()
+    isHidden = true
   }
   
 //  func lockChangeSongBtn() {
