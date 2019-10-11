@@ -55,7 +55,7 @@ class MiniPlayerView: UIView {
     return view
   }
   
-  func updateUI(by video: Video) {
+  func updateUI(by video: Video, videoList: [Video]) {
     songTitleLabel.text = video.name
     if let videoLayer = videoLayer {
       videoLayer.removeFromSuperlayer()
@@ -73,7 +73,7 @@ class MiniPlayerView: UIView {
       self.videoContainerView.layer.addSublayer(layer)
       layer.frame = self.videoContainerView.bounds
     }
-    jeromePlayer.play(video: video, youtubePlayerIsRedayHandler: handler)
+    jeromePlayer.play(video: video, videoList: videoList, youtubePlayerIsRedayHandler: handler)
     isHidden = false
   }
 //

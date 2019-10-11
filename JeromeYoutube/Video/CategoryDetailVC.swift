@@ -116,35 +116,19 @@ extension CategoryDetailVC: UITableViewDelegate {
       showOKAlert("無法連上網路", message: "請先檢查您的網路狀態", okTitle: "OK")
       return
     }
-    guard let video = category.videos?.object(at: indexPath.row) as? Video else {
+    guard let videos = category.videos?.array as? [Video] else {
       fatalError()
     }
+    let video = videos[indexPath.row]
     guard let mainTabBarController = tabBarController as? MainTabBarController else {
       fatalError()
     }
-    mainTabBarController.miniPlayerView.updateUI(by: video)
-    /*
-    if video.savePlace == 0 {
-      // Local Music
-      let playerVC = AVPlayerViewController()
-      
-      let bundle = BundleManager.musicsBundle
-      let url = bundle.url(forResource: video.url!, withExtension: nil)!
-
-      playerVC.player = AVPlayer(url: url)
-      self.present(playerVC, animated: true) {
-        playerVC.player?.play()
-      }
-    } else {
-      // 網上音樂
-      youtubePlayer.play(video: video) { [weak self] playerVC in
-        guard let self = self else { return }
-        self.present(playerVC, animated: true) {
-          playerVC.player?.play()
-          self.youtubePlayer.isPlaying = true
-        }
-      }
-    }
-     */
+    
+    let index = indexPath.row
+    var beforeVideos = Array(videos[0..<index])
+    var afterVideos = Array(videos[index..<videos.count])
+    let newVideoList = afterVideos + beforeVideos
+    
+    mainTabBarController.miniPlayerView.updateUI(by: video, videoList: newVideoList)
   }
 }

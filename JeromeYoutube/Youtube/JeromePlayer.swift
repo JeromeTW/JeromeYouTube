@@ -31,6 +31,8 @@ class JeromePlayer {
   var theAVPlayerLayer: AVPlayerLayer?
   var youtubePlayerIsRedayHandler: YoutubePlayerIsRedayHandler?
   var video: Video?
+  var videoList: [Video]?
+  private var currentIndex = 0
 
   private init() {}
 
@@ -76,6 +78,7 @@ class JeromePlayer {
   }
 
   func resetPlayer() {
+    currentIndex = 0
     isExtendingBGJob = false
     theAVPlayer?.pause()
     theAVPlayer = nil
@@ -84,7 +87,7 @@ class JeromePlayer {
     video = nil
   }
   
-  func play(video: Video, youtubePlayerIsRedayHandler: YoutubePlayerIsRedayHandler? = nil) {
+  func play(video: Video, videoList: [Video], youtubePlayerIsRedayHandler: YoutubePlayerIsRedayHandler? = nil) {
     resetPlayer()
     self.youtubePlayerIsRedayHandler = youtubePlayerIsRedayHandler
     self.video = video
