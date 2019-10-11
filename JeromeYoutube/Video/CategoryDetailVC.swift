@@ -18,7 +18,15 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
   var observer: NSObjectProtocol?
 
   var category: VideoCategory!
+  private lazy var videoFRC: NSFetchedResultsController<Video>! = {
+    let predicate = NSPredicate(format: "ANY categories.name == %@", category.name!)
+    let frc = coreDataConnect.getFRC(type: Video.self, predicate: predicate, sortDescriptors: [NSSortDescriptor(key: #keyPath(Video.order), ascending: true)], limit: 1)
+    frc.delegate = self
+    return frc
+  }()
+  
   var coreDataConnect = CoreDataConnect()
+  private var blockOperations = [BlockOperation]()
   let jeromePlayer = JeromePlayer.shared
 
   @IBOutlet var titleLabel: UILabel! {
@@ -87,8 +95,8 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
 // MARK: - UITableViewDataSource
 
 extension CategoryDetailVC: UITableViewDataSource {
-  func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-    return category.videos?.count ?? 0
+  func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return videoFRC.sections?[section].numberOfObjects ?? 0
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -101,9 +109,7 @@ extension CategoryDetailVC: UITableViewDataSource {
 
 extension CategoryDetailVC: UITableViewDelegate {
   func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    guard let video = category.videos?.object(at: indexPath.row) as? Video else {
-      fatalError()
-    }
+    let video = videoFRC.object(at: indexPath)
     guard let categoryDetailTableViewCell = cell as? CategoryDetailTableViewCell else {
       fatalError()
     }
@@ -131,5 +137,58 @@ extension CategoryDetailVC: UITableViewDelegate {
     
     mainTabBarController.miniPlayerView.updateUI(by: video)
     jeromePlayer.play(video: video, videoList: newVideoList, index: 0)
+  }
+}
+
+// MARK: - NSFetchedResultsControllerDelegate
+
+extension CategoryDetailVC: NSFetchedResultsControllerDelegate {
+  func controller(_: NSFetchedResultsController<NSFetchRequestResult>, didChange _: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    switch type {
+    case .insert:
+      blockOperations.append(BlockOperation(block: {
+        [weak self] in
+        guard let self = self else {
+          return
+        }
+        self.tableView.insertRows(at: [newIndexPath!], with: .none)
+      }))
+    case .delete:
+      blockOperations.append(BlockOperation(block: {
+        [weak self] in
+        guard let self = self else {
+          return
+        }
+        self.tableView.deleteRows(at: [indexPath!], with: .none)
+      }))
+    case .update:
+      guard let video = category.videos?.object(at: indexPath!.row) as? Video else {
+        fatalError()
+      }
+      let categoryDetailTableViewCell = tableView.cellForRow(at: indexPath!) as! CategoryDetailTableViewCell
+      categoryDetailTableViewCell.beforeReuse()
+      categoryDetailTableViewCell.updateUI(by: video)
+    case .move:
+      tableView.deleteRows(at: [indexPath!], with: .none)
+      tableView.insertRows(at: [newIndexPath!], with: .none)
+    @unknown default:
+      fatalError()
+    }
+  }
+
+  func controllerDidChangeContent(_: NSFetchedResultsController<NSFetchRequestResult>) {
+    tableView.performBatchUpdates({
+      [weak self] in
+      guard let self = self else {
+        return
+      }
+      for operation in self.blockOperations {
+        operation.start()
+      }
+    }) { _ in
+      let lastRow = self.videoFRC.sections!.first!.numberOfObjects - 1
+      let indexPath = IndexPath(row: lastRow, section: 0)
+      self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
   }
 }

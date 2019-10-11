@@ -119,7 +119,7 @@ class CoreDataConnect {
   }
 
   public func getFRC<T: NSManagedObject>(type _: T.Type, predicate: NSPredicate? = nil, sortDescriptors:
-    [NSSortDescriptor]? = nil, limit: Int? = nil, sectionNameKeyPath: String? = nil, cacheName: String? = nil, aContext: NSManagedObjectContext? = nil) -> NSFetchedResultsController<T> {
+    [NSSortDescriptor], limit: Int? = nil, sectionNameKeyPath: String? = nil, cacheName: String? = nil, aContext: NSManagedObjectContext? = nil) -> NSFetchedResultsController<T> {
     let context = aContext ?? viewContext
     let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
 
