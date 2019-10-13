@@ -20,7 +20,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
   var category: VideoCategory!
   private lazy var videoFRC: NSFetchedResultsController<Video>! = {
     let predicate = NSPredicate(format: "ANY categories.name == %@", category.name!)
-    let frc = coreDataConnect.getFRC(type: Video.self, predicate: predicate, sortDescriptors: [NSSortDescriptor(key: #keyPath(Video.order), ascending: true)], limit: 1)
+    let frc = coreDataConnect.getFRC(type: Video.self, predicate: predicate, sortDescriptors: [NSSortDescriptor(key: #keyPath(Video.order), ascending: true)])
     frc.delegate = self
     return frc
   }()
