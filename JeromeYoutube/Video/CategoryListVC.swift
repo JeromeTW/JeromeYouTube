@@ -29,7 +29,7 @@ class CategoryListVC: BaseViewController, Storyboarded, HasJeromeNavigationBar {
 
   @IBOutlet var tableView: UITableView! {
     didSet {
-      tableView.tableFooterView = UIView()
+      tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: MiniPlayerView.viewHeight))
       tableView.contentInsetAdjustmentBehavior = .never
     }
   }

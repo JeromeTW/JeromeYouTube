@@ -10,7 +10,8 @@ import UIKit
 import AVKit
 
 class MiniPlayerView: UIView {
-    
+  static let viewHeight: CGFloat = 100
+  
   @IBOutlet weak var videoContainerView: UIView!
   @IBOutlet weak var songTitleLabel: UILabel!
   @IBOutlet weak var playPauseBtn: UIButton!

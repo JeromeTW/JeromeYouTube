@@ -21,7 +21,7 @@ class MainTabBarController: UITabBarController {
         make.left.equalTo(view).offset(0)
         make.right.equalTo(view).offset(0)
         make.bottom.equalTo(tabBar.snp.top)
-        make.height.equalTo(100)
+        make.height.equalTo(MiniPlayerView.viewHeight)
       }
       miniPlayerView.isHidden = true
     }
