@@ -64,10 +64,6 @@ class CustomWebVC: UIViewController {
   var theURL: URL!
 
   private var coreDataConnect = CoreDataConnect()
-  private lazy var categoryFRC: NSFetchedResultsController<VideoCategory>! = {
-    let frc = coreDataConnect.getFRC(type: VideoCategory.self, sortDescriptors: [NSSortDescriptor(key: #keyPath(VideoCategory.order), ascending: false)])
-    return frc
-  }()
 
   override func loadView() {
     super.loadView()
@@ -113,23 +109,27 @@ class CustomWebVC: UIViewController {
   }
 
   @IBAction func addButtonPressed(_: Any) {
-    // UIViewAlertForUnsatisfiableConstraints error 是 actionSheet 的 Bug
-    // http://openradar.appspot.com/49289931
-    let alert = AlertControllerWithPicker<VideoCategory>(title: "分類", message: "要將影片加入哪一個分類下", preferredStyle: .actionSheet)
-    alert.objects = categoryFRC.fetchedObjects!
-    alert.titleStringKeyPath = \VideoCategory.name!
-
-    let comfirmAction = UIAlertActionWithAlertController(title: "加入", style: .default) { [weak self] action in
+    showAlertController(withTitle: "加入分類", message: "可將影片加入多個分類下，用‘#’分隔多個分類名", textFieldsData: [TextFieldData(text: nil, placeholder: "e.g:未分類#跑步#熱血")], cancelTitle: "取消", cancelHandler: nil, okTitle: "加入") { [weak self] textFields in
       guard let self = self else { return }
-      guard let actionWithAlertVC = action as? UIAlertActionWithAlertController, let alert = actionWithAlertVC.alertController, let alertControllerWithPicker = alert as? AlertControllerWithPicker<VideoCategory> else {
+      guard let textField = textFields.first else { fatalError() }
+      guard let text = textField.text, text.isEmpty == false, text.hasPrefix("#") == false else {
+        // 格式不正確
+        return
+      }
+      let categoryNames = text.components(separatedBy: "#")
+      // 加入已存在的 Categories
+      // TODO: 如果輸入不存在的分類直接新增缺少的分類。
+      let predicate = NSPredicate(format: "%K IN %@", #keyPath(VideoCategory.name), categoryNames)
+      guard let categories = self.coreDataConnect.retrieve(type: VideoCategory.self, predicate: predicate, sort: nil) else {
         fatalError()
       }
-      guard let text = self.webView.url?.absoluteString, let selectedCategory = alertControllerWithPicker.didSelectedObject else {
+      guard let urlString = self.webView.url?.absoluteString else {
         fatalError()
       }
+      
       do {
-        let youtubeID = try YoutubeHelper.grabYoutubeIDBy(text: text).get()
-        try YoutubeHelper.add(youtubeID, to: [selectedCategory], in: self.coreDataConnect)
+        let youtubeID = try YoutubeHelper.grabYoutubeIDBy(text: urlString).get()
+        try YoutubeHelper.add(youtubeID, to: categories, in: self.coreDataConnect)
 
         self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
       } catch YoutubeHelperError.youtubeIDInvalid {
@@ -140,18 +140,6 @@ class CustomWebVC: UIViewController {
         logger.log(error.localizedDescription, level: .error)
       }
     }
-    comfirmAction.alertController = alert
-    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-
-    alert.addAction(comfirmAction)
-    alert.addAction(cancelAction)
-
-    alert.view.snp.makeConstraints { make in
-      make.width.equalTo(view.bounds.width)
-      make.height.equalTo(350) // Tuning 出來的 Magic Number
-    }
-
-    present(alert, animated: true)
   }
 }
 
