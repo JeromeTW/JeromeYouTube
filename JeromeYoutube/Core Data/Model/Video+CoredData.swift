@@ -37,4 +37,45 @@ extension CoreDataConnect {
       return false
     }
   }
+  
+  public func insertBundleVideos(_ musicsInfo: [String :String]) {
+    guard let categories = retrieve(type: VideoCategory.self) else {
+      fatalError()
+    }
+    let categoryDictionary = categories.reduce([String: VideoCategory]()) { (dict, category) -> [String: VideoCategory] in
+        var dict = dict
+      dict[category.name!] = category
+        return dict
+    }
+    
+    var attributeInfos = [[String: Any]]()
+    var id = 1
+    var order = 1
+    for info in musicsInfo {
+      let categoryNames = info.value.components(separatedBy: "#")
+      var categoryArray = [VideoCategory]()
+      for name in categoryNames {
+        categoryArray.append(categoryDictionary[name]!)
+      }
+      let categoiesSet = NSSet(array: categoryArray)
+      let name = info.key.components(separatedBy: ".").first!
+      let attributeInfo = [
+        #keyPath(Video.id): id as Any,
+        #keyPath(Video.order): order as Any,
+        #keyPath(Video.url): info.key as Any,
+        #keyPath(Video.savePlace): 0 as Any,
+        #keyPath(Video.name): name as Any,
+        #keyPath(Video.categories): categoiesSet,
+      ]
+      attributeInfos.append(attributeInfo)
+      id += 1
+      order += 1
+    }
+  
+    do {
+      try batchInsert(type: Video.self, attributeInfos: attributeInfos)
+    } catch {
+      logger.log(error.localizedDescription, level: .error)
+    }
+  }
 }

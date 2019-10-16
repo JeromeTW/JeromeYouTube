@@ -39,6 +39,19 @@ class CoreDataConnect {
 
     try persistentContainer.saveContext()
   }
+  
+  func batchInsert<T: NSManagedObject>(type _: T.Type, attributeInfos: [[String: Any]], aContext: NSManagedObjectContext? = nil) throws {
+    let context = aContext ?? viewContext
+    for attributeInfo in attributeInfos {
+      let insetObject = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: context)
+
+      for (key, value) in attributeInfo {
+        insetObject.setValue(value, forKey: key)
+      }
+    }
+    
+    try persistentContainer.saveContext()
+  }
 
   // retrieve
   // NOTE: 如果找不到結果會回傳 nil, 不會回傳空陣列

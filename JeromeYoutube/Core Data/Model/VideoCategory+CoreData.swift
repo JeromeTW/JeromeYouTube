@@ -54,19 +54,24 @@ extension VideoCategory {
 }
 
 extension CoreDataConnect {
-  public func insertFirstVideoCategoryIfNeeded() {
-    let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), VideoCategory.undeineCatogoryName)
-    if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1) {
-      return
+  public func insertBundleCategories(_ categoryNames: [String]) {
+    var attributeInfos = [[String: Any]]()
+    var id = 1
+    var order = 1
+    for name in categoryNames {
+      let attributeInfo = [
+        #keyPath(VideoCategory.name): name as Any,
+        #keyPath(VideoCategory.id): id as Any,
+        #keyPath(VideoCategory.order): order as Any,
+      ]
+      attributeInfos.append(attributeInfo)
+      id += 1
+      order += 1
     }
     do {
-      try insert(type: VideoCategory.self, attributeInfo: [
-        #keyPath(VideoCategory.name): VideoCategory.undeineCatogoryName as Any,
-        #keyPath(VideoCategory.id): generateNewID(VideoCategory.self) as Any,
-        #keyPath(VideoCategory.order): generateNewOrder(VideoCategory.self) as Any,
-      ])
+      try batchInsert(type: VideoCategory.self, attributeInfos: attributeInfos)
     } catch {
-      fatalError()
+      logger.log(error.localizedDescription, level: .error)
     }
   }
 

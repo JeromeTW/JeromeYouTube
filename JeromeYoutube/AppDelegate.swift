@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UserDefaults.standard.setAPPVersionAndHistory()
     setupLogConfigure()
     logger.log("NSHomeDirectory:\(NSHomeDirectory())", level: .debug)
-    persistentContainerManager.setupCoreDataDB()
-    BundleManager.addMusicsToDBIfNeeded()
+    BundleManager.addCategoriesAndVideosToDBIfNeeded()
     #if TEST
       print("🌘 TEST")
       setupWindow(rootViewController: UIViewController())
