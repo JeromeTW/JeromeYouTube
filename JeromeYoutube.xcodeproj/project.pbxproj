@@ -33,6 +33,8 @@
 		0264470A232781A300822485 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02644709232781A300822485 /* Assets.xcassets */; };
 		0264470D232781A300822485 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0264470B232781A300822485 /* LaunchScreen.storyboard */; };
 		02644715232790F100822485 /* JeromeYoutubePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */; };
+		026A4E2F2356CAAC00993CD9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A4E2E2356CAAC00993CD9 /* StringExtension.swift */; };
+		026A4E302356CAAC00993CD9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026A4E2E2356CAAC00993CD9 /* StringExtension.swift */; };
 		027245B2232D006D00C86E72 /* CategoryListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027245B1232D006D00C86E72 /* CategoryListTableViewCell.swift */; };
 		027245B4232D00B300C86E72 /* CategoryListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027245B3232D00B300C86E72 /* CategoryListVC.swift */; };
 		02A0821D232B9CED00D68557 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */; };
@@ -110,6 +112,7 @@
 		0264470C232781A300822485 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0264470E232781A300822485 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02644714232790F100822485 /* JeromeYoutubePlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeromeYoutubePlayerVC.swift; sourceTree = "<group>"; };
+		026A4E2E2356CAAC00993CD9 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		027245B1232D006D00C86E72 /* CategoryListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListTableViewCell.swift; sourceTree = "<group>"; };
 		027245B3232D00B300C86E72 /* CategoryListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryListVC.swift; sourceTree = "<group>"; };
 		02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
@@ -189,6 +192,7 @@
 				02A0821C232B9CED00D68557 /* UIViewController+Alerts.swift */,
 				02A88DFF234625C5007C5C65 /* UIAlertController+Picker.swift */,
 				02187FC623308BA40040C5AC /* DeviceGuruExtension.swift */,
+				026A4E2E2356CAAC00993CD9 /* StringExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -609,6 +613,7 @@
 				022A4DE2232A34C8006EA137 /* NSPersistentContainerExtension.swift in Sources */,
 				02A88DFC234595B4007C5C65 /* BaseLogger.swift in Sources */,
 				02644703232781A100822485 /* AppDelegate.swift in Sources */,
+				026A4E2F2356CAAC00993CD9 /* StringExtension.swift in Sources */,
 				02187FC723308BA40040C5AC /* DeviceGuruExtension.swift in Sources */,
 				02A5BFAB232C7CB100E85495 /* Video+CoredData.swift in Sources */,
 				02A88DFD234595B4007C5C65 /* LogTextView.swift in Sources */,
@@ -659,6 +664,7 @@
 				02DE529423482B1200007981 /* CoreDataConnect.swift in Sources */,
 				02B48CCD232F6E6100F8AA85 /* APIRequest.swift in Sources */,
 				02B48CCC232F6E5F00F8AA85 /* AsynchronousOperation.swift in Sources */,
+				026A4E302356CAAC00993CD9 /* StringExtension.swift in Sources */,
 				02256EF5234D65FB00B98932 /* JePlayerVC.swift in Sources */,
 				02FCCAF5234ACADC00EEF6C8 /* CoreDataTests.swift in Sources */,
 			);

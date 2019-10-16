@@ -58,7 +58,7 @@ extension CoreDataConnect {
         categoryArray.append(categoryDictionary[name]!)
       }
       let categoiesSet = NSSet(array: categoryArray)
-      let name = info.key.components(separatedBy: ".").first!
+      let name = info.key.removeFileExtension()
       let attributeInfo = [
         #keyPath(Video.id): id as Any,
         #keyPath(Video.order): order as Any,
