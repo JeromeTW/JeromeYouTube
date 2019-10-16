@@ -186,4 +186,30 @@ class CoreDataTests: XCTestCase {
       XCTFail("")
     }
   }
+  
+  func test_insertBundleCategories_insertBundleVideos() {
+    let bundle = Bundle(for: type(of: self))
+    let jsonURL = bundle.url(forResource: "importTest.json", withExtension: nil)!
+    // get json data
+    let result = BundleManager.parseJson(aJsonURL: jsonURL)
+    let categoryNames = result.categories
+    let musicsInfo = result.musicsInfo
+    
+    // add categories
+    coreDataConnect.insertBundleCategories(categoryNames, aContext: context)
+    
+    // add videos
+    coreDataConnect.insertBundleVideos(musicsInfo, aContext: context)
+    
+    guard let categories = coreDataConnect.retrieve(type: VideoCategory.self, aContext: context) else {
+      XCTFail("")
+      return
+    }
+    let category1 = categories[0] // 跑步
+    XCTAssert(category1.name == "跑步")
+    XCTAssert(category1.videos?.count == 2)
+    let category2 = categories[1] // 未分類
+    XCTAssert(category2.name == "未分類")
+    XCTAssert(category2.videos?.count == 1)
+  }
 }
