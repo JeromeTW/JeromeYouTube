@@ -51,5 +51,4 @@ struct YoutubeHelper {
 
 enum YoutubeHelperError: Error {
   case youtubeIDInvalid
-  case duplicateVideoInTheSameCategory
 }

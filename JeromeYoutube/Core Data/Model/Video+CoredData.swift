@@ -38,7 +38,7 @@ extension CoreDataConnect {
     }
   }
   
-  public func insertBundleVideos(_ musicsInfo: [String :String]) {
+  public func insertBundleVideos(_ musicsInfo: [String :String], aContext: NSManagedObjectContext? = nil) {
     guard let categories = retrieve(type: VideoCategory.self) else {
       fatalError()
     }
@@ -73,7 +73,7 @@ extension CoreDataConnect {
     }
   
     do {
-      try batchInsert(type: Video.self, attributeInfos: attributeInfos)
+      try batchInsert(type: Video.self, attributeInfos: attributeInfos, aContext: aContext)
     } catch {
       logger.log(error.localizedDescription, level: .error)
     }

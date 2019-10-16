@@ -54,7 +54,7 @@ extension VideoCategory {
 }
 
 extension CoreDataConnect {
-  public func insertBundleCategories(_ categoryNames: [String]) {
+  public func insertBundleCategories(_ categoryNames: [String], aContext: NSManagedObjectContext? = nil) {
     var attributeInfos = [[String: Any]]()
     var id = 1
     var order = 1
@@ -69,7 +69,7 @@ extension CoreDataConnect {
       order += 1
     }
     do {
-      try batchInsert(type: VideoCategory.self, attributeInfos: attributeInfos)
+      try batchInsert(type: VideoCategory.self, attributeInfos: attributeInfos, aContext: aContext)
     } catch {
       logger.log(error.localizedDescription, level: .error)
     }

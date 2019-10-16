@@ -71,16 +71,6 @@ class CoreDataTests: XCTestCase {
     }
   }
 
-  func test_CoreDataConnect_insertFirstVideoCategoryIfNeeded() {
-    coreDataConnect.insertFirstVideoCategoryIfNeeded()
-    guard let categories = coreDataConnect.retrieve(type: VideoCategory.self, aContext: context) else {
-      XCTFail("")
-      return
-    }
-
-    XCTAssert(categories.count == 1)
-  }
-
   func test_insert_five_categories() {
     do {
       try coreDataConnect.insertCategory("1", aContext: context)
@@ -120,9 +110,9 @@ class CoreDataTests: XCTestCase {
         XCTFail("")
         return
       }
-      try YoutubeHelper.add("id1", to: category, in: coreDataConnect, aContext: context)
-      try YoutubeHelper.add("id2", to: category, in: coreDataConnect, aContext: context)
-      try YoutubeHelper.add("id3", to: category, in: coreDataConnect, aContext: context)
+      try YoutubeHelper.add("id1", to: [category], in: coreDataConnect, aContext: context)
+      try YoutubeHelper.add("id2", to: [category], in: coreDataConnect, aContext: context)
+      try YoutubeHelper.add("id3", to: [category], in: coreDataConnect, aContext: context)
       let count = coreDataConnect.getCount(type: Video.self, predicate: nil, aContext: context)
       XCTAssert(count == 3)
     } catch {
@@ -138,11 +128,9 @@ class CoreDataTests: XCTestCase {
         XCTFail("")
         return
       }
-      try YoutubeHelper.add("id1", to: category, in: coreDataConnect, aContext: context)
-      try YoutubeHelper.add("id1", to: category, in: coreDataConnect, aContext: context)
-      XCTFail("Cannot insert duplicate videos in the same category.")
-    } catch YoutubeHelperError.duplicateVideoInTheSameCategory {
-      // Pass Test
+      try YoutubeHelper.add("id1", to: [category], in: coreDataConnect, aContext: context)
+      try YoutubeHelper.add("id1", to: [category], in: coreDataConnect, aContext: context)
+      XCTAssert(category.videos?.count == 1)
     } catch {
       logger.log("Error: \(error.localizedDescription)", level: .error)
       XCTFail("")
@@ -160,8 +148,8 @@ class CoreDataTests: XCTestCase {
       let category1 = categories[0]
       let category2 = categories[1]
       let youtubeID = "id1"
-      try YoutubeHelper.add(youtubeID, to: category1, in: coreDataConnect, aContext: context)
-      try YoutubeHelper.add(youtubeID, to: category2, in: coreDataConnect, aContext: context)
+      try YoutubeHelper.add(youtubeID, to: [category1], in: coreDataConnect, aContext: context)
+      try YoutubeHelper.add(youtubeID, to: [category2], in: coreDataConnect, aContext: context)
       let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), youtubeID)
       guard let videos = coreDataConnect.retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1, aContext: context), let video = videos.first else {
         XCTFail("")
@@ -169,8 +157,6 @@ class CoreDataTests: XCTestCase {
       }
       XCTAssert(video.categories?.count == 2)
       // Pass Test
-    } catch YoutubeHelperError.duplicateVideoInTheSameCategory {
-      XCTFail("User Can insert duplicate videos in the different category.")
     } catch {
       logger.log("Error: \(error.localizedDescription)", level: .error)
       XCTFail("")
@@ -187,7 +173,7 @@ class CoreDataTests: XCTestCase {
         return
       }
       let youtubeID = "id1"
-      try YoutubeHelper.add(youtubeID, to: category, in: coreDataConnect, aContext: context)
+      try YoutubeHelper.add(youtubeID, to: [category], in: coreDataConnect, aContext: context)
       let categoryPredicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), categoryName)
       try coreDataConnect.delete(type: VideoCategory.self, predicate: categoryPredicate, aContext: context)
       let categoryCount = coreDataConnect.getCount(type: VideoCategory.self, predicate: nil, aContext: context)

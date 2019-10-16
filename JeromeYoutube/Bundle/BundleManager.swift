@@ -22,10 +22,10 @@ class BundleManager {
     return musicsBundle.url(forResource: "1015JeromeYouTube匯入.json", withExtension: nil)!
   }()
 
-  static func parseJson() -> (categories: [String], musicsInfo: [String: String]) {
+  static func parseJson(aJsonURL: URL) -> (categories: [String], musicsInfo: [String: String]) {
     do {
       
-      let data = try Data(contentsOf: jsonURL, options: .alwaysMapped)
+      let data = try Data(contentsOf: aJsonURL, options: .alwaysMapped)
       guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else {
         fatalError()
       }
@@ -45,7 +45,7 @@ class BundleManager {
     }
   }
   
-  static func addCategoriesAndVideosToDBIfNeeded() {
+  static func addCategoriesAndVideosToDBIfNeeded(aContext: NSManagedObjectContext? = nil) {
     
     // 1. check did add CategoriesAndVideosToDB
     let key = "didAddCategoriesAndVideosToDB"
@@ -56,7 +56,7 @@ class BundleManager {
     userdefault.set(1, forKey: key)
 
     // 2. get json data
-    let result = parseJson()
+    let result = parseJson(aJsonURL: jsonURL)
     let categoryNames = result.categories
     let musicsInfo = result.musicsInfo
     
