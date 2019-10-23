@@ -20,11 +20,12 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
   var category: VideoCategory!
   private lazy var videoFRC: NSFetchedResultsController<Video>! = {
     let predicate = NSPredicate(format: "ANY categories.name == %@", category.name!)
-    // TODO: Need to Change
     let frc = coreDataConnect.getFRC(type: Video.self, predicate: predicate, sortDescriptors: [NSSortDescriptor(key: #keyPath(Video.id), ascending: true)])
     frc.delegate = self
     return frc
   }()
+  
+  private var videos = [Video]()
   
   var coreDataConnect = CoreDataConnect()
   private var blockOperations = [BlockOperation]()
@@ -46,6 +47,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
   override func viewDidLoad() {
     super.viewDidLoad()
     assert(category != nil)
+    updateVideos()
     setupData()
     setupSatusBarFrameChangedObserver()
     updateTopView()
@@ -60,6 +62,25 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
     tableView.delegate = self
   }
 
+  private func updateVideos() {
+    videos = videoFRC.fetchedObjects ?? []
+    if let videoIDOrders = category.videoIDOrders {
+      // 按 videoIDOrders 排序
+      videos = VideoSorter.sortVideos(videos, videoIDOrders: videoIDOrders)
+    } else {
+      // 一開始創建的 Category 都沒有 videoIDOrders，要進到 DetailVC 才有
+      // Videos 不用另外排序了
+      let newOrders = videos.map { (video) -> Int in
+        return Int(exactly: video.id)!
+      }
+      do {
+        try coreDataConnect.setCategoryVideoOrders(category.name!, videoOrders: newOrders)
+      } catch {
+        logger.log(error.localizedDescription, level: .error)
+      }
+    }
+  }
+  
   @IBAction func backBtnPressed(_: Any) {
     navigationController?.popViewController(animated: true)
   }
@@ -93,7 +114,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
 
 extension CategoryDetailVC: UITableViewDataSource {
   func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return videoFRC.sections?[section].numberOfObjects ?? 0
+    return videos.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -106,7 +127,7 @@ extension CategoryDetailVC: UITableViewDataSource {
 
 extension CategoryDetailVC: UITableViewDelegate {
   func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    let video = videoFRC.object(at: indexPath)
+    let video = videos[indexPath.row]
     guard let categoryDetailTableViewCell = cell as? CategoryDetailTableViewCell else {
       fatalError()
     }
@@ -174,6 +195,7 @@ extension CategoryDetailVC: NSFetchedResultsControllerDelegate {
   }
 
   func controllerDidChangeContent(_: NSFetchedResultsController<NSFetchRequestResult>) {
+    updateVideos()
     tableView.performBatchUpdates({
       [weak self] in
       guard let self = self else {
@@ -183,7 +205,7 @@ extension CategoryDetailVC: NSFetchedResultsControllerDelegate {
         operation.start()
       }
     }) { _ in
-      let lastRow = self.videoFRC.sections!.first!.numberOfObjects - 1
+      let lastRow = self.videos.count - 1
       let indexPath = IndexPath(row: lastRow, section: 0)
       self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }

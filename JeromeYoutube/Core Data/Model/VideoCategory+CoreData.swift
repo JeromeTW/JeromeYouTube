@@ -17,6 +17,7 @@ extension VideoCategory {
   @NSManaged public var name: String?
   @NSManaged public var order: Int64
   @NSManaged public var videos: NSOrderedSet?
+  @NSManaged public var videoIDOrders: [Int]?
 }
 
 // MARK: Generated accessors for videos
@@ -86,6 +87,19 @@ extension CoreDataConnect {
         #keyPath(VideoCategory.name): name as Any,
         #keyPath(VideoCategory.id): generateNewID(VideoCategory.self) as Any,
         #keyPath(VideoCategory.order): generateNewOrder(VideoCategory.self) as Any,
+      ], aContext: aContext)
+    } catch {
+      fatalError()
+    }
+  }
+  
+  // MARK: - Videos Order
+  public func setCategoryVideoOrders(_ name: String, videoOrders: [Int], aContext: NSManagedObjectContext? = nil) throws {
+    let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), name)
+
+    do {
+      try update(type: VideoCategory.self, predicate: predicate, limit: 1, attributeInfo: [
+        #keyPath(VideoCategory.videoIDOrders): videoOrders as Any,
       ], aContext: aContext)
     } catch {
       fatalError()

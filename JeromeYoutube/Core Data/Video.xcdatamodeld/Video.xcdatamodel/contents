@@ -14,10 +14,11 @@
         <attribute name="id" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="order" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="videoIDOrders" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
         <relationship name="videos" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Video" inverseName="categories" inverseEntity="Video"/>
     </entity>
     <elements>
         <element name="Video" positionX="-54" positionY="18" width="128" height="163"/>
-        <element name="VideoCategory" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="VideoCategory" positionX="-63" positionY="-18" width="128" height="118"/>
     </elements>
 </model>

@@ -42,7 +42,7 @@ extension CoreDataConnect {
     }
     let categoryDictionary = categories.reduce([String: VideoCategory]()) { (dict, category) -> [String: VideoCategory] in
         var dict = dict
-      dict[category.name!] = category
+        dict[category.name!] = category
         return dict
     }
     
