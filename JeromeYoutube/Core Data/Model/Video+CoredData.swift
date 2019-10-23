@@ -18,7 +18,6 @@ extension Video {
   @NSManaged public var duration: Int64
   @NSManaged public var id: Int64
   @NSManaged public var name: String?
-  @NSManaged public var order: Int64  // TODO: order 要移除放在 Video Category裡。 Video Category加一個欄位叫 orderIDs ? 可能的作法
   @NSManaged public var thumbnailURL: String?
   @NSManaged public var url: String?
   @NSManaged public var youtubeID: String?
@@ -27,7 +26,6 @@ extension Video {
 }
 
 extension Video: HasID {}
-extension Video: HasOrder {} // 數字越大在越前面，最小是 1 在最後面。
 extension CoreDataConnect {
   func isTheYoutubeIDExisted(_ id: String) -> Bool {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), id)
@@ -50,7 +48,6 @@ extension CoreDataConnect {
     
     var attributeInfos = [[String: Any]]()
     var id = 1
-    var order = 1
     for info in musicsInfo {
       let categoryNames = info.value.components(separatedBy: "#")
       var categoryArray = [VideoCategory]()
@@ -61,7 +58,6 @@ extension CoreDataConnect {
       let name = info.key.removeFileExtension()
       let attributeInfo = [
         #keyPath(Video.id): id as Any,
-        #keyPath(Video.order): order as Any,
         #keyPath(Video.url): info.key as Any,
         #keyPath(Video.savePlace): 0 as Any,
         #keyPath(Video.name): name as Any,
@@ -69,7 +65,6 @@ extension CoreDataConnect {
       ]
       attributeInfos.append(attributeInfo)
       id += 1
-      order += 1
     }
   
     do {

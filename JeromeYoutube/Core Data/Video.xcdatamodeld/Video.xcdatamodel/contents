@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G103" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15400" systemVersion="18G103" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Video" representedClassName=".Video" syncable="YES">
         <attribute name="duration" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="order" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="savePlace" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="thumbnailURL" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
@@ -18,7 +17,7 @@
         <relationship name="videos" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Video" inverseName="categories" inverseEntity="Video"/>
     </entity>
     <elements>
-        <element name="Video" positionX="-54" positionY="18" width="128" height="178"/>
+        <element name="Video" positionX="-54" positionY="18" width="128" height="163"/>
         <element name="VideoCategory" positionX="-63" positionY="-18" width="128" height="103"/>
     </elements>
 </model>

@@ -36,7 +36,6 @@ struct YoutubeHelper {
       let categories = NSSet(array: newCategories as [Any])
       try coreDataConnect.insert(type: Video.self, attributeInfo: [
         #keyPath(Video.id): coreDataConnect.generateNewID(Video.self) as Any,
-        #keyPath(Video.order): coreDataConnect.generateNewOrder(Video.self) as Any,
         #keyPath(Video.youtubeID): youtubeID as Any,
         #keyPath(Video.savePlace): 1 as Any,
         #keyPath(Video.categories): categories,
