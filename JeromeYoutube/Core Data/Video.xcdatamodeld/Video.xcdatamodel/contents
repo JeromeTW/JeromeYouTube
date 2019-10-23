@@ -14,7 +14,7 @@
         <attribute name="id" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="order" attributeType="Integer 64" usesScalarValueType="YES"/>
-        <attribute name="videoIDOrders" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
+        <attribute name="videoIDOrders" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[Int]"/>
         <relationship name="videos" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Video" inverseName="categories" inverseEntity="Video"/>
     </entity>
     <elements>
