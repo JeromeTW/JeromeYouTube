@@ -73,11 +73,7 @@ class CategoryDetailVC: BaseViewController, Storyboarded, HasJeromeNavigationBar
       let newOrders = videos.map { (video) -> Int in
         return Int(exactly: video.id)!
       }
-      do {
-        try coreDataConnect.setCategoryVideoOrders(category.name!, videoOrders: newOrders)
-      } catch {
-        logger.log(error.localizedDescription, level: .error)
-      }
+      coreDataConnect.setCategoryVideoOrders(category.name!, videoOrders: newOrders)
     }
   }
   

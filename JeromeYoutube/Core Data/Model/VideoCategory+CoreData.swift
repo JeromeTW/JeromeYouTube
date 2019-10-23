@@ -80,7 +80,6 @@ extension CoreDataConnect {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), name)
     if let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1, aContext: aContext) {
       throw VideoCategoryError.duplicateCategoryName
-      return
     }
     do {
       try insert(type: VideoCategory.self, attributeInfo: [
@@ -94,7 +93,7 @@ extension CoreDataConnect {
   }
   
   // MARK: - Videos Order
-  public func setCategoryVideoOrders(_ name: String, videoOrders: [Int], aContext: NSManagedObjectContext? = nil) throws {
+  public func setCategoryVideoOrders(_ name: String, videoOrders: [Int], aContext: NSManagedObjectContext? = nil) {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), name)
 
     do {
@@ -105,10 +104,29 @@ extension CoreDataConnect {
       fatalError()
     }
   }
+  
+  public func insertVideoID(in cateogoryName: String, videoID: Int, aContext: NSManagedObjectContext? = nil) throws {
+    let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), cateogoryName)
+    guard let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1, aContext: aContext), let category = categories.first else {
+      throw VideoCategoryError.categoryNameNotExisted
+    }
+
+    var orders = category.videoIDOrders ?? []
+    orders.insert(videoID, at: 0)
+    
+    do {
+      try update(type: VideoCategory.self, predicate: predicate, limit: 1, attributeInfo: [
+        #keyPath(VideoCategory.videoIDOrders): orders as Any,
+      ], aContext: aContext)
+    } catch {
+      fatalError()
+    }
+  }
 }
 
 enum VideoCategoryError: Error {
   case duplicateCategoryName
+  case categoryNameNotExisted
 }
 
 extension VideoCategory: HasID {}

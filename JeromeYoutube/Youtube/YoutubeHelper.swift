@@ -21,6 +21,7 @@ struct YoutubeHelper {
 
   static func add(_ youtubeID: String, to newCategories: [VideoCategory], in coreDataConnect: CoreDataConnect, aContext: NSManagedObjectContext? = nil) throws {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), youtubeID)
+    var videoID: Int!
     if let videos = coreDataConnect.retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1, aContext: aContext), let video = videos.first {
       // DB 中已經有該影片
       guard let categories = video.categories else {
@@ -31,6 +32,7 @@ struct YoutubeHelper {
       try coreDataConnect.update(type: Video.self, predicate: predicate, attributeInfo: [
         #keyPath(Video.categories): removeDuplicateSet as NSSet,
       ], aContext: aContext)
+      videoID = Int(exactly: video.id)
     } else {
       // DB 中沒有該影片
       let categories = NSSet(array: newCategories as [Any])
@@ -43,7 +45,15 @@ struct YoutubeHelper {
       guard let video = coreDataConnect.retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1, aContext: aContext)?.first else {
         return
       }
+      videoID = Int(exactly: video.id)
       JeromePlayer.shared.getAndSaveVideoInfomation(video)
+    }
+    do {
+      for category in newCategories {
+        try coreDataConnect.insertVideoID(in: category.name!, videoID: videoID)
+      }
+    } catch {
+      logger.log(error.localizedDescription, level: .error)
     }
   }
 }
