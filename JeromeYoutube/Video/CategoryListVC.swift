@@ -116,7 +116,7 @@ extension CategoryListVC: UITableViewDelegate {
 // MARK: - NSFetchedResultsControllerDelegate
 
 extension CategoryListVC: NSFetchedResultsControllerDelegate {
-  func controller(_: NSFetchedResultsController<NSFetchRequestResult>, didChange _: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
     switch type {
     case .insert:
       blockOperations.append(BlockOperation(block: {
@@ -135,9 +135,10 @@ extension CategoryListVC: NSFetchedResultsControllerDelegate {
         self.tableView.deleteRows(at: [indexPath!], with: .none)
       }))
     case .update:
-      let category = categoryFRC.object(at: indexPath!)
-      let categoryListTableViewCell = tableView.cellForRow(at: indexPath!) as! CategoryListTableViewCell
-      categoryListTableViewCell.updateUI(by: category)
+      if let categoryListTableViewCell = tableView.cellForRow(at: indexPath!) as? CategoryListTableViewCell {
+        let category = categoryFRC.object(at: indexPath!)
+        categoryListTableViewCell.updateUI(by: category)
+      }
     case .move:
       tableView.deleteRows(at: [indexPath!], with: .none)
       tableView.insertRows(at: [newIndexPath!], with: .none)

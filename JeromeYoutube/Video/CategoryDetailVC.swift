@@ -180,12 +180,14 @@ extension CategoryDetailVC: NSFetchedResultsControllerDelegate {
         self.tableView.deleteRows(at: [indexPath!], with: .none)
       }))
     case .update:
-      guard let video = category.videos?.object(at: indexPath!.row) as? Video else {
-        fatalError()
+      if let categoryDetailTableViewCell = tableView.cellForRow(at: indexPath!) as? CategoryDetailTableViewCell {
+        guard let video = category.videos?.object(at: indexPath!.row) as? Video else {
+          fatalError()
+        }
+        categoryDetailTableViewCell.beforeReuse()
+        categoryDetailTableViewCell.updateUI(by: video)
       }
-      let categoryDetailTableViewCell = tableView.cellForRow(at: indexPath!) as! CategoryDetailTableViewCell
-      categoryDetailTableViewCell.beforeReuse()
-      categoryDetailTableViewCell.updateUI(by: video)
+      
     case .move:
       tableView.deleteRows(at: [indexPath!], with: .none)
       tableView.insertRows(at: [newIndexPath!], with: .none)
