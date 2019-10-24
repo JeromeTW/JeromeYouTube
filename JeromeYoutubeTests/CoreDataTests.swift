@@ -189,6 +189,29 @@ class CoreDataTests: XCTestCase {
     }
   }
   
+  func test_insert_a_video_in_category_then_remove_video() {
+    // the video should be gone.
+    do {
+      let categoryName = "1"
+      try coreDataConnect.insertCategory(categoryName, aContext: context)
+      guard let categories = coreDataConnect.retrieve(type: VideoCategory.self, aContext: context), let category = categories.first else {
+        XCTFail("")
+        return
+      }
+      let youtubeID = "id1"
+      try YoutubeHelper.add(youtubeID, to: [category], in: coreDataConnect, aContext: context)
+      try coreDataConnect.delete(1, cateogoryName: categoryName, aContext: context)
+      let categoryCount = coreDataConnect.getCount(type: VideoCategory.self, predicate: nil, aContext: context)
+      let videoCount = coreDataConnect.getCount(type: Video.self, predicate: nil, aContext: context)
+      XCTAssert(categoryCount == 1)
+      XCTAssert(videoCount == 0)
+      // Pass Test
+    } catch {
+      logger.log("Error: \(error.localizedDescription)", level: .error)
+      XCTFail("")
+    }
+  }
+  
   func test_insertBundleCategories_insertBundleVideos() {
     let bundle = Bundle(for: type(of: self))
     let jsonURL = bundle.url(forResource: "importTest.json", withExtension: nil)!
