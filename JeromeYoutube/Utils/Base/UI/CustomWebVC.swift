@@ -121,7 +121,8 @@ class CustomWebVC: UIViewController {
       // TODO: 如果輸入不存在的分類直接新增缺少的分類。
       let predicate = NSPredicate(format: "%K IN %@", #keyPath(VideoCategory.name), categoryNames)
       guard let categories = self.coreDataConnect.retrieve(type: VideoCategory.self, predicate: predicate, sort: nil) else {
-        fatalError()
+        self.showOKAlert("失敗", message: "輸入的分類都不存在", okTitle: "OK")
+        return
       }
       guard let urlString = self.webView.url?.absoluteString else {
         fatalError()
