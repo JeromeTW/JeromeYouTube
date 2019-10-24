@@ -152,6 +152,25 @@ extension CategoryDetailVC: UITableViewDelegate {
     mainTabBarController.miniPlayerView.updateUI(by: video)
     jeromePlayer.play(video: video, videoList: newVideoList, index: 0)
   }
+  
+  // iOS 11 以後支援
+  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let deleteItem = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (contextualAction, view, boolValue) in
+      guard let self = self else { return }
+      do {
+        let videoID = Int(exactly: self.videos[indexPath.row].id)!
+        try self.coreDataConnect.delete(videoID, cateogoryName: self.category.name!)
+        boolValue(true)
+      } catch {
+        logger.log(error.localizedDescription, level: .error)
+        boolValue(false)
+      }
+    }
+    // TODO: Copy Item
+    let swipeActions = UISwipeActionsConfiguration(actions: [deleteItem])
+
+    return swipeActions
+  }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
@@ -204,6 +223,9 @@ extension CategoryDetailVC: NSFetchedResultsControllerDelegate {
       }
     }) { _ in
       let lastRow = self.videos.count - 1
+      guard lastRow >= 0 else {
+        return
+      }
       let indexPath = IndexPath(row: lastRow, section: 0)
       self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }

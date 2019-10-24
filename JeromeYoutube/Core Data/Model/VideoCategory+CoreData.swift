@@ -127,6 +127,32 @@ extension CoreDataConnect {
       fatalError()
     }
   }
+  
+  public func delete(_ videoID: Int, cateogoryName: String, aContext: NSManagedObjectContext? = nil) throws {
+    let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), cateogoryName)
+    guard let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1, aContext: aContext), let category = categories.first else {
+      throw VideoCategoryError.categoryNameNotExisted
+    }
+    var orders = category.videoIDOrders ?? []
+    guard let index = orders.firstIndex(of: videoID) else {
+      // Video 不存在此 Category 中了
+      return
+    }
+    orders.remove(at: index)
+    do {
+      try update(type: VideoCategory.self, predicate: predicate, limit: 1, attributeInfo: [
+        #keyPath(VideoCategory.videoIDOrders): orders as Any,
+      ], aContext: aContext)
+    } catch {
+      fatalError()
+    }
+    let videoPredicate = NSPredicate(format: "%K == %d", #keyPath(Video.id), videoID)
+    do {
+      try delete(type: Video.self, predicate: videoPredicate)
+    } catch {
+      fatalError()
+    }
+  }
 }
 
 enum VideoCategoryError: Error {
