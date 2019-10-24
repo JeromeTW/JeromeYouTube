@@ -115,6 +115,7 @@ class CoreDataTests: XCTestCase {
       try YoutubeHelper.add("id3", to: [category], in: coreDataConnect, aContext: context)
       let count = coreDataConnect.getCount(type: Video.self, predicate: nil, aContext: context)
       XCTAssert(count == 3)
+      XCTAssert(category.videoIDOrders == [3,2,1])
     } catch {
       logger.log("Error: \(error.localizedDescription)", level: .error)
       XCTFail("")
@@ -131,6 +132,7 @@ class CoreDataTests: XCTestCase {
       try YoutubeHelper.add("id1", to: [category], in: coreDataConnect, aContext: context)
       try YoutubeHelper.add("id1", to: [category], in: coreDataConnect, aContext: context)
       XCTAssert(category.videos?.count == 1)
+      XCTAssert(category.videoIDOrders == [1])
     } catch {
       logger.log("Error: \(error.localizedDescription)", level: .error)
       XCTFail("")

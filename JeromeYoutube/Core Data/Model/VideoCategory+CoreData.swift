@@ -112,6 +112,11 @@ extension CoreDataConnect {
     }
 
     var orders = category.videoIDOrders ?? []
+    guard orders.contains(videoID) == false else {
+      // 已經有在 Category 中了，不用再插入了
+      return
+    }
+    
     orders.insert(videoID, at: 0)
     
     do {
