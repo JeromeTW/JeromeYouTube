@@ -29,18 +29,18 @@ class CoreDataConnect {
 
   // insert
   // NOTE: myEntityName(在Video.xcdatamodeld中設定) 必須跟 class name 一致才能用範型
-  func insert<T: NSManagedObject>(type _: T.Type, attributeInfo: [String: Any], aContext: NSManagedObjectContext? = nil) throws {
+  func insert<T: NSManagedObject>(type _: T.Type, attributeInfo: [String: Any], aContext: NSManagedObjectContext? = nil, shouldSaveContext: Bool = true) throws {
     let context = aContext ?? viewContext
     let insetObject = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: context)
 
     for (key, value) in attributeInfo {
       insetObject.setValue(value, forKey: key)
     }
-
+    guard shouldSaveContext else { return }
     try persistentContainer.saveContext()
   }
   
-  func batchInsert<T: NSManagedObject>(type _: T.Type, attributeInfos: [[String: Any]], aContext: NSManagedObjectContext? = nil) throws {
+  func batchInsert<T: NSManagedObject>(type _: T.Type, attributeInfos: [[String: Any]], aContext: NSManagedObjectContext? = nil, shouldSaveContext: Bool = true) throws {
     let context = aContext ?? viewContext
     for attributeInfo in attributeInfos {
       let insetObject = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: context)
@@ -49,7 +49,7 @@ class CoreDataConnect {
         insetObject.setValue(value, forKey: key)
       }
     }
-    
+    guard shouldSaveContext else { return }
     try persistentContainer.saveContext()
   }
 
@@ -89,25 +89,26 @@ class CoreDataConnect {
   }
 
   // update
-  func update<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, limit: Int? = 1, attributeInfo: [String: Any], aContext: NSManagedObjectContext? = nil) throws {
+  func update<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, limit: Int? = 1, attributeInfo: [String: Any], aContext: NSManagedObjectContext? = nil, shouldSaveContext: Bool = true) throws {
     if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: limit, aContext: aContext) {
       for result in results {
         for (key, value) in attributeInfo {
           result.setValue(value, forKey: key)
         }
       }
+      guard shouldSaveContext else { return }
       try persistentContainer.saveContext()
     }
   }
 
   // delete
-  func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, aContext: NSManagedObjectContext? = nil) throws {
+  func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, aContext: NSManagedObjectContext? = nil, shouldSaveContext: Bool = true) throws {
     let context = aContext ?? viewContext
     if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil, aContext: aContext) {
       for result in results {
         context.delete(result)
       }
-
+      guard shouldSaveContext else { return }
       try persistentContainer.saveContext()
     }
   }

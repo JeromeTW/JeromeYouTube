@@ -105,7 +105,7 @@ extension CoreDataConnect {
     }
   }
   
-  public func insertVideoID(in cateogoryName: String, videoID: Int, aContext: NSManagedObjectContext? = nil) throws {
+  public func insertVideoID(in cateogoryName: String, videoID: Int, aContext: NSManagedObjectContext? = nil, shouldSaveContext: Bool = true) throws {
     let predicate = NSPredicate(format: "%K == %@", #keyPath(VideoCategory.name), cateogoryName)
     guard let categories = retrieve(type: VideoCategory.self, predicate: predicate, sort: nil, limit: 1, aContext: aContext), let category = categories.first else {
       throw VideoCategoryError.categoryNameNotExisted
@@ -122,7 +122,7 @@ extension CoreDataConnect {
     do {
       try update(type: VideoCategory.self, predicate: predicate, limit: 1, attributeInfo: [
         #keyPath(VideoCategory.videoIDOrders): orders as Any,
-      ], aContext: aContext)
+      ], aContext: aContext, shouldSaveContext: shouldSaveContext)
     } catch {
       fatalError()
     }

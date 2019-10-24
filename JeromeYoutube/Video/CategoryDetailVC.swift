@@ -155,7 +155,7 @@ extension CategoryDetailVC: UITableViewDelegate {
   
   // iOS 11 以後支援
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    let deleteItem = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (contextualAction, view, boolValue) in
+    let deleteItem = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (contextualAction, view, boolValue) in
       guard let self = self else { return }
       do {
         let videoID = Int(exactly: self.videos[indexPath.row].id)!
@@ -166,8 +166,38 @@ extension CategoryDetailVC: UITableViewDelegate {
         boolValue(false)
       }
     }
-    // TODO: Copy Item
-    let swipeActions = UISwipeActionsConfiguration(actions: [deleteItem])
+    let copyItem = UIContextualAction(style: .destructive, title: "複製") { [weak self] (contextualAction, view, boolValue) in
+      guard let self = self else { return }
+      let videoID = Int(exactly: self.videos[indexPath.row].id)!
+      self.showAlertController(withTitle: "加入分類", message: "可將影片加入多個分類下，用‘#’分隔多個分類名", textFieldsData: [TextFieldData(text: nil, placeholder: "e.g:未分類#跑步#熱血")], cancelTitle: "取消", cancelHandler: nil, okTitle: "加入") { [weak self] textFields in
+          guard let self = self else { return }
+          guard let textField = textFields.first else { fatalError() }
+          guard let text = textField.text, text.isEmpty == false, text.hasPrefix("#") == false else {
+            // 格式不正確
+            return
+          }
+          let categoryNames = text.components(separatedBy: "#")
+          // 加入已存在的 Categories
+          // TODO: 如果輸入不存在的分類直接新增缺少的分類。
+          let predicate = NSPredicate(format: "%K IN %@", #keyPath(VideoCategory.name), categoryNames)
+          guard let categories = self.coreDataConnect.retrieve(type: VideoCategory.self, predicate: predicate, sort: nil) else {
+            self.showOKAlert("失敗", message: "輸入的分類都不存在", okTitle: "OK")
+            return
+          }
+          
+          do {
+            try self.coreDataConnect.addVideo(by: videoID, to: text, aContext: self.coreDataConnect.viewContext)
+            self.showOKAlert("成功新增影片", message: nil, okTitle: "OK")
+          } catch VideoError.videoIDNotExisted {
+            logger.log("VideoError.videoIDNotExisted.", level: .error)
+            fatalError()
+          } catch {
+            logger.log(error.localizedDescription, level: .error)
+          }
+      }
+    }
+    copyItem.backgroundColor = .blue
+    let swipeActions = UISwipeActionsConfiguration(actions: [deleteItem, copyItem])
 
     return swipeActions
   }
