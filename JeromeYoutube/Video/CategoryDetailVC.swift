@@ -251,13 +251,6 @@ extension CategoryDetailVC: NSFetchedResultsControllerDelegate {
       for operation in self.blockOperations {
         operation.start()
       }
-    }) { _ in
-      let lastRow = self.videos.count - 1
-      guard lastRow >= 0 else {
-        return
-      }
-      let indexPath = IndexPath(row: lastRow, section: 0)
-      self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-    }
+    })
   }
 }
