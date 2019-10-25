@@ -237,4 +237,32 @@ class CoreDataTests: XCTestCase {
     XCTAssert(category2.name == "未分類")
     XCTAssert(category2.videos?.count == 1)
   }
+  
+  func test_copy_a_video_to_another_category() {
+    do {
+      try coreDataConnect.insertCategory("1", aContext: context)
+      try coreDataConnect.insertCategory("2", aContext: context)
+      guard let categories = coreDataConnect.retrieve(type: VideoCategory.self, aContext: context) else {
+        XCTFail("")
+        return
+      }
+      let category1 = categories[0]
+      let category2 = categories[1]
+      let youtubeID = "id1"
+      try YoutubeHelper.add(youtubeID, to: [category1], in: coreDataConnect, aContext: context)
+      let predicate = NSPredicate(format: "%K == %@", #keyPath(Video.youtubeID), youtubeID)
+      guard let videos = coreDataConnect.retrieve(type: Video.self, predicate: predicate, sort: nil, limit: 1, aContext: context), let video = videos.first else {
+        XCTFail("")
+        return
+      }
+      let videoID = Int(exactly: video.id)!
+      try coreDataConnect.addVideo(by: videoID, to: category2.name!, aContext: context)
+      XCTAssert(category1.videos?.count == 1)
+      XCTAssert(category2.videos?.count == 1)
+      // Pass Test
+    } catch {
+      logger.log("Error: \(error.localizedDescription)", level: .error)
+      XCTFail("")
+    }
+  }
 }
