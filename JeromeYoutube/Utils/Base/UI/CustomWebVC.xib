@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -39,39 +38,43 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euk-9Y-Pje">
-                                    <rect key="frame" x="82" y="14.5" width="156" height="21"/>
+                                    <rect key="frame" x="77" y="14.5" width="165.5" height="21"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                     <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCJ-37-NQW">
-                                    <rect key="frame" x="20" y="14" width="18" height="22"/>
+                                    <rect key="frame" x="4" y="-1" width="37.5" height="52"/>
                                     <color key="tintColor" name="烏黑"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="15" maxX="10" maxY="15"/>
                                     <state key="normal" image="xmark" catalog="system"/>
                                     <connections>
                                         <action selector="closeButtonAction:" destination="-1" eventType="touchUpInside" id="fE6-3e-t4m"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddJ-76-CF5" userLabel="Back Button">
-                                    <rect key="frame" x="54" y="14" width="20" height="22"/>
+                                    <rect key="frame" x="41.5" y="-1" width="35.5" height="52"/>
                                     <color key="tintColor" name="烏黑"/>
+                                    <inset key="contentEdgeInsets" minX="6" minY="15" maxX="10" maxY="15"/>
                                     <state key="normal" image="arrow.left" catalog="system"/>
                                     <connections>
                                         <action selector="backPageButtonAction:" destination="-1" eventType="touchUpInside" id="JaJ-EH-eXd"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P3g-wn-ts2" userLabel="Next Button">
-                                    <rect key="frame" x="246" y="14" width="20" height="22"/>
+                                    <rect key="frame" x="242.5" y="-1" width="35.5" height="52"/>
                                     <color key="tintColor" name="烏黑"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="15" maxX="6" maxY="15"/>
                                     <state key="normal" image="arrow.right" catalog="system"/>
                                     <connections>
                                         <action selector="nextPageButtonAction:" destination="-1" eventType="touchUpInside" id="f7X-1Y-fYj"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lym-V1-vrZ" userLabel="Add Button">
-                                    <rect key="frame" x="282" y="14" width="18" height="22"/>
+                                    <rect key="frame" x="278" y="-1" width="38" height="52"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <color key="tintColor" name="烏黑"/>
+                                    <inset key="contentEdgeInsets" minX="10" minY="15" maxX="10" maxY="15"/>
                                     <state key="normal" image="plus" catalog="system"/>
                                     <connections>
                                         <action selector="addButtonPressed:" destination="-1" eventType="touchUpInside" id="LFr-B8-UL7"/>
@@ -80,17 +83,17 @@
                             </subviews>
                             <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                             <constraints>
-                                <constraint firstItem="ddJ-76-CF5" firstAttribute="leading" secondItem="lCJ-37-NQW" secondAttribute="trailing" constant="16" id="9Yf-3F-dpF"/>
+                                <constraint firstItem="ddJ-76-CF5" firstAttribute="leading" secondItem="lCJ-37-NQW" secondAttribute="trailing" id="9Yf-3F-dpF"/>
                                 <constraint firstItem="euk-9Y-Pje" firstAttribute="centerY" secondItem="dgk-fW-kkA" secondAttribute="centerY" id="L8s-4x-NE2"/>
-                                <constraint firstItem="euk-9Y-Pje" firstAttribute="leading" secondItem="ddJ-76-CF5" secondAttribute="trailing" constant="8" symbolic="YES" id="QsC-mU-gfJ"/>
-                                <constraint firstItem="P3g-wn-ts2" firstAttribute="leading" secondItem="euk-9Y-Pje" secondAttribute="trailing" constant="8" symbolic="YES" id="RxI-C5-LMp"/>
-                                <constraint firstItem="lCJ-37-NQW" firstAttribute="leading" secondItem="dgk-fW-kkA" secondAttribute="leading" constant="20" symbolic="YES" id="Uyd-s7-1Lm"/>
-                                <constraint firstAttribute="trailing" secondItem="lym-V1-vrZ" secondAttribute="trailing" constant="20" symbolic="YES" id="Vwy-6k-agq"/>
+                                <constraint firstItem="euk-9Y-Pje" firstAttribute="leading" secondItem="ddJ-76-CF5" secondAttribute="trailing" id="QsC-mU-gfJ"/>
+                                <constraint firstItem="P3g-wn-ts2" firstAttribute="leading" secondItem="euk-9Y-Pje" secondAttribute="trailing" id="RxI-C5-LMp"/>
+                                <constraint firstItem="lCJ-37-NQW" firstAttribute="leading" secondItem="dgk-fW-kkA" secondAttribute="leading" constant="4" id="Uyd-s7-1Lm"/>
+                                <constraint firstAttribute="trailing" secondItem="lym-V1-vrZ" secondAttribute="trailing" constant="4" id="Vwy-6k-agq"/>
                                 <constraint firstItem="ddJ-76-CF5" firstAttribute="centerY" secondItem="lCJ-37-NQW" secondAttribute="centerY" id="a2A-OQ-WCq"/>
                                 <constraint firstAttribute="height" constant="50" id="bmw-O5-uYx"/>
                                 <constraint firstItem="P3g-wn-ts2" firstAttribute="centerY" secondItem="lym-V1-vrZ" secondAttribute="centerY" id="edq-Bs-IKv"/>
                                 <constraint firstItem="lym-V1-vrZ" firstAttribute="centerY" secondItem="lCJ-37-NQW" secondAttribute="centerY" id="fW7-I0-zYk"/>
-                                <constraint firstItem="lym-V1-vrZ" firstAttribute="leading" secondItem="P3g-wn-ts2" secondAttribute="trailing" constant="16" id="rup-sv-YXv"/>
+                                <constraint firstItem="lym-V1-vrZ" firstAttribute="leading" secondItem="P3g-wn-ts2" secondAttribute="trailing" id="rup-sv-YXv"/>
                                 <constraint firstItem="lCJ-37-NQW" firstAttribute="centerY" secondItem="euk-9Y-Pje" secondAttribute="centerY" id="yhl-8T-m2g"/>
                             </constraints>
                         </view>
@@ -137,7 +140,7 @@
     <resources>
         <image name="arrow.left" catalog="system" width="64" height="48"/>
         <image name="arrow.right" catalog="system" width="64" height="48"/>
-        <image name="plus" catalog="system" width="64" height="58"/>
+        <image name="plus" catalog="system" width="64" height="56"/>
         <image name="xmark" catalog="system" width="64" height="56"/>
         <namedColor name="烏黑">
             <color red="0.22352941176470589" green="0.18431372549019609" blue="0.25490196078431371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
