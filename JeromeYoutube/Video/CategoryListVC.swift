@@ -111,6 +111,25 @@ extension CategoryListVC: UITableViewDelegate {
     let category = categoryFRC.object(at: indexPath)
     videoCoordinator?.videoCategoryDetail(category: category)
   }
+  
+  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let deleteItem = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (contextualAction, view, boolValue) in
+      guard let self = self else { return }
+      do {
+        let category = self.categoryFRC.object(at: indexPath)
+        let predicate = NSPredicate(format: "%K == %d", #keyPath(VideoCategory.id), category.id)
+        try self.coreDataConnect.delete(type: VideoCategory.self, predicate: predicate)
+        boolValue(true)
+      } catch {
+        logger.log(error.localizedDescription, level: .error)
+        boolValue(false)
+      }
+    }
+    let swipeActions = UISwipeActionsConfiguration(actions: [deleteItem])
+
+    return swipeActions
+  }
+
 }
 
 // MARK: - NSFetchedResultsControllerDelegate

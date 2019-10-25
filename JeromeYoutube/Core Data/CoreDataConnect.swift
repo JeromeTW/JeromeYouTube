@@ -102,9 +102,9 @@ class CoreDataConnect {
   }
 
   // delete
-  func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, aContext: NSManagedObjectContext? = nil, shouldSaveContext: Bool = true) throws {
+  func delete<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, limit: Int? = 1, aContext: NSManagedObjectContext? = nil, shouldSaveContext: Bool = true) throws {
     let context = aContext ?? viewContext
-    if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: nil, aContext: aContext) {
+    if let results = self.retrieve(type: type, predicate: predicate, sort: nil, limit: limit, aContext: aContext) {
       for result in results {
         context.delete(result)
       }
